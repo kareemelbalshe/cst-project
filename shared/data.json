@@ -1,0 +1,11 @@
+{
+    "admin": {
+        "email": "admin@admin.com",
+        "password": "admin"
+    },
+    "customers": [],
+    "sellers": [],
+    "products": [],
+    "carts": [],
+    "categories": []
+}
