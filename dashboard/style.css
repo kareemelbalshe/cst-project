@@ -1,0 +1,21 @@
+:root {
+    --primary-color: #2105f5;
+    --secondary-color: #da11e7;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #173ab8;
+    --dark-color: #343a40;
+    --white-color: #fff;
+    --black-color: #000;
+    --body-bg-color: #f8f9fa;
+    --body-color: #212529;
+    --font-family-sans-serif: "Roboto", sans-serif;
+    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+body {
+    background-color: var(--body-bg-color);
+    color: var(--body-color);
+    font-family: var(--font-family-sans-serif);
+}

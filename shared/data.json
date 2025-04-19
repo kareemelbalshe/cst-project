@@ -7,5 +7,6 @@
     "sellers": [],
     "products": [],
     "carts": [],
-    "categories": []
+    "categories": [],
+    "reviews": []
 }
