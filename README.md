@@ -28,6 +28,8 @@ product = {
     discount:num,
     price_after_discount:num,
     seller:"id",
+    sales:num,
+    rating:num,
 }
 cart = {
     id:"",
