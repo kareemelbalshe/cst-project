@@ -3,6 +3,7 @@ customer ={
 "name": "string",
 "email": "string",
 "password": "string",
+"image": "url-or-path",
 "address": "string",
 "phone": "string",
 "numBuys": 0,
