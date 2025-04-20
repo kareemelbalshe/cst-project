@@ -60,6 +60,7 @@ cart = {
 category ={
 "id": "string",
 "name": "string"
+"image": "url-or-path"
 }
 
 site_review={
