@@ -5,7 +5,30 @@
   },
   "customers": [],
   "sellers": [],
-  "products": [],
+  "products": [
+    {
+      "id": "id-m9pnboic-i6awn",
+      "name": "kareem",
+      "price": 100,
+      "description": "kareem",
+      "category": "1",
+      "discount": 10,
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "seller": "1",
+      "createdAt": "2025-04-20T12:51:21.684Z"
+    },
+    {
+      "id": "id-m9pneidhexdke",
+      "name": "kareem",
+      "price": 100,
+      "description": "kareem",
+      "category": "1",
+      "discount": 10,
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "seller": "1",
+      "createdAt": "2025-04-20T12:53:33.701Z"
+    }
+  ],
   "carts": [],
   "categories": [],
   "reviews": [],
