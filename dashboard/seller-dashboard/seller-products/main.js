@@ -1,4 +1,4 @@
-import { logout } from "../../shared/Api.js";
+import { logout } from "../../../shared/Api.js";
 
 window.addEventListener("load", () => {
     if (localStorage.getItem("isLoggedIn") !== "true" && localStorage.getItem("isSeller") !== "true") {
