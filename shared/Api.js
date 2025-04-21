@@ -14,18 +14,13 @@ export async function addProduct(body) {
   //     createdAt: getCurrentTimestamp(),
   //   };
 
-  console.log("Sending:", body);
-
   const res = await fetch("http://localhost:5000/products", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-
-  console.log("Status:", res.status);
-
   const data = await res.json();
-  console.log("Response:", data);
+  return data;
 }
 
 export async function getProducts() {
@@ -34,35 +29,52 @@ export async function getProducts() {
   return data;
 }
 
+export async function getProductDetail(id) {
+  const res = await fetch(`http://localhost:5000/products/${id}`);
+  const data = await res.json();
+
+  const category = await getCategory(data.category);
+  const reviews = await Promise.all(
+    data.map((item) => item.reviewIds.map((id) => getReview(id)))
+  );
+  return { data, category, reviews };
+}
+
 export async function getProduct(id) {
   const res = await fetch(`http://localhost:5000/products/${id}`);
   const data = await res.json();
   return data;
 }
 
+export async function getProductsToSeller(sellerId) {
+  const products = await getProducts();
+  return products.filter((product) => product.seller === sellerId);
+}
+
 export async function updateProduct(id, body) {
   const res = await fetch(`http://localhost:5000/products/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 
   const data = await res.json();
-
-  const category = getCategory(data.category);
-  const reviews = data.reviewIds.map((item) => {
-    getReview(item);
-  });
-  return { data, category, reviews };
+  return data;
 }
 
 export async function deleteProduct(id) {
+  const resProduct = await fetch(`http://localhost:5000/products/${id}`);
+  const product = await resProduct.json();
+  if (product?.reviewIds && product.reviewIds.length > 0) {
+    await Promise.all(product.reviewIds.map((id) => deleteReview(id)));
+  }
+
   const res = await fetch(`http://localhost:5000/products/${id}`, {
     method: "DELETE",
   });
 
   const data = await res.json();
-  await data.reviewIds.map((id) => deleteReview(id));
+  return data;
 }
 
 export async function getCarts() {
@@ -74,7 +86,14 @@ export async function getCarts() {
 export async function getCart(id) {
   const res = await fetch(`http://localhost:5000/carts/${id}`);
   const data = await res.json();
-  return data;
+  const product = await getProduct(data.product);
+  const customer = await getCustomer(data.customer);
+  return { data, product, customer };
+}
+
+export async function getCartsToSeller(sellerId) {
+  const carts = await getCarts();
+  return carts.filter((cart) => cart.seller === sellerId);
 }
 
 export async function addCart(body) {
@@ -84,8 +103,39 @@ export async function addCart(body) {
     body: JSON.stringify(body),
   });
 
-  const data = await res.json();
-  return data;
+  const cartItem = await res.json();
+
+  const product = await getProduct(body.product);
+
+  const updatedProduct = {
+    ...product,
+    sales: (product.sales || 0) + (body.quantity || 1),
+  };
+
+  await updateProduct(product.id, updatedProduct);
+
+  const customer = await getCustomer(body.customer);
+
+  const updatedCustomer = {
+    ...customer,
+    totalSpent: (customer.totalSpent || 0) + (body.quantity || 1) * body.price,
+    numSells: (customer.numSells || 0) + body.quantity,
+  };
+
+  await updateCustomer(customer.id, updatedCustomer);
+
+  const seller = await getSeller(product.seller);
+
+  const updatedSeller = {
+    ...seller,
+    totalRevenue:
+      (seller.totalRevenue || 0) + (body.quantity || 1) * body.price,
+    numSells: (seller.numSells || 0) + body.quantity,
+  };
+
+  await updateSeller(seller.id, updatedSeller);
+
+  return cartItem;
 }
 
 export async function deleteCart(id) {
@@ -122,7 +172,7 @@ export async function addCategory(body) {
 
 export async function updateCategory(id, body) {
   const res = await fetch(`http://localhost:5000/categories/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
@@ -132,12 +182,22 @@ export async function updateCategory(id, body) {
 }
 
 export async function deleteCategory(id) {
+  const products = await getProducts();
+  const hasProduct = products.some((product) => product.category === id);
+
+  if (hasProduct) {
+    return {
+      success: false,
+      message: "Cannot delete category because it has products.",
+    };
+  }
+
   const res = await fetch(`http://localhost:5000/categories/${id}`, {
     method: "DELETE",
   });
 
   const data = await res.json();
-  return data;
+  return { success: true, data };
 }
 
 export async function getReviews() {
@@ -149,7 +209,9 @@ export async function getReviews() {
 export async function getReview(id) {
   const res = await fetch(`http://localhost:5000/reviews/${id}`);
   const data = await res.json();
-  return data;
+  const product = await getProduct(data.product);
+  const customer = await getCustomer(data.customer);
+  return { data, product, customer };
 }
 
 export async function addReview(body) {
@@ -159,22 +221,74 @@ export async function addReview(body) {
     body: JSON.stringify(body),
   });
 
-  const data = await res.json();
-  return data;
+  const review = await res.json();
+
+  const product = await getProduct(body.product);
+
+  const totalRatings = (product.totalRatings || 0) + 1;
+  const totalStars = (product.totalStars || 0) + body.stars;
+  const newRating = totalStars / totalRatings;
+
+  const updatedProduct = {
+    ...product,
+    reviewIds: [...(product.reviewIds || []), review.id],
+    totalRatings,
+    totalStars,
+    rating: Number(newRating.toFixed(1)),
+  };
+
+  await updateProduct(product.id, updatedProduct);
+
+  return review;
 }
 
-export async function updateReview(id, body) {
+export async function editReview(id, updatedReview) {
+  const oldReview = await getReview(id);
+  const product = await getProduct(oldReview.product);
+
+  const newTotalStars =
+    product.totalStars - oldReview.stars + updatedReview.stars;
+  const rating = newTotalStars / product.totalRatings;
+
   const res = await fetch(`http://localhost:5000/reviews/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify(updatedReview),
   });
 
-  const data = await res.json();
-  return data;
+  const newReview = await res.json();
+
+  const updatedProduct = {
+    ...product,
+    totalStars: newTotalStars,
+    rating: Number(rating.toFixed(1)),
+  };
+
+  await updateProduct(product.id, updatedProduct);
+
+  return newReview;
 }
 
 export async function deleteReview(id) {
+  const review = await getReview(id);
+  const product = await getProduct(review.product);
+
+  const newReviewIds = (product.reviewIds || []).filter((rid) => rid !== id);
+  const newTotalRatings = (product.totalRatings || 1) - 1;
+  const newTotalStars = (product.totalStars || 0) - review.stars;
+
+  const newRating = newTotalRatings > 0 ? newTotalStars / newTotalRatings : 0;
+
+  const updatedProduct = {
+    ...product,
+    reviewIds: newReviewIds,
+    totalRatings: newTotalRatings,
+    totalStars: newTotalStars,
+    rating: Number(newRating.toFixed(1)),
+  };
+
+  await updateProduct(product.id, updatedProduct);
+
   const res = await fetch(`http://localhost:5000/reviews/${id}`, {
     method: "DELETE",
   });
@@ -198,17 +312,6 @@ export async function getSiteReview(id) {
 export async function addSiteReview(body) {
   const res = await fetch("http://localhost:5000/site-reviews", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
-  });
-
-  const data = await res.json();
-  return data;
-}
-
-export async function updateSiteReview(id, body) {
-  const res = await fetch(`http://localhost:5000/site-reviews/${id}`, {
-    method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
@@ -251,7 +354,7 @@ export async function registerCustomer(body) {
 
 export async function updateCustomer(id, body) {
   const res = await fetch(`http://localhost:5000/customers/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
@@ -281,7 +384,7 @@ export async function getSeller(id) {
   return data;
 }
 
-export async function addSeller(body) {
+export async function registerSeller(body) {
   const res = await fetch("http://localhost:5000/sellers", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -304,10 +407,95 @@ export async function updateSeller(id, body) {
 }
 
 export async function deleteSeller(id) {
+  await Promise.all(
+    await getProductsToSeller(id).map(async (product) => {
+      await deleteProduct(product.id);
+    })
+  );
+
+  await Promise.all(
+    await getCartsToSeller(id).map(async (cart) => {
+      await deleteCart(cart.id);
+    })
+  );
+
   const res = await fetch(`http://localhost:5000/sellers/${id}`, {
     method: "DELETE",
   });
 
   const data = await res.json();
   return data;
+}
+
+export async function loginCustomer(body) {
+  const customers = await getCustomers();
+  if (
+    customers.some(
+      (customer) =>
+        customer.email === body.email && customer.password === body.password
+    )
+  ) {
+    localStorage.setItem(
+      "Id",
+      customers.find(
+        (customer) =>
+          customer.email === body.email && customer.password === body.password
+      ).id
+    );
+    localStorage.setItem("isLoggedIn", true);
+    localStorage.setItem("isAdmin", false);
+    localStorage.setItem("isSeller", false);
+    localStorage.setItem("isCustomer", true);
+    return true;
+  }
+
+  return false;
+}
+
+export async function loginSeller(body) {
+  const sellers = await getSellers();
+  if (
+    sellers.some(
+      (seller) =>
+        seller.email === body.email && seller.password === body.password
+    )
+  ) {
+    localStorage.setItem(
+      "Id",
+      sellers.find(
+        (seller) =>
+          seller.email === body.email && seller.password === body.password
+      ).id
+    );
+    localStorage.setItem("isLoggedIn", true);
+    localStorage.setItem("isAdmin", false);
+    localStorage.setItem("isSeller", true);
+    localStorage.setItem("isCustomer", false);
+    return true;
+  }
+
+  return false;
+}
+
+export async function loginAdmin(body) {
+  const res = await fetch("http://localhost:5000/admin");
+  const admin = await res.json();
+  if (admin.email === body.email && admin.password === body.password) {
+    localStorage.setItem("Id", "");
+    localStorage.setItem("isLoggedIn", true);
+    localStorage.setItem("isAdmin", true);
+    localStorage.setItem("isSeller", false);
+    localStorage.setItem("isCustomer", false);
+    return true;
+  }
+
+  return false;
+}
+
+export async function logout() {
+  localStorage.setItem("Id", "");
+  localStorage.setItem("isLoggedIn", false);
+  localStorage.setItem("isAdmin", false);
+  localStorage.setItem("isSeller", false);
+  localStorage.setItem("isCustomer", false);
 }
