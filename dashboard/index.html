@@ -18,11 +18,34 @@
     <link rel="icon" href="../logoSite.icon" />
   </head>
   <body>
+    <div class="toast-container position-fixed top-0 end-3 p-3">
+      <div
+        style="background-color: var(--danger-color)"
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <!-- <img src="..." class="rounded me-2" alt="..." /> -->
+          <strong id="toastTitle" class="me-auto"></strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div id="toastBody" class="toast-body"></div>
+      </div>
+    </div>
     <main
       class="container my-5 d-flex justify-content-center align-items-center"
-      style="min-height: 70vh"
+      style="min-height: 77.5vh"
     >
       <form
+        id="loginFormDashboard"
         class="w-100"
         style="
           max-width: 400px;
@@ -69,8 +92,11 @@
         <p class="text-center mt-3">
           Don't have an account?
           <a href="../dashboard/seller-dashboard/register/index.html"
-            >Register here</a
+            >Register here for Seller</a
           >
+        </p>
+        <p class="text-center">
+          <a href="../client/index.html">Back to Main Site</a>
         </p>
       </form>
     </main>
@@ -85,6 +111,8 @@
       copyright 2025 by
       <img style="width: 100px" src="../../copyright.png" alt="" />
     </footer>
+
+    <script src="main.js" type="module"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"

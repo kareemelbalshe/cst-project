@@ -1,0 +1,47 @@
+import { loginAdmin, loginSeller } from "../shared/Api.js";
+
+const loginFormDashboard = document.getElementById("loginFormDashboard");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
+const roleInput = document.getElementById("role");
+
+const toastLiveExample = document.getElementById("liveToast");
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+const toastTitle = document.getElementById("toastTitle");
+const toastBody = document.getElementById("toastBody");
+
+loginFormDashboard.addEventListener("submit", (e) => {
+  e.preventDefault();
+  if (roleInput.value === "admin") {
+    loginAdmin({
+      email: emailInput.value,
+      password: passwordInput.value,
+    }).then((res) => {
+      if (res) {
+        window.location.href = "./admin/index.html";
+      } else {
+        toastTitle.innerHTML = "Error";
+        toastBody.innerHTML = "email or password is incorrect";
+        toastBootstrap.show();
+      }
+    });
+  }
+  if (roleInput.value === "seller") {
+    loginSeller({
+      email: emailInput.value,
+      password: passwordInput.value,
+    }).then((res) => {
+      if (res) {
+        window.location.href = "./seller-dashboard/index.html";
+      } else {
+        toastTitle.innerHTML = "Error";
+        toastBody.innerHTML = "email or password is incorrect";
+        toastBootstrap.show();
+      }
+    });
+  } else {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please select a role";
+    toastBootstrap.show();
+  }
+});
