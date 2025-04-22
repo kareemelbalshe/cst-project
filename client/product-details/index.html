@@ -14,11 +14,13 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <link rel="stylesheet" href="../style.css" />
-    <link rel="icon" href="../../logoSite.icon" />
   </head>
+
   <body>
-    <header class="container-fluid border-bottom border-3 border-dark bg-white sticky-top">
+    <!-- Header -->
+    <header
+      class="container-fluid border-bottom border-3 border-dark bg-white sticky-top"
+    >
       <nav class="navbar navbar-expand-lg container">
         <div class="container-fluid">
           <a class="navbar-brand" href="../index.html">
@@ -71,20 +73,172 @@
         </div>
       </nav>
     </header>
+
+    <!-- Main Content -->
+    <div class="container my-5">
+      <!-- Product Name -->
+      <h1 class="mb-4 text-center">Product Name</h1>
+
+      <!-- Product Image -->
+      <div class="text-center mb-4">
+        <img
+          src=""
+          class="img-fluid"
+          style="max-height: 400px; object-fit: cover"
+          alt="Product Image"
+        />
+      </div>
+
+      <!-- Product Description -->
+      <div class="mb-4">
+        <h4>Description</h4>
+        <p>Here short description of the product.</p>
+      </div>
+
+      <!-- Product Details -->
+      <div class="mb-5">
+        <h4>Product Details</h4>
+        <ul class="list-group">
+          <li class="list-group-item">Name : Product Name</li>
+          <li class="list-group-item">Price : Product Price</li>
+          <li class="list-group-item">Category : Product Category</li>
+        </ul>
+      </div>
+
+      <!-- Rating and Comment Section -->
+      <div class="mb-5">
+        <h4>Rate this Product</h4>
+
+        <!-- Star Rating -->
+        <div class="mb-3" id="starContainer">
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+        </div>
+
+        <!-- Comment Box -->
+        <div class="mb-3">
+          <label for="comment" class="form-label">Your Comment</label>
+          <textarea
+            class="form-control"
+            id="comment"
+            rows="4"
+            placeholder="Write your review..."
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-success" id="submitReview">
+          <i class="bi bi-send"></i> Submit Review
+        </button>
+      </div>
+
+      <!-- Display Comments -->
+      <div class="mt-4">
+        <h5>Previous Reviews</h5>
+        <div id="commentList" class="border rounded p-3 bg-light"></div>
+      </div>
+
+      <!-- Back to Catalog Button -->
+      <div class="text-center mt-4">
+        <a href="../index.html" class="btn btn-primary">
+          <i class="bi bi-arrow-left"></i> Back to Home
+        </a>
+      </div>
+    </div>
+
+    <!-- Footer -->
     <footer
       style="
         background: var(--white-color);
         border-top: 3px solid var(--black-color);
       "
-      class="container-fluid d-flex justify-content-center align-items-center"
+      class="container-fluid d-flex justify-content-center align-items-center py-3"
     >
       copyright 2025 by
       <img style="width: 100px" src="../../copyright.png" alt="" />
     </footer>
+
+    <!-- Scripts -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      // Select all star icons inside the starContainer
+      const stars = document.querySelectorAll("#starContainer .bi");
+
+      // Variable to store the selected rating
+      let selectedRating = 0;
+
+      // Add click event to each star
+      stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+          // Set selected rating based on clicked star
+          selectedRating = index + 1;
+
+          // Loop to update star styles based on selection
+          // s stands for starElement and i stands for index
+          stars.forEach((s, i) => {
+            if (i < selectedRating) {
+              // Turn on the star
+              s.classList.remove("bi-star");
+              s.classList.add("bi-star-fill", "text-warning");
+            } else {
+              // Turn off the star
+              s.classList.remove("bi-star-fill", "text-warning");
+              s.classList.add("bi-star");
+            }
+          });
+        });
+      });
+
+      // Add event listener for the review submission
+      document
+        .getElementById("submitReview")
+        .addEventListener("click", function () {
+          // Get the comment from the textarea
+          const commentBox = document.getElementById("comment");
+          const commentText = commentBox.value.trim();
+
+          // Check if the comment is not empty
+          if (commentText !== "") {
+            // Create a new div to display the comment and rating
+            const commentDiv = document.createElement("div");
+            commentDiv.className = "p-3 mb-3 border rounded bg-white shadow-sm";
+
+            // Generate HTML for stars based on selected rating
+            let starsHtml = '<div class="mb-2">';
+            for (let i = 1; i <= 5; i++) {
+              if (i <= selectedRating) {
+                starsHtml +=
+                  '<i class="bi bi-star-fill text-warning me-1"></i>';
+              } else {
+                starsHtml += '<i class="bi bi-star me-1"></i>';
+              }
+            }
+            starsHtml += "</div>";
+
+            // Append the stars and comment to the new div
+            commentDiv.innerHTML = starsHtml + `<div>${commentText}</div>`;
+            // Add the comment div to the comment list
+            document.getElementById("commentList").appendChild(commentDiv);
+
+            // Reset the form and stars
+            commentBox.value = "";
+            selectedRating = 0;
+
+            // Reset star icons to unselected state
+            stars.forEach((s) => {
+              s.classList.remove("bi-star-fill", "text-warning");
+              s.classList.add("bi-star");
+            });
+          }
+        });
+    </script>
   </body>
 </html>

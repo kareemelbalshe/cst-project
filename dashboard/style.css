@@ -1,21 +1,73 @@
 :root {
-    --primary-color: #2105f5;
-    --secondary-color: #da11e7;
-    --success-color: #28a745;
-    --danger-color: #dc3545;
-    --warning-color: #ffc107;
-    --info-color: #173ab8;
-    --dark-color: #343a40;
-    --white-color: #fff;
-    --black-color: #000;
-    --body-bg-color: #f8f9fa;
-    --body-color: #212529;
-    --font-family-sans-serif: "Roboto", sans-serif;
-    --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --primary-color: #2105f5;
+  --secondary-color: #da11e7;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #173ab8;
+  --dark-color: #343a40;
+  --white-color: #fff;
+  --black-color: #000;
+  --body-bg-color: #f8f9fa;
+  --body-color: #212529;
+  --font-family-sans-serif: "Roboto", sans-serif;
+  --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace;
 }
 
 body {
-    background-color: var(--body-bg-color);
-    color: var(--body-color);
-    font-family: var(--font-family-sans-serif);
+  background-color: var(--body-bg-color);
+  color: var(--body-color);
+  font-family: var(--font-family-sans-serif);
+}
+
+.sidebar {
+  position: sticky;
+  left: 0;
+  width: 200px;
+  height: calc(100vh - 65px);
+  background-color: #f8f9fa;
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  gap: 1rem;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.sidebar a:hover {
+  background-color: #0d6efd;
+  color: #fff;
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar i {
+  font-size: 1.2rem;
+}
+
+.sidebar span {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+    .sidebar {
+        width: 80px;
+    }
+    .sidebar span{
+        display: none;
+    }
 }

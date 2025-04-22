@@ -3,6 +3,7 @@ customer ={
 "name": "string",
 "email": "string",
 "password": "string",
+"image": "url-or-path",
 "address": "string",
 "phone": "string",
 "numBuys": 0,
@@ -34,6 +35,7 @@ product = {
 "seller": "seller-id",  
 "sales": 0,
 "rating": 4.5,
+"totalStars": 13,
 "totalRatings": 20,
 "reviewIds": ["rev-id-1", "rev-id-2"],
 "createdAt": "2025-04-17T20:00:00Z"
@@ -59,6 +61,7 @@ cart = {
 category ={
 "id": "string",
 "name": "string"
+"image": "url-or-path"
 }
 
 site_review={

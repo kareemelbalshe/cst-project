@@ -3,11 +3,84 @@
     "email": "admin@admin.com",
     "password": "admin"
   },
-  "customers": [],
-  "sellers": [],
-  "products": [],
-  "carts": [],
-  "categories": [],
+  "customers": [
+    {
+      "id": "id-m9pneidhexdkm",
+      "name": "kareem",
+      "email": "kareem@customer.com",
+      "password": "kareem",
+      "phone": "1234567890",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "joinedAt": "2025-04-20T12:51:21.684Z"
+    }
+  ],
+  "sellers": [
+    {
+      "id": "id-m9pneidhexdkc",
+      "name": "kareem",
+      "email": "kareem@seller.com",
+      "password": "kareem",
+      "phone": "1234567890",
+      "products": ["id-m9pnboici6awn"],
+      "numSells": 0,
+      "totalRevenue": 0,
+      "joinedAt": "2025-04-20T12:51:21.684Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "id-m9pnboici6awn",
+      "name": "kareem",
+      "price": 100,
+      "description": "kareem",
+      "category": "id-m9pneidhexdkq",
+      "discount": 10,
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "seller": "1",
+      "createdAt": "2025-04-20T12:51:21.684Z"
+    },
+    {
+      "id": "id-m9pneidhexdke",
+      "name": "kareem",
+      "price": 100,
+      "description": "kareem",
+      "category": "id-m9pneidhexdkq",
+      "discount": 10,
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "seller": "1",
+      "createdAt": "2025-04-20T12:53:33.701Z"
+    }
+  ],
+  "carts": [
+    {
+      "id": "id-m9pneidhexdko",
+      "customer": "id-m9pneidhexdkm",
+      "product": "id-m9pnboici6awn",
+      "quantity": 1,
+      "total": 100
+    }
+  ],
+  "categories": [
+    {
+      "id": "id-m9pneidhexdkq",
+      "name": "kareem",
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "createdAt": "2025-04-20T12:53:33.701Z"
+    },
+    {
+      "id": "id-m9pneidhexdkf",
+      "name": "kareem",
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "createdAt": "2025-04-20T12:53:33.701Z"
+    },
+    {
+      "id": "id-m9pneidhexdkg",
+      "name": "kareem",
+      "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
+      "createdAt": "2025-04-20T12:53:33.701Z"
+    }
+  ],
   "reviews": [],
   "site_reviews": []
 }
