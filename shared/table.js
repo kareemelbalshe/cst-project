@@ -21,14 +21,17 @@ export function renderDataTable({
     const paginated = filteredData.slice(start, end);
 
     let tableHTML = `
-      <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control mb-3 w-50 mx-auto"/>
+      <div class="container d-flex justify-content-between align-items-center mb-3">
+        <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control w-75 mx-auto"/>
+        <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
+      </div>
 
       <div class="table-responsive">
-      <table class="table table-bordered table-hover text-center align-middle">
+      <table style="width:100%" class="table table-bordered table-hover text-center align-middle">
         <thead class="table-dark">
           <tr>
             <th style="cursor:pointer" data-col="id">ID</th>
-            <th style="cursor:pointer" data-col="name">Name</th>
+            <th style="cursor:pointer" data-col="name">Name </th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -90,14 +93,13 @@ export function renderDataTable({
     });
 
     const search = document.getElementById(`${containerId}-search`);
-    search.addEventListener("input", (e) => {
-      const term = e.target.value.toLowerCase();
-      filteredData = data.filter((item) =>
-        item.name.toLowerCase().includes(term)
-      );
+    const searchBtn = document.getElementById(`${containerId}-search-btn`);
+    searchBtn.onclick = () => {
+      const term = search.value.toLowerCase();
+      filteredData = data.filter((item) => item.name.toLowerCase().includes(term));
       currentPage = 1;
       renderTable();
-    });
+    };
 
     container.querySelectorAll("th[data-col]").forEach((th) => {
       th.onclick = () => {
