@@ -10,6 +10,15 @@ const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
 const toastTitle = document.getElementById("toastTitle");
 const toastBody = document.getElementById("toastBody");
 
+window.addEventListener("load", () => {
+  if (localStorage.getItem("isLoggedIn") === "true"&& localStorage.getItem("isAdmin") === "true") {
+    window.location.href = "./admin/index.html";
+  }
+  if (localStorage.getItem("isLoggedIn") === "true"&& localStorage.getItem("isSeller") === "true") {
+    window.location.href = "./seller-dashboard/index.html";
+  }
+});
+
 loginFormDashboard.addEventListener("submit", (e) => {
   e.preventDefault();
   if (roleInput.value === "admin") {

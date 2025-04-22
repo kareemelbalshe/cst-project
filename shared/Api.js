@@ -20,6 +20,12 @@ export async function addProduct(body) {
     body: JSON.stringify(body),
   });
   const data = await res.json();
+  const seller = await getSeller(body.seller);
+  const updatedSeller = {
+    ...seller,
+    products: [...seller.products, data.id],
+  };
+  await updateSeller(seller.id, updatedSeller);
   return data;
 }
 
