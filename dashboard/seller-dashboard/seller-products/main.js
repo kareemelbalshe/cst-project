@@ -11,4 +11,4 @@ const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {
     logout();
     window.location.href = "../../index.html";
-});
+}); 
