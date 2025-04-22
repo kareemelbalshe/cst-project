@@ -16,8 +16,12 @@
     />
     <link rel="stylesheet" href="../style.css" />
     <link rel="icon" href="../../logoSite.icon" />
+
+    
+    
   </head>
-  <body>
+  <body class="d-flex flex-column min-vh-100">
+    <!-- Header -->
     <header class="container-fluid border-bottom border-3 border-dark bg-white sticky-top">
       <nav class="navbar navbar-expand-lg container">
         <div class="container-fluid">
@@ -71,9 +75,11 @@
         </div>
       </nav>
     </header>
+
+
     <div class="container mt-2">
-      <table class="table text-center table-info" >
-        <thead>
+      <table class="table text-center" >
+        <thead class=" table-dark">
           <tr>
             <th scope="col">Product</th>
             <th scope="col">Price</th>
@@ -119,10 +125,10 @@
         </tbody>
       </table>
       <div class="row my-5 d-flex justify-content-center align-content-center">
-        <div class="card text-white" style="width: 40rem; background-color: #732C02;">
+        <div class="card bg-secondary-subtle" style="width: 40rem;">
           <div class="card-body">
             <h5 class="card-title border-bottom pb-2">cart total</h5>
-            <div class="d-flex justify-content-between border-bottom py-2">
+            <div class="d-flex justify-content-between border-bottom py-2 ">
               <span>subtotal</span>
               <span>EGP2000300.00</span>
             </div>
@@ -130,19 +136,19 @@
               <span>total</span>
               <span>EGP2000285.00</span>
             </div>
-            <button class="btn btn-warning text-white fw-semibold mt-3 w-100">process to checkout</button>
+            <button class="btn btn-success text-white fw-semibold mt-3 w-100">process to checkout</button>
           </div>
         </div>
       </div>
     </div>
 
-    
+    <!-- Footer  -->
     <footer
       style="
         background: var(--white-color);
         border-top: 3px solid var(--black-color);
       "
-      class="container-fluid d-flex justify-content-center align-items-center"
+      class="container-fluid d-flex justify-content-center align-items-center mt-auto"
     >
       copyright 2025 by
       <img style="width: 100px" src="../../copyright.png" alt="" />
