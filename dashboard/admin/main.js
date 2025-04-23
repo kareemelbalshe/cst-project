@@ -12,3 +12,7 @@ logoutBtn.addEventListener("click", () => {
     logout();
     window.location.href = "../index.html";
 });
+
+
+
+
