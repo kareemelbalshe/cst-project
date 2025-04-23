@@ -192,25 +192,33 @@ export async function getCategory(id) {
 }
 
 export async function addCategory(body) {
+  // Step 1: Add the category
   const res = await fetch("http://localhost:5000/categories", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 
-  const admin = await fetch(`http://localhost:5000/admin`, {
+  // Step 2: Fetch current admin info
+  const adminRes = await fetch("http://localhost:5000/admin");
+  const adminData = await adminRes.json();
+
+  // Step 3: Patch admin to update numCategories
+  const patchRes = await fetch("http://localhost:5000/admin", {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       info: {
-        numCategories: (admin.numCategories || 0) + 1,
+        numCategories: (adminData.info?.numCategories || 0) + 1,
       },
     }),
   });
 
+  // Step 4: Return the added category response
   const data = await res.json();
   return data;
 }
+
 
 export async function updateCategory(id, body) {
   const res = await fetch(`http://localhost:5000/categories/${id}`, {
