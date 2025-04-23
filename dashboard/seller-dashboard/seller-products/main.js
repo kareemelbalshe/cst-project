@@ -12,7 +12,7 @@ const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {
     logout();
     window.location.href = "../../index.html";
-}); 
+});
 
 const productsToSeller = await getProductsToSeller(localStorage.getItem("Id"));
 
