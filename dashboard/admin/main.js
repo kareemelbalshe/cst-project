@@ -1,4 +1,4 @@
-import { logout } from "../../shared/Api.js";
+import { getAdmin, logout } from "../../shared/Api.js";
 
 window.addEventListener("load", () => {
     if (localStorage.getItem("isLoggedIn") !== "true" && localStorage.getItem("isAdmin") !== "true") {
@@ -12,3 +12,7 @@ logoutBtn.addEventListener("click", () => {
     logout();
     window.location.href = "../index.html";
 });
+
+const admin = await getAdmin();
+
+console.log(admin)
