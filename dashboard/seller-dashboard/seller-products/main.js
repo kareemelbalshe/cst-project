@@ -1,4 +1,4 @@
-import { deleteProduct, getProductsToSeller, logout } from "../../../shared/Api.js";
+import { deleteCategory, getProductsToSeller, logout } from "../../../shared/Api.js";
 import { renderDataTable } from "../../../shared/table.js";
 
 window.addEventListener("load", () => {
@@ -20,7 +20,7 @@ renderDataTable({
   containerId: "page",
   data: productsToSeller,
   onDelete: (id) => {
-    deleteProduct(id);
+    deleteCategory(id);
   },
   editUrl: "./edit-product/index.html",
 //   viewUrl: "./view-product/index.html",

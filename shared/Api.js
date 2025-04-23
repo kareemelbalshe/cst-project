@@ -32,13 +32,6 @@ export async function addProduct(body) {
     products: [...seller.products, data.id],
   };
   await updateSeller(seller.id, updatedSeller);
-  const admin = await fetch(`http://localhost:5000/admin`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      numProducts: (admin.numProducts || 0) + 1,
-    }),
-  });
   return data;
 }
 
@@ -154,15 +147,6 @@ export async function addCart(body) {
 
   await updateSeller(seller.id, updatedSeller);
 
-  const admin = await fetch(`http://localhost:5000/admin`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      numSells: (admin.numSells || 0) + body.quantity,
-      money: (admin.money || 0) + (body.quantity || 1) * body.price,
-    }),
-  });
-
   return cartItem;
 }
 
@@ -188,27 +172,12 @@ export async function getCategory(id) {
 }
 
 export async function addCategory(body) {
-  // Step 1: Add the category
   const res = await fetch("http://localhost:5000/categories", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
 
-  // Step 2: Fetch current admin info
-  const adminRes = await fetch("http://localhost:5000/admin");
-  const adminData = await adminRes.json();
-
-  // Step 3: Patch admin to update numCategories
-  const patchRes = await fetch("http://localhost:5000/admin", {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      numCategories: (adminData.info?.numCategories || 0) + 1,
-    }),
-  });
-
-  // Step 4: Return the added category response
   const data = await res.json();
   return data;
 }
@@ -281,14 +250,6 @@ export async function addReview(body) {
   };
 
   await updateProduct(product.id, updatedProduct);
-
-  const admin = await fetch(`http://localhost:5000/admin`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      numReviews: (admin.numReviews || 0) + 1,
-    }),
-  });
 
   return review;
 }
@@ -368,14 +329,6 @@ export async function addSiteReview(body) {
   });
 
   const data = await res.json();
-  const admin = await fetch(`http://localhost:5000/admin`, {
-    method: "PATCH",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      numSiteReviews: (admin.numSiteReviews || 0) + 1,
-    }),
-  });
-
   return data;
 }
 

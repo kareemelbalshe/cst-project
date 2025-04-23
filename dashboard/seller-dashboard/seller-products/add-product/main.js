@@ -57,6 +57,7 @@ form.addEventListener("submit", async (e) => {
     };
 
     await addProduct(productData);
+    
     window.location.href = "../index.html";
   }
 });
