@@ -128,5 +128,62 @@
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
+    <script>
+      const form = document.querySelector('form');
+    
+      form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+    
+        const id = 'id-' +Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        const phone = document.getElementById('phone').value;
+        const address = document.getElementById('Address').value;
+        const joinedAt = new Date().toISOString();
+    
+        if (password !== confirmPassword) {
+          alert("Passwords don't match!");
+          return;
+        }
+    
+        const newCustomer = {
+          id,
+          name,
+          email,
+          password,
+          phone,
+          address, 
+          numBuys: 0,
+          totalSpent: 0,
+          joinedAt
+        };
+    
+        try {
+          const response = await fetch('http://localhost:5000/customers', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newCustomer)
+          });
+    
+          if (response.ok) {
+            alert('Customer registered successfully!');
+            form.reset();
+            window.location.href = "../login/index.html"; 
+          } else {
+            alert('Error registering customer.');
+          }
+        } catch (err) {
+          console.error('Request failed:', err);
+          alert('Request failed. Check console for details.');
+        }
+      });
+    </script>
+    
+
   </body>
 </html>
+ 

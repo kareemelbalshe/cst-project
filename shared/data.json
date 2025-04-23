@@ -13,6 +13,28 @@
       "numBuys": 0,
       "totalSpent": 0,
       "joinedAt": "2025-04-20T12:51:21.684Z"
+    },
+    {
+      "id": "id-m9uaa4j15bgu7",
+      "name": "a",
+      "email": "a@a",
+      "password": "1",
+      "phone": "1",
+      "address": "a",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "joinedAt": "2025-04-23T18:45:05.005Z"
+    },
+    {
+      "id": "id-m9uaavnop3shz",
+      "name": "x",
+      "email": "x@x",
+      "password": "x",
+      "phone": "01555364675",
+      "address": "x",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "joinedAt": "2025-04-23T18:45:40.164Z"
     }
   ],
   "sellers": [
@@ -22,7 +44,10 @@
       "email": "kareem@seller.com",
       "password": "kareem",
       "phone": "1234567890",
-      "products": ["id-m9pnboici6awn", "id-m9pneidhexdke"],
+      "products": [
+        "id-m9pnboici6awn",
+        "id-m9pneidhexdke"
+      ],
       "numSells": 0,
       "totalRevenue": 0,
       "joinedAt": "2025-04-20T12:51:21.684Z"
