@@ -8,7 +8,7 @@ customer ={
 "phone": "string",
 "numBuys": 0,
 "totalSpent": 0,
-"joinedAt": "2025-04-17T20:00:00Z"
+"createdAt": "2025-04-17T20:00:00Z"
 }
 
 seller ={
@@ -20,7 +20,7 @@ seller ={
 "products": ["product-id-1", "product-id-2"],
 "numSells": 0,
 "totalRevenue": 0,
-"joinedAt": "2025-04-17T20:00:00Z"
+"createdAt": "2025-04-17T20:00:00Z"
 }
 
 product = {
@@ -70,3 +70,5 @@ site_review={
 "comment": "موقع ممتاز جدًا",
 "customer": "customer-id"
 }
+
+json-server --watch shared/data.json --port=5000

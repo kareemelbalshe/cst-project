@@ -4,7 +4,7 @@ export function renderDataTable({
   onDelete,
   viewUrl = null,
   editUrl = null,
-  itemsPerPage = 5,
+  itemsPerPage = 7,
 }) {
   let currentPage = 1;
   let currentSortColumn = null;
@@ -32,6 +32,7 @@ export function renderDataTable({
           <tr>
             <th style="cursor:pointer" data-col="id">ID</th>
             <th style="cursor:pointer" data-col="name">Name </th>
+            <th style="cursor:pointer" data-col="createdAt">Created At</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -43,6 +44,7 @@ export function renderDataTable({
         <tr>
           <td>${item.id}</td>
           <td>${item.name}</td>
+          <td>${new Date(item.createdAt).toLocaleString()}</td>
           <td>
             ${
               viewUrl
