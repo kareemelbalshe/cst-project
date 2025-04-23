@@ -11,18 +11,18 @@ window.addEventListener("load", async () => {
     window.location.href = "../../../index.html";
   }
 
-  const logoutBtn = document.getElementById("logout");
-  logoutBtn.addEventListener("click", () => {
-    logout();
-    window.location.href = "../../../index.html";
-  });
-
   const categories = await getCategories();
   const categorySelect = document.getElementById("category");
   categorySelect.innerHTML = `<option value="">Select a category</option>`;
   categories.forEach((category) => {
     categorySelect.innerHTML += `<option value="${category.id}">${category.name}</option>`;
   });
+});
+
+const logoutBtn = document.getElementById("logout");
+logoutBtn.addEventListener("click", () => {
+  logout();
+  window.location.href = "../../../index.html";
 });
 
 const form = document.querySelector("form");
@@ -42,26 +42,21 @@ form.addEventListener("submit", async (e) => {
   if (name && price && description && category && imageFile && quantity) {
     const base64String = await resizeImage(imageFile);
 
-
-      const productData = {
-        id: createId(),
-        name,
-        price,
-        description,
-        category,
-        discount,
-        quantity,
-        seller: localStorage.getItem("Id"),
-        price_after_discount: price - (price * discount) / 100,
-        image: base64String,
-        createdAt: getCurrentTimestamp(),
-      };
-
-      const res = await addProduct(productData);
-      if (res) {
-        alert("Product added successfully");
-        window.location.href = "../index.html";
-      }
+    const productData = {
+      id: createId(),
+      name,
+      price,
+      description,
+      category,
+      discount,
+      quantity,
+      seller: localStorage.getItem("Id"),
+      price_after_discount: price - (price * discount) / 100,
+      image: base64String,
+      createdAt: getCurrentTimestamp(),
     };
 
+    await addProduct(productData);
+    window.location.href = "../index.html";
+  }
 });
