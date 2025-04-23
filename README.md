@@ -32,6 +32,7 @@ product = {
 "category": "category-id",  
 "discount": 10,
 "price_after_discount": 90,
+"quantity": 1,
 "seller": "seller-id",  
 "sales": 0,
 "rating": 4.5,

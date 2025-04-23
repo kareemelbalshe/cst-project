@@ -33,12 +33,13 @@ form.addEventListener("submit", async (e) => {
   const name = document.getElementById("name").value.trim();
   const price = parseFloat(document.getElementById("price").value);
   const description = document.getElementById("description").value.trim();
+  const quantity = parseFloat(document.getElementById("quantity").value);
   const category = document.getElementById("category").value;
   const discount = parseFloat(document.getElementById("discount").value) || 0;
   const imageInput = document.getElementById("image");
   const imageFile = imageInput.files[0];
 
-  if (name && price && description && category && imageFile) {
+  if (name && price && description && category && imageFile && quantity) {
     const base64String = await resizeImage(imageFile);
 
 
@@ -49,6 +50,7 @@ form.addEventListener("submit", async (e) => {
         description,
         category,
         discount,
+        quantity,
         seller: localStorage.getItem("Id"),
         price_after_discount: price - (price * discount) / 100,
         image: base64String,
