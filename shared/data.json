@@ -23,7 +23,7 @@
       "address": "Sharh Eleyafa",
       "numBuys": 0,
       "totalSpent": 0,
-      "joinedAt": "2025-04-23T19:02:43.089Z"
+      "createdAt": "2025-04-23T19:02:43.089Z"
     },
     {
       "id": "id-m9ubjvm9bp5v7",
@@ -34,7 +34,7 @@
       "address": "Sharh Eleyafa",
       "numBuys": 0,
       "totalSpent": 0,
-      "joinedAt": "2025-04-23T19:20:39.633Z"
+      "createdAt": "2025-04-23T19:20:39.633Z"
     }
   ],
   "sellers": [
