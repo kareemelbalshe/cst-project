@@ -1,18 +1,9 @@
 {
   "admin": {
-    "item": {
-      "item": {
-        "email": "admin@admin.com",
-        "password": "admin"
-      },
-      "info": {
-        "numCategories": 1
-      }
-    },
-    "info": {
-      "numCategories": 2
-    }
+    "email": "admin@admin.com",
+    "password": "admin"
   },
+
   "customers": [
     {
       "id": "id-m9pneidhexdkm",
@@ -32,10 +23,7 @@
       "email": "kareem@seller.com",
       "password": "kareem",
       "phone": "1234567890",
-      "products": [
-        "id-m9pnboici6awn",
-        "id-m9pneidhexdke"
-      ],
+      "products": ["id-m9pnboici6awn", "id-m9pneidhexdke"],
       "numSells": 0,
       "totalRevenue": 0,
       "joinedAt": "2025-04-20T12:51:21.684Z"

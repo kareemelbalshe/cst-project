@@ -36,9 +36,7 @@ export async function addProduct(body) {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      info: {
-        numProducts: (admin.numProducts || 0) + 1,
-      },
+      numProducts: (admin.numProducts || 0) + 1,
     }),
   });
   return data;
@@ -160,10 +158,8 @@ export async function addCart(body) {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      info: {
-        numSells: (admin.numSells || 0) + body.quantity,
-        money: (admin.money || 0) + (body.quantity || 1) * body.price,
-      },
+      numSells: (admin.numSells || 0) + body.quantity,
+      money: (admin.money || 0) + (body.quantity || 1) * body.price,
     }),
   });
 
@@ -208,9 +204,7 @@ export async function addCategory(body) {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      info: {
-        numCategories: (adminData.info?.numCategories || 0) + 1,
-      },
+      numCategories: (adminData.info?.numCategories || 0) + 1,
     }),
   });
 
@@ -218,7 +212,6 @@ export async function addCategory(body) {
   const data = await res.json();
   return data;
 }
-
 
 export async function updateCategory(id, body) {
   const res = await fetch(`http://localhost:5000/categories/${id}`, {
@@ -293,9 +286,7 @@ export async function addReview(body) {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      info: {
-        numReviews: (admin.numReviews || 0) + 1,
-      },
+      numReviews: (admin.numReviews || 0) + 1,
     }),
   });
 
@@ -381,9 +372,7 @@ export async function addSiteReview(body) {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      info: {
-        numSiteReviews: (admin.numSiteReviews || 0) + 1,
-      },
+      numSiteReviews: (admin.numSiteReviews || 0) + 1,
     }),
   });
 
@@ -419,6 +408,7 @@ export async function registerCustomer(body) {
   });
 
   const data = await res.json();
+  loginCustomer({ email: body.email, password: body.password });
   return data;
 }
 
@@ -462,6 +452,7 @@ export async function registerSeller(body) {
   });
 
   const data = await res.json();
+  loginSeller({ email: body.email, password: body.password });
   return data;
 }
 
