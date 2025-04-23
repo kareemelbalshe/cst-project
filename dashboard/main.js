@@ -23,8 +23,10 @@ loginFormDashboard.addEventListener("submit", (e) => {
   e.preventDefault();
   if (roleInput.value === "admin") {
     loginAdmin({
-      email: emailInput.value,
-      password: passwordInput.value,
+      item:{
+        email: emailInput.value,
+        password: passwordInput.value,
+      }
     }).then((res) => {
       if (res) {
         window.location.href = "./admin/index.html";
