@@ -1,6 +1,12 @@
 // import createId from "./createId.js";
 // import getCurrentTimestamp from "./setTime.js";
 
+export async function getAdmin() {
+  const res = await fetch("http://localhost:5000/admin");
+  const data = await res.json();
+  return data;
+}
+
 export async function addProduct(body) {
   //   const body = {
   //     id: createId(),
@@ -355,6 +361,7 @@ export async function registerCustomer(body) {
   });
 
   const data = await res.json();
+  loginCustomer({ email: body.email, password: body.password });
   return data;
 }
 
@@ -398,6 +405,7 @@ export async function registerSeller(body) {
   });
 
   const data = await res.json();
+  loginSeller({ email: body.email, password: body.password });
   return data;
 }
 
