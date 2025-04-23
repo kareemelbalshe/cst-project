@@ -13,6 +13,28 @@
       "numBuys": 0,
       "totalSpent": 0,
       "createdAt": "2025-04-20T12:51:21.684Z"
+    },
+    {
+      "id": "id-m9uawsy9dhsmn",
+      "name": "Omar Dawood",
+      "email": "omardaved75@gmail.com",
+      "password": "1",
+      "phone": "1",
+      "address": "Sharh Eleyafa",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "joinedAt": "2025-04-23T19:02:43.089Z"
+    },
+    {
+      "id": "id-m9ubjvm9bp5v7",
+      "name": "Omar Dawood",
+      "email": "omardaved60@yahoo.com",
+      "password": "omar",
+      "phone": "01555364675",
+      "address": "Sharh Eleyafa",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "joinedAt": "2025-04-23T19:20:39.633Z"
     }
   ],
   "sellers": [
