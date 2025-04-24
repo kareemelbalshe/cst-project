@@ -361,7 +361,6 @@ export async function registerCustomer(body) {
   });
 
   const data = await res.json();
-  loginCustomer({ email: body.email, password: body.password });
   return data;
 }
 
@@ -512,4 +511,5 @@ export async function logout() {
   localStorage.setItem("isAdmin", false);
   localStorage.setItem("isSeller", false);
   localStorage.setItem("isCustomer", false);
+  localStorage.setItem("currentUser", null);
 }

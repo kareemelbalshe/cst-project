@@ -46,6 +46,39 @@
       "numBuys": 0,
       "totalSpent": 0,
       "createdAt": "2025-04-24T07:24:38.605Z"
+    },
+    {
+      "id": "id-m9vghc0r62y0o",
+      "name": "Kareem Elbalshy",
+      "email": "kareemelbalshe1234@gmail.com",
+      "password": "kareem",
+      "phone": "01064906723",
+      "address": "cairo",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "createdAt": "2025-04-24T14:26:25.179Z"
+    },
+    {
+      "id": "id-m9vgokrmt2bu0",
+      "name": "Kareem Ahmed Elbalshy",
+      "email": "kareemelbalshe1234@gmail.com",
+      "password": "123",
+      "phone": "01064906723",
+      "address": "cairo",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "createdAt": "2025-04-24T14:32:03.106Z"
+    },
+    {
+      "id": "id-m9vgruyvlg832",
+      "name": "Kareem Elbalshy",
+      "email": "kareemelbalshe1234@gmail.com",
+      "password": "1234",
+      "phone": "01064906723",
+      "address": "cairo",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "createdAt": "2025-04-24T14:34:36.295Z"
     }
   ],
   "sellers": [

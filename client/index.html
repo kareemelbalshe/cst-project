@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
@@ -16,98 +16,104 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-pGViP0tP4gRM+CFJ3O3A0+X9gK5zJavS1HEc9TqQXTRTzyYVRPYMeBtGScbhk+aRt63fJ+FtUPVrDrDgQn8Ctw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-pGViP0tP4gRM+CFJ3O3A0+X9gK5zJavS1HEc9TqQXTRTzyYVRPYMeBtGScbhk+aRt63fJ+FtUPVrDrDgQn8Ctw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <link rel="stylesheet" href="style.css" />
     <link rel="icon" href="../logoSite.icon" />
     <style>
-    /* Reset and general styles */
-    * {
+      /* Reset and general styles */
+      * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
-    
-    body {
+      }
+
+      body {
         min-height: 100vh;
         background-color: #f8f9fa;
-    }
-    
-    /* Product card carousel styling */
-    .carousel-container {
+      }
+
+      /* Product card carousel styling */
+      .carousel-container {
         position: relative;
         max-width: 1200px;
         margin: 0 auto;
         padding: 20px 0;
-    }
-    
-    .card {
-      position: relative;
-      overflow: hidden;
+      }
+
+      .card {
+        position: relative;
+        overflow: hidden;
         border-radius: 12px;
         overflow: hidden;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         margin: 10px;
         transition: transform 0.3s;
         height: 100%;
-    }
-    
-    .card:hover .view-icon {
+      }
+
+      .card:hover .view-icon {
         transform: translateY(-5px);
         opacity: 1;
-
-    }
-    .view-icon .btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  padding: 0;
-}
-    .card-img-top {
+      }
+      .view-icon .btn {
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        padding: 0;
+      }
+      .card-img-top {
         aspect-ratio: 16/9;
         object-fit: cover;
-    }
-    .card .btn-outline-secondary {
-    padding: 6px 10px;
-    font-size: 1rem;
-    line-height: 1;
-    border-radius: 6px;
-}
+      }
+      .card .btn-outline-secondary {
+        padding: 6px 10px;
+        font-size: 1rem;
+        line-height: 1;
+        border-radius: 6px;
+      }
 
-    .carousel-control-prev, .carousel-control-next {
+      .carousel-control-prev,
+      .carousel-control-next {
         width: 50px;
         height: 50px;
-        background-color: rgba(0,0,0,0.3);
+        background-color: rgba(0, 0, 0, 0.3);
         border-radius: 50%;
         top: 50%;
         transform: translateY(-50%);
-    }
-    
-    .carousel-control-prev {
+      }
+
+      .carousel-control-prev {
         left: -60px;
-    }
-    
-    .carousel-control-next {
+      }
+
+      .carousel-control-next {
         right: -60px;
-    }
-    
-    .carousel-indicators {
+      }
+
+      .carousel-indicators {
         margin-bottom: -20px;
-    }
-    
-    .carousel-item {
+      }
+
+      .carousel-item {
         padding-bottom: 30px;
-    }
-    
-    /* Product styling */
-    .product-price {
+      }
+
+      /* Product styling */
+      .product-price {
         font-weight: bold;
         color: #0d6efd;
-    }
-    
-    .sale-badge {
+      }
+
+      .sale-badge {
         position: absolute;
         top: 10px;
         right: 10px;
@@ -116,50 +122,53 @@
         padding: 5px 10px;
         border-radius: 5px;
         font-weight: bold;
-    }
-    
-    /* Section spacing */
-    section {
+      }
+
+      /* Section spacing */
+      section {
         margin: 3rem 0;
-    }
-    
-    section h2 {
+      }
+
+      section h2 {
         margin-bottom: 1.5rem;
         text-align: center;
-    }
-    
-    /* Category section */
-    .category-section {
+      }
+
+      /* Category section */
+      .category-section {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem 1rem;
-    }
-    
-    .category-header, .slider-header {
+      }
+
+      .category-header,
+      .slider-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 1.5rem;
-    }
-    
-    .category-header h2, .slider-header h2 {
+      }
+
+      .category-header h2,
+      .slider-header h2 {
         font-size: 1.5rem;
         color: var(--primary-color);
-    }
-    
-    .category-header .view-more, .slider-header .view-more {
+      }
+
+      .category-header .view-more,
+      .slider-header .view-more {
         color: var(--info-color);
         text-decoration: none;
         font-size: 0.9rem;
-    }
-    
-    .category-grid {
+      }
+
+      .category-grid {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
         gap: 1rem;
-    }
-    
-    .category-card {
+      }
+
+      .category-card {
         background-color: var(--white-color);
         color: var(--dark-color);
         border: 1px solid #ddd;
@@ -170,47 +179,47 @@
         font-weight: 500;
         cursor: pointer;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    
-    .category-card:hover {
+      }
+
+      .category-card:hover {
         transform: translateY(-3px);
         box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
         border-color: var(--primary-color);
-    }
-    
-    .category-card img {
+      }
+
+      .category-card img {
         width: 100%;
         max-height: 120px;
         object-fit: cover;
         border-radius: 6px;
         margin-bottom: 0.75rem;
-    }
-    
-    /* Product slider */
-    .product-slider-section {
+      }
+
+      /* Product slider */
+      .product-slider-section {
         max-width: 1200px;
         margin: 0 auto;
         padding: 2rem 1rem;
-    }
-    
-    .product-slider {
+      }
+
+      .product-slider {
         display: flex;
         gap: 1rem;
         overflow-x: auto;
         scroll-snap-type: x mandatory;
         padding-bottom: 0.5rem;
-    }
-    
-    .product-slider::-webkit-scrollbar {
+      }
+
+      .product-slider::-webkit-scrollbar {
         height: 8px;
-    }
-    
-    .product-slider::-webkit-scrollbar-thumb {
+      }
+
+      .product-slider::-webkit-scrollbar-thumb {
         background-color: var(--primary-color);
         border-radius: 4px;
-    }
-    
-    .product-card {
+      }
+
+      .product-card {
         min-width: 160px;
         max-width: 200px;
         background-color: var(--white-color);
@@ -220,155 +229,148 @@
         flex-shrink: 0;
         scroll-snap-align: start;
         transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .view-icon {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
-  z-index: 10;
-}
-    .product-card:hover {
+      }
+      .view-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+        z-index: 10;
+      }
+      .product-card:hover {
         transform: translateY(-4px);
         box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
         border-color: var(--primary-color);
-    }
-    
-    .product-card img {
+      }
+
+      .product-card img {
         width: 100%;
         height: 160px;
         object-fit: cover;
         border-radius: 6px;
         margin-bottom: 0.75rem;
         transition: transform 0.3s ease-in-out;
-    } 
-    .product-card:hover > img {
-      transform: scale(1.15) rotate(1deg);
-    }
-    
-    .product-title {
+      }
+      .product-card:hover > img {
+        transform: scale(1.15) rotate(1deg);
+      }
+
+      .product-title {
         font-size: 0.95rem;
         font-weight: 500;
         color: var(--dark-color);
         margin-bottom: 0.25rem;
-    }
-    
-    /* Footer styling */
-    footer {
-        padding: 2rem 0;
-        margin-top: 3rem;
-        background: #fff;
-        border-top: 3px solid #000;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 992px) {
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 992px) {
         .row-cols-lg-4 > * {
-            flex: 0 0 auto;
-            width: 50%;
+          flex: 0 0 auto;
+          width: 50%;
         }
-    }
-    
-    @media (max-width: 768px) {
+      }
+
+      @media (max-width: 768px) {
         .row-cols-lg-4 > * {
-            width: 100%;
+          width: 100%;
         }
-    }
+      }
 
+      .review-card {
+        background-color: #fff;
+        border-radius: 12px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        height: 100%;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
 
-    .review-card {
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-    height: 100%;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+      .review-card:hover {
+        transform: translateY(-20px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
+      }
 
-  .review-card:hover {
-    transform: translateY(-20px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.25);
-  }
+      .review-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 15px;
+      }
 
-  .review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;  
-    margin-bottom: 15px;
-  }
+      .review-profile {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
 
-  .review-profile {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
+      .review-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
 
-  .review-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
+      .review-name {
+        font-size: 1rem;
+        margin: 0;
+        font-weight: 600;
+      }
 
-  .review-name {
-    font-size: 1rem;
-    margin: 0;
-    font-weight: 600;
-  }
+      .review-date {
+        font-size: 0.8rem;
+        color: #6c757d;
+        margin: 0;
+      }
 
-  .review-date {
-    font-size: 0.8rem;
-    color: #6c757d;
-    margin: 0;
-  }
+      .review-rating {
+        color: #ffc107;
+        font-size: 0.9rem;
+      }
 
-  .review-rating {
-    color: #ffc107;
-    font-size: 0.9rem;
-  }
+      .review-product {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+      }
 
-  .review-product {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: #f8f9fa;
-    padding: 8px 12px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
+      .review-product-img {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        object-fit: cover;
+      }
 
-  .review-product-img {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    object-fit: cover;
-  }
+      .review-product-name {
+        font-size: 0.9rem;
+        margin: 0;
+        font-weight: 500;
+      }
 
-  .review-product-name {
-    font-size: 0.9rem;
-    margin: 0;
-    font-weight: 500;
-  }
+      .review-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+        margin-bottom: 0;
+        font-style: italic;
+        color: #343a40;
+      }
 
-  .review-text {
-    font-size: 0.95rem;
-    line-height: 1.5;
-    margin-bottom: 0;
-    font-style: italic;
-    color: #343a40;
-  }
-
-  #customer-reviews .btn-outline-primary {
-    border-width: 2px;
-    font-weight: 500;
-    padding: 8px 24px;
-    border-radius: 8px;
-  }
-  </style>
+      #customer-reviews .btn-outline-primary {
+        border-width: 2px;
+        font-weight: 500;
+        padding: 8px 24px;
+        border-radius: 8px;
+      }
+    </style>
   </head>
   <body>
-    <header class="container-fluid border-bottom border-3 border-dark bg-white sticky-top">
+    <header
+      class="container-fluid border-bottom border-3 border-dark bg-white sticky-top"
+    >
       <nav class="navbar navbar-expand-lg container">
         <div class="container-fluid">
           <a class="navbar-brand" href="index.html">
@@ -399,196 +401,261 @@
                 <a class="nav-link" href="#best-sales">Best Sales</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="all-products/index.html"
+                <a class="nav-link" href="./all-products/index.html"
                   >All Products</a
                 >
               </li>
             </ul>
           </div>
         </div>
-        <div class="d-flex gap-2" id="header-actions" >
+        <div class="d-flex gap-2" id="header-actions">
           <a class="btn btn-outline-dark" href="./login/index.html">Login</a>
           <a class="btn btn-outline-dark" href="./register/index.html"
             >Register</a
           >
-          <a class="btn btn-outline-dark" href="cart/index.html"
-            ><i class="bi bi-cart4"></i
-          ></a>
+          <a class="btn btn-outline-dark" href="./cart/index.html"
+            ><i class="bi bi-cart4"></i>
+          </a>
         </div>
       </nav>
     </header>
 
     <div class="container">
-      
-      <h2 class="text-center mb-1 ">Featured Products</h2>
-      
-      <div class="carousel-container">
-          <div id="productCarousel" class="carousel slide carousel-dark" data-bs-ride="carousel">
-              <div class="carousel-indicators">
-                  <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-                  <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-              </div>
-              
-              <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-              <div class="carousel-inner">
-                  <div class="carousel-item active">
-                      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
-                          <div class="col">
-                                <div class="card position-relative">
-                                  <span class="sale-badge">SALE</span>
-                                  <img src="../1.jpg" class="card-img-top" alt="Product 1">
-                                  <div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Premium Headphones</h5>
-                                      <p class="product-price">$149.99</p>
-                                      <p class="card-text">Noise-cancelling wireless headphones.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>  
-                          </div>
-                          <div class="col">
-                              <div class="card">
-                                  <img src="../2.jpg" class="card-img-top" alt="Product 2">
-                                  <div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Smart Watch</h5>
-                                      <p class="product-price">$199.99</p>
-                                      <p class="card-text">Track fitness and stay connected.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col">
-                              <div class="card">
-                                  <img src="" class="card-img-top" alt="Product 3"><div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Bluetooth Speaker</h5>
-                                      <p class="product-price">$89.99</p>
-                                      <p class="card-text">20-hour battery, water resistant.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col">
-                              <div class="card position-relative">
-                                  <span class="sale-badge">NEW</span>
-                                  <img src="" class="card-img-top" alt="Product 4">
-                                  <div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Wireless Earbuds</h5>
-                                      <p class="product-price">$129.99</p>
-                                      <p class="card-text">Premium sound in compact design.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-                  
-                  <div class="carousel-item">
-                      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
-                          <div class="col">
-                              <div class="card position-relative">
-                                  <span class="sale-badge">HOT</span>
-                                  <img src="" class="card-img-top" alt="Product 5"><div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Laptop Stand</h5>
-                                      <p class="product-price">$49.99</p>
-                                      <p class="card-text">Ergonomic design with cooling fans.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col">
-                              <div class="card">
-                                  <img src="" class="card-img-top" alt="Product 6"><div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Wireless Charger</h5>
-                                      <p class="product-price">$29.99</p>
-                                      <p class="card-text">Fast charging for Qi-enabled devices.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col">
-                              <div class="card position-relative">
-                                  <span class="sale-badge">HOT</span>
-                                  <img src="" class="card-img-top" alt="Product 7"><div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Smart Bulb Set</h5>
-                                      <p class="product-price">$59.99</p>
-                                      <p class="card-text">Color-changing, voice compatible.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                          <div class="col">
-                              <div class="card">
-                                  <img src="" class="card-img-top" alt="Product 8"><div class="view-icon">
-                                    <a href="product.html?id=1" class="btn btn-light rounded-circle shadow-sm" title="View Details">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </div>
-                                  
-                                  <div class="card-body">
-                                      <h5 class="card-title">Fitness Tracker</h5>
-                                      <p class="product-price">$79.99</p>
-                                      <p class="card-text">Track steps, sleep, and workouts.</p>
-                                      <a href="#" class="btn btn-primary">Add to Cart</a>
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
+      <h2 class="text-center mb-1">Featured Products</h2>
 
+      <div class="carousel-container">
+        <div
+          id="productCarousel"
+          class="carousel slide carousel-dark"
+          data-bs-ride="carousel"
+        >
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#productCarousel"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#productCarousel"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+          </div>
+
+          <button
+            class="carousel-control-prev"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="prev"
+          >
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button
+            class="carousel-control-next"
+            type="button"
+            data-bs-target="#productCarousel"
+            data-bs-slide="next"
+          >
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+                <div class="col">
+                  <div class="card position-relative">
+                    <span class="sale-badge">SALE</span>
+                    <img src="../1.jpg" class="card-img-top" alt="Product 1" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Premium Headphones</h5>
+                      <p class="product-price">$149.99</p>
+                      <p class="card-text">
+                        Noise-cancelling wireless headphones.
+                      </p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <img src="../2.jpg" class="card-img-top" alt="Product 2" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Smart Watch</h5>
+                      <p class="product-price">$199.99</p>
+                      <p class="card-text">Track fitness and stay connected.</p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <img src="" class="card-img-top" alt="Product 3" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Bluetooth Speaker</h5>
+                      <p class="product-price">$89.99</p>
+                      <p class="card-text">20-hour battery, water resistant.</p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card position-relative">
+                    <span class="sale-badge">NEW</span>
+                    <img src="" class="card-img-top" alt="Product 4" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Wireless Earbuds</h5>
+                      <p class="product-price">$129.99</p>
+                      <p class="card-text">Premium sound in compact design.</p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+                <div class="col">
+                  <div class="card position-relative">
+                    <span class="sale-badge">HOT</span>
+                    <img src="" class="card-img-top" alt="Product 5" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Laptop Stand</h5>
+                      <p class="product-price">$49.99</p>
+                      <p class="card-text">
+                        Ergonomic design with cooling fans.
+                      </p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <img src="" class="card-img-top" alt="Product 6" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Wireless Charger</h5>
+                      <p class="product-price">$29.99</p>
+                      <p class="card-text">
+                        Fast charging for Qi-enabled devices.
+                      </p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card position-relative">
+                    <span class="sale-badge">HOT</span>
+                    <img src="" class="card-img-top" alt="Product 7" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Smart Bulb Set</h5>
+                      <p class="product-price">$59.99</p>
+                      <p class="card-text">Color-changing, voice compatible.</p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="card">
+                    <img src="" class="card-img-top" alt="Product 8" />
+                    <div class="view-icon">
+                      <a
+                        href="product.html?id=1"
+                        class="btn btn-light rounded-circle shadow-sm"
+                        title="View Details"
+                      >
+                        <i class="fas fa-eye"></i>
+                      </a>
+                    </div>
+
+                    <div class="card-body">
+                      <h5 class="card-title">Fitness Tracker</h5>
+                      <p class="product-price">$79.99</p>
+                      <p class="card-text">Track steps, sleep, and workouts.</p>
+                      <a href="#" class="btn btn-primary">Add to Cart</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-    
 
     <section class="category-section">
       <div class="category-header">
@@ -597,32 +664,32 @@
       </div>
       <div class="category-grid">
         <div class="category-card">
-          <img src="../images/category/electronics.png" alt="Electronics">
+          <img src="../images/category/electronics.png" alt="Electronics" />
           <p>Electronics</p>
         </div>
         <div class="category-card">
-          <img src="../images/category/fashion.png" alt="Fashion">
+          <img src="../images/category/fashion.png" alt="Fashion" />
           <p>Fashion</p>
         </div>
         <div class="category-card">
-          <img src="../images/category/home.png" alt="Home">
+          <img src="../images/category/home.png" alt="Home" />
           <p>Home</p>
         </div>
         <div class="category-card">
-          <img src="../images/category/beauty.png" alt="Beauty">
+          <img src="../images/category/beauty.png" alt="Beauty" />
           <p>Beauty</p>
         </div>
         <div class="category-card">
-          <img src="../images/category/sports.png" alt="Sports">
+          <img src="../images/category/sports.png" alt="Sports" />
           <p>Sports</p>
         </div>
         <div class="category-card">
-          <img src="../images/category/books.png" alt="Books">
+          <img src="../images/category/books.png" alt="Books" />
           <p>Books</p>
         </div>
       </div>
     </section>
-    
+
     <section id="best-sales" class="product-slider-section">
       <div class="slider-header">
         <h2>Best Sales</h2>
@@ -631,52 +698,52 @@
       <div class="slider-wrapper">
         <div class="product-slider">
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
           <div class="product-card">
-            <img src="../images/product/p1.jpg" alt="Product 1">
+            <img src="../images/product/p1.jpg" alt="Product 1" />
             <p class="product-title">Popular Headphones</p>
             <p class="product-price">$89.99</p>
           </div>
@@ -684,7 +751,7 @@
         </div>
       </div>
     </section>
-    
+
     <section id="less-quantity" class="product-slider-section limited-bg">
       <div class="slider-header">
         <h2>Limited Stock</h2>
@@ -694,73 +761,78 @@
         <div class="product-slider">
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
           </div>
           <div class="product-card">
             <div class="stock-badge">Low Stock</div>
-            <img src="../images/product5.png" alt="Rare Item">
+            <img src="../images/product5.png" alt="Rare Item" />
             <p class="product-title">Collector's Watch</p>
             <p class="product-price">$149.00</p>
-          </div>  
+          </div>
           <!-- Repeat product cards -->
         </div>
       </div>
     </section>
-    
-    
+
     <section id="customer-reviews" class="container my-5">
       <div class="row">
         <div class="col-12 text-center mb-4">
           <h2>Customer Reviews</h2>
-          <p class="text-muted">See what our customers are saying about our products</p>
+          <p class="text-muted">
+            See what our customers are saying about our products
+          </p>
         </div>
       </div>
-    
+
       <div class="row">
         <!-- Review Card 1 -->
         <div class="col-md-4 mb-4">
           <div class="review-card">
             <div class="review-header">
               <div class="review-profile">
-                <img src="../images/avatars/avatar1.jpg" alt="Customer" class="review-avatar">
+                <img
+                  src="../images/avatars/avatar1.jpg"
+                  alt="Customer"
+                  class="review-avatar"
+                />
                 <div>
                   <h5 class="review-name">Sarah Johnson</h5>
                   <p class="review-date">April 15, 2025</p>
@@ -771,23 +843,36 @@
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
                 <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
               </div>
             </div>
             <div class="review-product">
-              <img src="../2.jpg" alt="Smart Watch" class="review-product-img">
+              <img
+                src="../2.jpg"
+                alt="Smart Watch"
+                class="review-product-img"
+              />
               <p class="review-product-name">Smart Watch</p>
             </div>
-            <p class="review-text">"This smart watch exceeded my expectations! The battery lasts for days and the fitness tracking features are incredibly accurate. The sleep monitoring has helped me improve my sleep habits tremendously."</p>
+            <p class="review-text">
+              "This smart watch exceeded my expectations! The battery lasts for
+              days and the fitness tracking features are incredibly accurate.
+              The sleep monitoring has helped me improve my sleep habits
+              tremendously."
+            </p>
           </div>
         </div>
-    
+
         <!-- Review Card 2 -->
         <div class="col-md-4 mb-4">
           <div class="review-card">
             <div class="review-header">
               <div class="review-profile">
-                <img src="../images/avatars/avatar2.jpg" alt="Customer" class="review-avatar">
+                <img
+                  src="../images/avatars/avatar2.jpg"
+                  alt="Customer"
+                  class="review-avatar"
+                />
                 <div>
                   <h5 class="review-name">Michael Chen</h5>
                   <p class="review-date">April 10, 2025</p>
@@ -802,19 +887,31 @@
               </div>
             </div>
             <div class="review-product">
-              <img src="../1.jpg" alt="Premium Headphones" class="review-product-img">
+              <img
+                src="../1.jpg"
+                alt="Premium Headphones"
+                class="review-product-img"
+              />
               <p class="review-product-name">Premium Headphones</p>
             </div>
-            <p class="review-text">"These headphones have incredible sound quality and the noise cancellation is perfect for my daily commute. The only downside is they're a bit heavy after wearing them for several hours."</p>
+            <p class="review-text">
+              "These headphones have incredible sound quality and the noise
+              cancellation is perfect for my daily commute. The only downside is
+              they're a bit heavy after wearing them for several hours."
+            </p>
           </div>
         </div>
-    
+
         <!-- Review Card 3 -->
         <div class="col-md-4 mb-4">
           <div class="review-card">
             <div class="review-header">
               <div class="review-profile">
-                <img src="../images/avatars/avatar3.jpg" alt="Customer" class="review-avatar">
+                <img
+                  src="../images/avatars/avatar3.jpg"
+                  alt="Customer"
+                  class="review-avatar"
+                />
                 <div>
                   <h5 class="review-name">Emily Rodriguez</h5>
                   <p class="review-date">April 18, 2025</p>
@@ -829,19 +926,29 @@
               </div>
             </div>
             <div class="review-product">
-              <img src="../images/product1.png" alt="Wireless Earbuds" class="review-product-img">
+              <img
+                src="../images/product1.png"
+                alt="Wireless Earbuds"
+                class="review-product-img"
+              />
               <p class="review-product-name">Wireless Earbuds</p>
             </div>
-            <p class="review-text">"Absolutely love these earbuds! The sound is crystal clear and they fit my ears perfectly. The battery life is amazing - I can go several days without recharging the case. Great purchase!"</p>
+            <p class="review-text">
+              "Absolutely love these earbuds! The sound is crystal clear and
+              they fit my ears perfectly. The battery life is amazing - I can go
+              several days without recharging the case. Great purchase!"
+            </p>
           </div>
         </div>
       </div>
-    
+
       <div class="text-center mt-4">
-        <a href="reviews.html" class="btn btn-outline-primary">View All Reviews</a>
+        <a href="reviews.html" class="btn btn-outline-primary"
+          >View All Reviews</a
+        >
       </div>
     </section>
-    
+
     <footer
       style="
         background: var(--white-color);
@@ -853,13 +960,11 @@
       <img style="width: 100px" src="../copyright.png" alt="" />
     </footer>
 
+    <script src="main.js" type="module"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
-    <script src="header.js"></script>
-
   </body>
 </html>
- 

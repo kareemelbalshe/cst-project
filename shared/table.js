@@ -48,17 +48,17 @@ export function renderDataTable({
           <td>
             ${
               viewUrl
-                ? `<a href="${viewUrl}?id=${item.id}" class="btn btn-sm btn-info me-1">View</a>`
+                ? `<a href="${viewUrl}?id=${item.id}" class="btn btn-sm btn-info me-1"><i class="bi bi-eye"></i> View</a>`
                 : ""
             }
             ${
               editUrl
-                ? `<a href="${editUrl}?id=${item.id}" class="btn btn-sm btn-warning me-1">Edit</a>`
+                ? `<a href="${editUrl}?id=${item.id}" class="btn btn-sm btn-warning me-1"><i class="bi bi-pencil"></i> Edit</a>`
                 : ""
             }
             <button class="btn btn-sm btn-danger" data-action="delete" data-id="${
               item.id
-            }">Delete</button>
+            }"><i class="bi bi-trash"></i> Delete</button>
           </td>
         </tr>
       `;
@@ -98,7 +98,9 @@ export function renderDataTable({
     const searchBtn = document.getElementById(`${containerId}-search-btn`);
     searchBtn.onclick = () => {
       const term = search.value.toLowerCase();
-      filteredData = data.filter((item) => item.name.toLowerCase().includes(term));
+      filteredData = data.filter((item) =>
+        item.name.toLowerCase().includes(term)
+      );
       currentPage = 1;
       renderTable();
     };
