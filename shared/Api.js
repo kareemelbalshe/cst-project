@@ -459,6 +459,7 @@ export async function loginCustomer(body) {
     localStorage.setItem("isAdmin", false);
     localStorage.setItem("isSeller", false);
     localStorage.setItem("isCustomer", true);
+    localStorage.setItem("currentUser", null);
     return true;
   }
 
@@ -484,6 +485,7 @@ export async function loginSeller(body) {
     localStorage.setItem("isAdmin", false);
     localStorage.setItem("isSeller", true);
     localStorage.setItem("isCustomer", false);
+    localStorage.setItem("currentUser", null);
     return true;
   }
 
@@ -499,6 +501,7 @@ export async function loginAdmin(body) {
     localStorage.setItem("isAdmin", true);
     localStorage.setItem("isSeller", false);
     localStorage.setItem("isCustomer", false);
+    localStorage.setItem("currentUser", null);
     return true;
   }
 
