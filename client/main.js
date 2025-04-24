@@ -1,3 +1,5 @@
+import { logout } from "../shared/Api.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const headerActions = document.getElementById("header-actions");
@@ -9,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     logoutBtn.className = "btn btn-outline-dark";
     logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
     logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("currentUser");
+        logout();
       window.location.href = "index.html";
     });
 
