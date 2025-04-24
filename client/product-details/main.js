@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const profileLink = document.createElement("a");
     profileLink.className = "btn btn-outline-dark me-2";
-    profileLink.href = "index.html";
+    profileLink.href = "../profile/index.html";
     profileLink.innerHTML = `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`;
     headerActions.appendChild(profileLink);
 
