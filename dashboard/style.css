@@ -63,11 +63,15 @@ body {
   font-size: 1rem;
 }
 
+.btn {
+  display: flex;
+}
+
 @media screen and (max-width: 768px) {
-    .sidebar {
-        width: 80px;
-    }
-    .sidebar span{
-        display: none;
-    }
+  .sidebar {
+    width: 80px;
+  }
+  .sidebar span {
+    display: none;
+  }
 }

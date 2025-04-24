@@ -34,4 +34,5 @@ form.addEventListener("submit", async function (e) {
   };
 
   await registerCustomer(newCustomer);
+  window.location.href = "../index.html";
 });

@@ -512,4 +512,5 @@ export async function logout() {
   localStorage.setItem("isAdmin", false);
   localStorage.setItem("isSeller", false);
   localStorage.setItem("isCustomer", false);
+  localStorage.setItem("currentUser", null);
 }
