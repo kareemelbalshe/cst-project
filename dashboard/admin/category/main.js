@@ -11,6 +11,21 @@ window.addEventListener("load", () => {
     window.location.href = "../index.html";
   }
 });
+setTimeout(() => {
+  if (
+    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isAdmin") !== "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+}, 1000);
+
+const logoutBtn = document.getElementById("logout");
+
+logoutBtn.addEventListener("click", () => {
+  logout();
+  window.location.href = "../../index.html";
+});
 
 const Category = await getCategories();
 
@@ -26,11 +41,4 @@ renderDataTable({
     }
   },
   editUrl: "./edit-category/index.html",
-});
-
-const logoutBtn = document.getElementById("logout");
-
-logoutBtn.addEventListener("click", () => {
-  logout();
-  window.location.href = "../../index.html";
 });
