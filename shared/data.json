@@ -35,6 +35,17 @@
       "numBuys": 0,
       "totalSpent": 0,
       "createdAt": "2025-04-23T19:20:39.633Z"
+    },
+    {
+      "id": "id-m9v1excdyic7c",
+      "name": "x",
+      "email": "x@x",
+      "password": "1",
+      "phone": "1",
+      "address": "x",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "createdAt": "2025-04-24T07:24:38.605Z"
     }
   ],
   "sellers": [
