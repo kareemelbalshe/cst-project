@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     logoutBtn.textContent = 'Logout';
     logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      window.location.href = '../index.html';
+      window.location.href = 'index.html';
     });
 
     // Remove previous content and add new buttons
