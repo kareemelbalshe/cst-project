@@ -361,7 +361,6 @@ export async function registerCustomer(body) {
   });
 
   const data = await res.json();
-  loginCustomer({ email: body.email, password: body.password });
   return data;
 }
 
