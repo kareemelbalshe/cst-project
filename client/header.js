@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Optionally add cart link
     const cartLink = document.createElement('a');
     cartLink.className = 'btn btn-outline-dark';
-    cartLink.href = '../cart/index.html';
+    cartLink.href = 'cart/index.html';
     cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
     headerActions.appendChild(cartLink);
   } else {
