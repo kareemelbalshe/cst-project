@@ -36,3 +36,20 @@ form.addEventListener("submit", async function (e) {
   await registerCustomer(newCustomer);
   window.location.href = "../index.html";
 });
+
+window.addEventListener("load", () => {
+  if (
+    localStorage.getItem("isLoggedIn") === "true" &&
+    localStorage.getItem("isCustomer") === "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+});
+setTimeout(() => {
+  if (
+    localStorage.getItem("isLoggedIn") === "true" &&
+    localStorage.getItem("isCustomer") === "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+}, 1000);
