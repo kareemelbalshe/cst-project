@@ -5,32 +5,36 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!headerActions) return;
 
   if (currentUser) {
-    const welcomeText = document.createElement('span');
-    welcomeText.className = 'align-self-center fw-semibold me-2';
-    welcomeText.textContent = `Hello, ${currentUser.name}`;
-
     const logoutBtn = document.createElement('button');
     logoutBtn.className = 'btn btn-outline-dark';
     logoutBtn.textContent = 'Logout';
     logoutBtn.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      // Redirect to home page after logout, keep existing header intact
-      window.location.href = '../index.html'; // Adjust path to your home page
+      window.location.href = 'index.html';
     });
 
     // Remove previous content and add new buttons
     headerActions.innerHTML = '';
-    headerActions.appendChild(welcomeText);
-    headerActions.appendChild(logoutBtn);
 
-    // Optionally add cart link
+    // Add profile button with user's name
+    const profileLink = document.createElement('a');
+    profileLink.className = 'btn btn-outline-dark me-2';
+    profileLink.href = 'profile/index.html';
+    profileLink.innerHTML = `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`;
+    headerActions.appendChild(profileLink);
+
+    // Add cart link
     const cartLink = document.createElement('a');
-    cartLink.className = 'btn btn-outline-dark';
+    cartLink.className = 'btn btn-outline-dark me-2';
     cartLink.href = 'cart/index.html';
     cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
     headerActions.appendChild(cartLink);
+
+    // Add logout button
+    headerActions.appendChild(logoutBtn);
+
   } else {
     // User is not logged in, keep original header buttons for login and register
-    // Do nothing, the header stays as it is, no modification needed
+    // Do nothing
   }
 });
