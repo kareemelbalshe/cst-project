@@ -354,6 +354,13 @@ export async function getCustomer(id) {
 }
 
 export async function registerCustomer(body) {
+  const customers = await getCustomers();
+  if (customers.some((customer) => customer.email === body.email)) {
+    return {
+      success: false,
+      message: "Email already exists",
+    };
+  }
   const res = await fetch("http://localhost:5000/customers", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -397,6 +404,13 @@ export async function getSeller(id) {
 }
 
 export async function registerSeller(body) {
+  const sellers = await getSellers();
+  if (sellers.some((seller) => seller.email === body.email)) {
+    return {
+      success: false,
+      message: "Email already exists",
+    };
+  }
   const res = await fetch("http://localhost:5000/sellers", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -404,7 +418,6 @@ export async function registerSeller(body) {
   });
 
   const data = await res.json();
-  loginSeller({ email: body.email, password: body.password });
   return data;
 }
 

@@ -1,4 +1,4 @@
-import { registerSeller} from "../../../shared/Api.js";
+import { loginSeller, registerSeller} from "../../../shared/Api.js";
 import createId from "../../../shared/createId.js";
 import getCurrentTimestamp from "../../../shared/setTime.js";
 
@@ -32,5 +32,25 @@ form.addEventListener("submit", async function (e) {
   };
 
   await registerSeller(newSeller);
+  await loginSeller({email, password});
   alert("Welcome")
+  window.location.href = "../index.html";
 });
+
+window.addEventListener("load", () => {
+  if (
+    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isSeller") !== "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+});
+
+setTimeout(() => {
+  if (
+    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isSeller") !== "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+}, 1000);

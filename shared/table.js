@@ -45,7 +45,7 @@ export function renderDataTable({
           <td>${item.id}</td>
           <td>${item.name}</td>
           <td>${new Date(item.createdAt).toLocaleString()}</td>
-          <td>
+          <td class="d-flex flex-wrap align-items-center justify-content-center gap-2">
             ${
               viewUrl
                 ? `<a href="${viewUrl}?id=${item.id}" class="btn btn-sm btn-info me-1"><i class="bi bi-eye"></i> View</a>`
@@ -65,7 +65,11 @@ export function renderDataTable({
     });
 
     tableHTML += `</tbody></table></div>`;
-    container.innerHTML = tableHTML;
+    if (paginated.length === 0) {
+      container.innerHTML = `<div class="container mt-3">No Products Found</div>`;
+    } else {
+      container.innerHTML = tableHTML;
+    }
     container.appendChild(paginationContainer);
     renderPagination();
     attachEvents();
