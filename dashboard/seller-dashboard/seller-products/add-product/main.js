@@ -5,11 +5,20 @@ import getCurrentTimestamp from "../../../../shared/setTime.js";
 
 window.addEventListener("load", async () => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" ||
+    localStorage.getItem("isLoggedIn") !== "true" &&
     localStorage.getItem("isSeller") !== "true"
   ) {
     window.location.href = "../../../index.html";
   }
+
+  setTimeout(() => {
+    if (
+      localStorage.getItem("isLoggedIn") !== "true" &&
+      localStorage.getItem("isSeller") !== "true"
+    ) {
+      window.location.href = "../../../index.html";
+    }
+  }, 1000);
 
   const categories = await getCategories();
   const categorySelect = document.getElementById("category");
@@ -57,7 +66,7 @@ form.addEventListener("submit", async (e) => {
     };
 
     await addProduct(productData);
-    
+
     window.location.href = "../index.html";
   }
 });
