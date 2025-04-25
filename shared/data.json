@@ -30,11 +30,12 @@
       "name": "Omar Dawood",
       "email": "omardaved60@yahoo.com",
       "password": "omar",
-      "phone": "01555364675",
+      "phone": "11",
       "address": "Sharh Eleyafa",
       "numBuys": 0,
       "totalSpent": 0,
-      "createdAt": "2025-04-23T19:20:39.633Z"
+      "createdAt": "2025-04-23T19:20:39.633Z",
+      "image": null
     },
     {
       "id": "id-m9v1excdyic7c",
