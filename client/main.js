@@ -247,7 +247,6 @@ limitedStockProducts.forEach(product => {
 
 import { getReviews } from "../shared/Api.js";
 
-
 function generateStars(rating) {
   var stars = '';
   for (var i = 1; i <= 5; i++) {
@@ -265,7 +264,6 @@ function generateStars(rating) {
 function loadReviews() {
   getReviews().then(function(reviews) {
     var reviewsContainer = document.getElementById('reviewsContainer');
-
     reviews.forEach(function(review) {
       reviewsContainer.innerHTML += `
         <div class="col-md-4 mb-4">
