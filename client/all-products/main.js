@@ -4,7 +4,7 @@ import {
   getProducts,
   logout,
 } from "../../shared/Api.js";
-import { addToCart } from "../main.js";
+import { addToCart } from "../js/addToCart.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
