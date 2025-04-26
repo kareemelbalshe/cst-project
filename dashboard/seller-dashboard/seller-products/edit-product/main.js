@@ -56,7 +56,7 @@ setTimeout(() => {
   ) {
     window.location.href = "../../../index.html";
   }
-}, 1000);
+}, 100);
 
 const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {

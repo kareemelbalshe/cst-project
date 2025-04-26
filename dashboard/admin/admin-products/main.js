@@ -1,4 +1,4 @@
-import { deleteCustomer, getCustomers, logout } from "../../../shared/Api.js";
+import { logout, deleteProduct, getProducts } from "../../../shared/Api.js";
 import { renderDataTable } from "../../js/table.js";
 
 window.addEventListener("load", () => {
@@ -9,7 +9,6 @@ window.addEventListener("load", () => {
     window.location.href = "../../index.html";
   }
 });
-
 setTimeout(() => {
   if (
     localStorage.getItem("isLoggedIn") !== "true" &&
@@ -26,13 +25,13 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "../../index.html";
 });
 
-const Customers = await getCustomers();
+const products = await getProducts();
 
 renderDataTable({
   containerId: "page",
-  data: Customers,
+  data: products,
   onDelete: async (id) => {
-    await deleteCustomer(id);
+    await deleteProduct(id);
   },
-  viewUrl: "./view-customer/index.html",
+  editUrl: "./edit-product/index.html",
 });
