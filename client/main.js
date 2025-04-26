@@ -84,3 +84,99 @@ export function addToCart(
 
   localStorage.setItem("cart", JSON.stringify(carts));
 }
+
+const newArrivalsCarousel = document.getElementById('newArrivalsCarousel');
+const productCarousel = document.getElementById('productCarousel');
+const featuredProductsCarousel = productCarousel?.querySelector('.carousel-inner');
+const featuredIndicators = productCarousel?.querySelector('.carousel-indicators');
+import { getProducts } from "../shared/Api.js";
+// Get products
+const products = await getProducts();
+
+// ===================
+// New Arrivals Section
+// ===================
+products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by newest
+
+const chunkSize = 4;
+
+// Create New Arrivals Carousel
+for (let i = 0; i < products.length; i += chunkSize) {
+  const chunk = products.slice(i, i + chunkSize);
+  const isActive = i === 0 ? "active" : "";
+
+  newArrivalsCarousel.innerHTML += `
+    <div class="carousel-item ${isActive}">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+        ${chunk.map(product => `
+          <div class="col">
+            <div class="card position-relative">
+              ${product.discount > 0 ? `<span class="sale-badge">SALE</span>` : `<span class="sale-badge">NEW</span>`}
+              <img src="${product.image}" onerror="this.onerror=null;this.src='assets/default-product.jpg';" class="card-img-top" alt="${product.name}">
+              <div class="view-icon">
+                <a href="product.html?id=${product.id}" class="btn btn-light rounded-circle shadow-sm" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="product-price">$${product.price.toFixed(2)}</p>
+                <p class="card-text">${product.description}</p>
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// =========================
+// Featured Products Section
+// =========================
+
+// Clear previous content
+if (featuredProductsCarousel) featuredProductsCarousel.innerHTML = "";
+if (featuredIndicators) featuredIndicators.innerHTML = "";
+
+// Featured: no shuffle, keep order
+for (let i = 0; i < products.length; i += chunkSize) {
+  const chunk = products.slice(i, i + chunkSize);
+  const isActive = i === 0 ? "active" : "";
+
+  if (featuredProductsCarousel) {
+    featuredProductsCarousel.innerHTML += `
+      <div class="carousel-item ${isActive}">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+          ${chunk.map(product => `
+            <div class="col">
+              <div class="card position-relative">
+                ${product.discount > 0 ? `<span class="sale-badge">SALE</span>` : `<span class="sale-badge">NEW</span>`}
+                <img src="${product.image}" onerror="this.onerror=null;this.src='assets/default-product.jpg';" class="card-img-top" alt="${product.name}">
+                <div class="view-icon">
+                  <a href="product.html?id=${product.id}" class="btn btn-light rounded-circle shadow-sm" title="View Details">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">${product.name}</h5>
+                  <p class="product-price">$${product.price.toFixed(2)}</p>
+                  <p class="card-text">${product.description}</p>
+                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  // Create indicators
+  if (featuredIndicators) {
+    featuredIndicators.innerHTML += `
+      <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="${i / chunkSize}" class="${isActive}" aria-current="${isActive ? "true" : "false"}" aria-label="Slide ${i / chunkSize + 1}"></button>
+    `;
+  }
+}
