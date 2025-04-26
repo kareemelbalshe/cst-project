@@ -41,7 +41,6 @@ form.addEventListener("submit", async function (e) {
   };
 
   await updateCategory(categoryId, updatedCategory);
-  // alert("Category updated successfully!");
   window.location.href = "../index.html";
 });
 
@@ -50,7 +49,7 @@ window.addEventListener("load", () => {
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
   if (!isLoggedIn && !isAdmin) {
-    window.location.href = "../../index.html";
+    window.location.href = "../../../index.html";
     return;
   }
 });
@@ -60,12 +59,12 @@ setTimeout(() => {
     localStorage.getItem("isLoggedIn") !== "true" &&
     localStorage.getItem("isAdmin") !== "true"
   ) {
-    window.location.href = "../../index.html";
+    window.location.href = "../../../index.html";
   }
 }, 1000);
 
 const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {
   logout();
-  window.location.href = "../../index.html";
+  window.location.href = "../../../index.html";
 });

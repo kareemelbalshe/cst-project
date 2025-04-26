@@ -1,5 +1,5 @@
 import {
-  deleteCategory,
+  deleteProduct,
   getProductsToSeller,
   logout,
 } from "../../../shared/Api.js";
@@ -21,7 +21,7 @@ setTimeout(() => {
   ) {
     window.location.href = "../../index.html";
   }
-}, 1000);
+}, 100);
 
 const logoutBtn = document.getElementById("logout");
 
@@ -35,8 +35,8 @@ const productsToSeller = await getProductsToSeller(localStorage.getItem("Id"));
 renderDataTable({
   containerId: "page",
   data: productsToSeller,
-  onDelete: (id) => {
-    deleteCategory(id);
+  onDelete: async (id) => {
+    await deleteProduct(id);
   },
   editUrl: "./edit-product/index.html",
   //   viewUrl: "./view-product/index.html",

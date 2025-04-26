@@ -8,7 +8,7 @@ window.addEventListener("load", () => {
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
   if (!isLoggedIn && !isAdmin) {
-    window.location.href = "../../index.html";
+    window.location.href = "../../../index.html";
     return;
   }
 });
@@ -18,14 +18,14 @@ setTimeout(() => {
     localStorage.getItem("isLoggedIn") !== "true" &&
     localStorage.getItem("isAdmin") !== "true"
   ) {
-    window.location.href = "../../index.html";
+    window.location.href = "../../../index.html";
   }
-}, 1000);
+}, 100);
 
 const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {
   logout();
-  window.location.href = "../../index.html";
+  window.location.href = "../../../index.html";
 });
 
 const addCategoryForm = document.querySelector("form");
@@ -50,7 +50,7 @@ addCategoryForm.addEventListener("submit", async (e) => {
     createdAt: getCurrentTimestamp(),
   };
 
- await addCategory(data);
+  await addCategory(data);
 
   window.location.href = "../index.html";
 });

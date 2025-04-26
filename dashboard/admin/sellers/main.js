@@ -4,7 +4,7 @@ import { renderDataTable } from "../../js/table.js";
 window.addEventListener("load", () => {
   if (
     localStorage.getItem("isLoggedIn") !== "true" &&
-    localStorage.getItem("isSeller") !== "true"
+    localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../index.html";
   }
@@ -13,11 +13,11 @@ window.addEventListener("load", () => {
 setTimeout(() => {
   if (
     localStorage.getItem("isLoggedIn") !== "true" &&
-    localStorage.getItem("isSeller") !== "true"
+    localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../index.html";
   }
-}, 1000);
+}, 100);
 
 const logoutBtn = document.getElementById("logout");
 
@@ -31,8 +31,8 @@ const sellers = await getSellers();
 renderDataTable({
   containerId: "page",
   data: sellers,
-  onDelete: (id) => {
-    deleteSeller(id);
+  onDelete: async (id) => {
+    await deleteSeller(id);
   },
   viewUrl: "./view-sellers/index.html",
 });

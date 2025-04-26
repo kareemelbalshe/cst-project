@@ -18,7 +18,7 @@ window.addEventListener("load", async () => {
     ) {
       window.location.href = "../../../index.html";
     }
-  }, 1000);
+  }, 100);
 
   const categories = await getCategories();
   const categorySelect = document.getElementById("category");
