@@ -29,3 +29,44 @@ body {
   width: max-content;
   margin: 0 auto;
 }
+
+.product-card {
+  width: 400px;
+  height: 650px;
+  border: none;
+  border-radius: 20px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 350px;
+  height: 300px;
+  margin: 0 auto;
+  object-fit: contain;
+  object-position: center;
+  box-shadow: none;
+  filter: grayscale(100%);
+  transition: filter 0.5s ease, transform 0.3s ease;
+}
+
+.product-card:hover .product-image {
+  filter: grayscale(0%);
+  transform: scale(1.02);
+}
+
+.add-to-cart-btn {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  border: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+}

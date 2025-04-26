@@ -62,6 +62,11 @@ form.addEventListener("submit", async (e) => {
       seller: localStorage.getItem("Id"),
       price_after_discount: price - (price * discount) / 100,
       image: base64String,
+      sales: 0,
+      rating: 0,
+      totalStars: 0,
+      totalRatings: 0,
+      reviews: [],
       createdAt: getCurrentTimestamp(),
     };
 
