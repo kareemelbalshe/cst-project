@@ -1,6 +1,5 @@
-import { resizeImage } from "../../../../shared/resizeImage.js";
-
-import { getCategory, updateCategory } from "../../../../shared/Api.js";
+import { resizeImage } from "../../../js/resizeImage.js";
+import { getCategory, updateCategory, logout } from "../../../../shared/Api.js";
 
 const params = new URLSearchParams(window.location.search);
 const categoryId = params.get("id");

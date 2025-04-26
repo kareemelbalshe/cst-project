@@ -1,6 +1,6 @@
 import { loginSeller, registerSeller} from "../../../shared/Api.js";
-import createId from "../../../shared/createId.js";
-import getCurrentTimestamp from "../../../shared/setTime.js";
+import createId from "../../js/createId.js";
+import getCurrentTimestamp from "../../js/setTime.js";
 
 const form = document.querySelector("form");
 

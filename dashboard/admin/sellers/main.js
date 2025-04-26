@@ -1,5 +1,5 @@
 import { deleteSeller, getSellers, logout } from "../../../shared/Api.js";
-import { renderDataTable } from "../../../shared/table.js";
+import { renderDataTable } from "../../js/table.js";
 
 window.addEventListener("load", () => {
   if (

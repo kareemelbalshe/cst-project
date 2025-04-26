@@ -1,5 +1,4 @@
-import { logout } from "../../../../shared/Api.js";
-import { getCustomer } from "../../../../shared/Api.js";
+import { logout, getCustomer } from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   if (

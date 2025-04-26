@@ -1,8 +1,7 @@
-import { logout } from "../../../../shared/Api.js";
-import { addCategory } from "../../../../shared/Api.js";
-import getCurrentTimestamp from "../../../../shared/setTime.js";
-import { resizeImage } from "../../../../shared/resizeImage.js";
-import createId from "../../../../shared/createId.js";
+import { logout, addCategory } from "../../../../shared/Api.js";
+import getCurrentTimestamp from "../../../js/setTime.js";
+import { resizeImage } from "../../../js/resizeImage.js";
+import createId from "../../../js/createId.js";
 
 window.addEventListener("load", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";

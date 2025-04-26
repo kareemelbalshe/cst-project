@@ -1,7 +1,7 @@
 import { addProduct, getCategories, logout } from "../../../../shared/Api.js";
-import createId from "../../../../shared/createId.js";
-import { resizeImage } from "../../../../shared/resizeImage.js";
-import getCurrentTimestamp from "../../../../shared/setTime.js";
+import createId from "../../../js/createId.js";
+import { resizeImage } from "../../../js/resizeImage.js";
+import getCurrentTimestamp from "../../../js/setTime.js";
 
 window.addEventListener("load", async () => {
   if (

@@ -1,7 +1,5 @@
-import { getCategories } from "../../../shared/Api.js";
-import { renderDataTable } from "../../../shared/table.js";
-import { logout } from "../../../shared/Api.js";
-import { deleteCategory } from "../../../shared/Api.js";
+import { getCategories, deleteCategory, logout } from "../../../shared/Api.js";
+import { renderDataTable } from "../../js/table.js";
 
 window.addEventListener("load", () => {
   if (

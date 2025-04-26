@@ -1,5 +1,5 @@
 import { logout, getCustomer, updateCustomer } from "../../shared/Api.js";
-import { resizeImage } from "../../shared/resizeImage.js";  // Import the resizeImage function
+import { resizeImage } from "../js/resizeImage.js"
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));

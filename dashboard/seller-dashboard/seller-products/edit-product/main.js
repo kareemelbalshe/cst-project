@@ -4,7 +4,7 @@ import {
   logout,
   updateProduct,
 } from "../../../../shared/Api.js";
-import { resizeImage } from "../../../../shared/resizeImage.js";
+import { resizeImage } from "../../../js/resizeImage.js";
 
 const params = new URLSearchParams(window.location.search);
 const productId = params.get("id");
