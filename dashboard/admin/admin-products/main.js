@@ -27,11 +27,12 @@ logoutBtn.addEventListener("click", () => {
 
 const products = await getProducts();
 
+console.log(products)
 renderDataTable({
   containerId: "page",
   data: products,
   onDelete: async (id) => {
     await deleteProduct(id);
   },
-  editUrl: "./edit-product/index.html",
+  viewUrl: "./view-product/index.html",
 });
