@@ -90,20 +90,16 @@ const featuredProductsCarousel = productCarousel?.querySelector('.carousel-inner
 const featuredIndicators = productCarousel?.querySelector('.carousel-indicators');
 import { getProducts } from "../shared/Api.js";
 
-// Get products
 let products = await getProducts();
 
-// Limit to 8 products
 const limitedProducts = products.slice(0, 8);
 
-// ===================
 // New Arrivals Section
-// ===================
+
 limitedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by newest
 
-const chunkSize = 4; // 4 products per carousel item
+const chunkSize = 4; 
 
-// Create New Arrivals Carousel
 for (let i = 0; i < limitedProducts.length; i += chunkSize) {
   const chunk = limitedProducts.slice(i, i + chunkSize);
   const isActive = i === 0 ? "active" : "";
@@ -135,15 +131,11 @@ for (let i = 0; i < limitedProducts.length; i += chunkSize) {
   `;
 }
 
-// =========================
 // Featured Products Section
-// =========================
 
-// Clear previous content
 if (featuredProductsCarousel) featuredProductsCarousel.innerHTML = "";
 if (featuredIndicators) featuredIndicators.innerHTML = "";
 
-// Featured: no shuffle, keep order
 for (let i = 0; i < limitedProducts.length; i += chunkSize) {
   const chunk = limitedProducts.slice(i, i + chunkSize);
   const isActive = i === 0 ? "active" : "";
@@ -176,7 +168,6 @@ for (let i = 0; i < limitedProducts.length; i += chunkSize) {
     `;
   }
 
-  // Create indicators
   if (featuredIndicators) {
     featuredIndicators.innerHTML += `
       <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="${i / chunkSize}" class="${isActive}" aria-current="${isActive ? "true" : "false"}" aria-label="Slide ${i / chunkSize + 1}"></button>
@@ -198,19 +189,14 @@ categories.map((item)=>{
 
 
 
-// ===================
 // Best Sales Section
-// ===================
 
-// Target the Best Sales container
 const bestSalesSlider = document.getElementById('bestSalesSlider');
 
-// Sort products by number of sales (assuming you have a field 'sales')
 const bestSalesProducts = [...products]
-  .sort((a, b) => b.sales - a.sales) // highest sales first
-  .slice(0, 10); // top 10 only
+  .sort((a, b) => b.sales - a.sales) 
+  .slice(0, 10); 
 
-// Inject into Best Sales Slider
 bestSalesProducts.forEach(product => {
   bestSalesSlider.innerHTML += `
     <div class="product-card">
@@ -222,17 +208,13 @@ bestSalesProducts.forEach(product => {
 });
 
 
-// ===================
-// Limited Stock Section
-// ===================
 
-// Target the Limited Stock container
+// Limited Stock Section
+
 const lessQuantitySlider = document.getElementById('lessQuantitySlider');
 
-// Filter products with quantity less than 5
 const limitedStockProducts = products.filter(product => product.quantity < 5);
 
-// Inject into Limited Stock Slider
 limitedStockProducts.forEach(product => {
   lessQuantitySlider.innerHTML += `
     <div class="product-card">
