@@ -11,12 +11,10 @@ window.addEventListener("load", async () => {
     const productId = params.get("id");
     
     try {
-      // Get basic product information
       const product = await getProduct(productId);
       console.log(product);
       
       if (product) {
-        // Fill in basic product details
         document.querySelector(".productId").innerText = product.id || "N/A";
         document.querySelector(".productName").innerText = product.name || "N/A";
         document.querySelector(".price").innerText = `$${product.price?.toFixed(2) || "0.00"}`;
@@ -26,7 +24,6 @@ window.addEventListener("load", async () => {
         document.querySelector(".createdAt").innerText = 
           new Date(product.createdAt).toLocaleString() || "N/A";
         
-        // Set product image
         const productImage = document.getElementById("productImage");
         if (product.image) {
           productImage.src = product.image;
@@ -35,7 +32,6 @@ window.addEventListener("load", async () => {
           productImage.alt = "No image available";
         }
         
-        // Fetch and display seller name instead of ID
         try {
           const seller = await getSeller(product.seller);
           document.querySelector(".seller").innerText = seller.name || product.seller;
@@ -44,7 +40,6 @@ window.addEventListener("load", async () => {
           document.querySelector(".seller").innerText = product.seller || "N/A";
         }
         
-        // Fetch and display category name instead of ID
         try {
           const category = await getCategory(product.category);
           document.querySelector(".category").innerText = category.name || product.category;
@@ -57,8 +52,7 @@ window.addEventListener("load", async () => {
       }
     } catch (err) {
       console.error("Failed to fetch product:", err);
-      // alert commented out as per your code
-      // alert("An error occurred while fetching product data.");
+    
     }
   }
 });
