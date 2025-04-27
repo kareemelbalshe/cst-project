@@ -1,6 +1,4 @@
 import { logout } from "../shared/Api.js";
-import createId from "./js/createId.js";
-import getCurrentTimestamp from "./js/setTime.js"
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -34,10 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.appendChild(cartLink);
   }
 });
-
-
-  localStorage.setItem("cart", JSON.stringify(carts));
-}
 
 const newArrivalsCarousel = document.getElementById('newArrivalsCarousel');
 const productCarousel = document.getElementById('featuredCarousel');
