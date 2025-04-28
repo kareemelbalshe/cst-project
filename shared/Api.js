@@ -122,6 +122,7 @@ export async function addCart(body) {
   const updatedProduct = {
     ...product,
     sales: (product.sales || 0) + (body.quantity || 1),
+    quantity: (product.quantity || 0) - (body.quantity || 1),
   };
 
   await updateProduct(product.id, updatedProduct);
