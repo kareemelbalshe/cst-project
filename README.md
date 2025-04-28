@@ -55,6 +55,7 @@ cart = {
 "id": "string",
 "customer": "customer-id",
 "product": "product-id",
+seller: "seller-id",
 "quantity": 2,
 "total": 200
 }
