@@ -33,4 +33,192 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
+const newArrivalsCarousel = document.getElementById('newArrivalsCarousel');
+const productCarousel = document.getElementById('featuredCarousel');
+const featuredProductsCarousel = productCarousel?.querySelector('.carousel-inner');
+const featuredIndicators = productCarousel?.querySelector('.carousel-indicators');
+import { getProducts } from "../shared/Api.js";
 
+let products = await getProducts();
+
+const limitedProducts = products.slice(0, 8);
+
+// New Arrivals Section
+
+limitedProducts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)); // Sort by newest
+
+const chunkSize = 4; 
+
+for (let i = 0; i < limitedProducts.length; i += chunkSize) {
+  const chunk = limitedProducts.slice(i, i + chunkSize);
+  const isActive = i === 0 ? "active" : "";
+
+  newArrivalsCarousel.innerHTML += `
+    <div class="carousel-item ${isActive}">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+        ${chunk.map(product => `
+          <div class="col">
+            <div class="card position-relative">
+              ${product.discount > 0 ? `<span class="sale-badge">SALE</span>` : `<span class="sale-badge">NEW</span>`}
+              <img src="${product.image}" onerror="this.onerror=null;this.src='assets/default-product.jpg';" class="card-img-top" alt="${product.name}">
+              <div class="view-icon">
+                <a href="product.html?id=${product.id}" class="btn btn-light rounded-circle shadow-sm" title="View Details">
+                  <i class="fas fa-eye"></i>
+                </a>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">${product.name}</h5>
+                <p class="product-price">$${product.price.toFixed(2)}</p>
+                <p class="card-text">${product.description}</p>
+                <a href="#" class="btn btn-primary">Add to Cart</a>
+              </div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// Featured Products Section
+
+if (featuredProductsCarousel) featuredProductsCarousel.innerHTML = "";
+if (featuredIndicators) featuredIndicators.innerHTML = "";
+
+for (let i = 0; i < limitedProducts.length; i += chunkSize) {
+  const chunk = limitedProducts.slice(i, i + chunkSize);
+  const isActive = i === 0 ? "active" : "";
+
+  if (featuredProductsCarousel) {
+    featuredProductsCarousel.innerHTML += `
+      <div class="carousel-item ${isActive}">
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-3">
+          ${chunk.map(product => `
+            <div class="col">
+              <div class="card position-relative">
+                ${product.discount > 0 ? `<span class="sale-badge">SALE</span>` : `<span class="sale-badge">NEW</span>`}
+                <img src="${product.image}" onerror="this.onerror=null;this.src='assets/default-product.jpg';" class="card-img-top" alt="${product.name}">
+                <div class="view-icon">
+                  <a href="product.html?id=${product.id}" class="btn btn-light rounded-circle shadow-sm" title="View Details">
+                    <i class="fas fa-eye"></i>
+                  </a>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">${product.name}</h5>
+                  <p class="product-price">$${product.price.toFixed(2)}</p>
+                  <p class="card-text">${product.description}</p>
+                  <a href="#" class="btn btn-primary">Add to Cart</a>
+                </div>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  if (featuredIndicators) {
+    featuredIndicators.innerHTML += `
+      <button type="button" data-bs-target="#productCarousel" data-bs-slide-to="${i / chunkSize}" class="${isActive}" aria-current="${isActive ? "true" : "false"}" aria-label="Slide ${i / chunkSize + 1}"></button>
+    `;
+  }
+}
+
+import { getCategories } from "../shared/Api.js";
+const categorySection=document.getElementById('categoryGrid');
+const categories = await getCategories();
+
+categories.map((item)=>{
+    categorySection.innerHTML +=`
+        <a ref="./all-products/index.html?category=${item.name}" class="category-card">
+          <img src="${item.image}" alt="${item.name}">
+          <p>${item.name}</p>
+        </a>`
+     }) 
+
+
+
+// Best Sales Section
+
+const bestSalesSlider = document.getElementById('bestSalesSlider');
+
+const bestSalesProducts = [...products]
+  .sort((a, b) => b.sales - a.sales) 
+  .slice(0, 10); 
+
+bestSalesProducts.forEach(product => {
+  bestSalesSlider.innerHTML += `
+    <div class="product-card">
+      <img src="${product.image}" onerror="this.onerror=null;this.src='assets/default-product.jpg';" alt="${product.name}" />
+      <p class="product-title">${product.name}</p>
+      <p class="product-price">$${product.price_after_discount?.toFixed(2) || product.price.toFixed(2)}</p>
+    </div>
+  `;
+});
+
+
+
+// Limited Stock Section
+
+const lessQuantitySlider = document.getElementById('lessQuantitySlider');
+
+const limitedStockProducts = products.filter(product => product.quantity < 5);
+
+limitedStockProducts.forEach(product => {
+  lessQuantitySlider.innerHTML += `
+    <div class="product-card">
+      <div class="stock-badge">Low Stock</div>
+      <img src="${product.image}" onerror="this.onerror=null;this.src='assets/default-product.jpg';" alt="${product.name}" />
+      <p class="product-title">${product.name}</p>
+      <p class="product-price">$${product.price_after_discount?.toFixed(2) || product.price.toFixed(2)}</p>
+    </div>
+  `;
+});
+
+
+import { getReviews } from "../shared/Api.js";
+
+function generateStars(rating) {
+  var stars = '';
+  for (var i = 1; i <= 5; i++) {
+    if (rating >= i) {
+      stars += '<i class="fas fa-star"></i>';
+    } else if (rating >= i - 0.5) {
+      stars += '<i class="fas fa-star-half-alt"></i>';
+    } else {
+      stars += '<i class="far fa-star"></i>';
+    }
+  }
+  return stars;
+}
+
+function loadReviews() {
+  getReviews().then(function(reviews) {
+    var reviewsContainer = document.getElementById('reviewsContainer');
+    reviews.forEach(function(review) {
+      reviewsContainer.innerHTML += `
+        <div class="col-md-4 mb-4">
+          <div class="review-card">
+            <div class="review-header">
+              <div class="review-profile">
+                <img src="${review.customerAvatar}" alt="${review.customerName}" class="review-avatar" onerror="this.onerror=null;this.src='assets/default-avatar.jpg';" />
+                <div>
+                  <h5 class="review-name">${review.customerName}</h5>
+                  <p class="review-date">${review.date}</p>
+                </div>
+              </div>
+              <div class="review-rating">
+                ${generateStars(review.rating)}
+              </div>
+            </div>
+            <div class="review-product">
+              <img src="${review.productImage}" alt="${review.productName}" class="review-product-img" onerror="this.onerror=null;this.src='assets/default-product.jpg';" />
+              <p class="review-product-name">${review.productName}</p>
+            </div>
+            <p class="review-text">"${review.text}"</p>
+          </div>
+        </div>
+      `;
+    });
+  });
+}
