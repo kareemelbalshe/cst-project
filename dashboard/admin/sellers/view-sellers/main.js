@@ -1,4 +1,4 @@
-import { logout, getProduct, getSeller } from "../../../../shared/Api.js";
+import { logout, getProduct, getSeller , getCategory} from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   if (
@@ -54,6 +54,8 @@ try {
       try {
         const productResponse = await getProduct(productId);
         console.log(productResponse);
+        const categoryresponse=await getCategory(productResponse.category);
+        console.log(categoryresponse);
 
         if (productResponse) {
           const card = document.createElement("div");
@@ -77,7 +79,7 @@ try {
                       <strong>ID:</strong> ${productResponse.id}
                     </div>
                     <div class="col-sm-6 mb-2">
-                      <strong>Category ID:</strong> ${productResponse.category}
+                      <strong>Category Name:</strong> ${categoryresponse.name}
                     </div>
                     <div class="col-sm-6 mb-2">
                       <strong>Price:</strong> <span class="text-success">$${
