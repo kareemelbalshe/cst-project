@@ -1,7 +1,5 @@
-import { logout } from "../../shared/Api.js";
-import { addCart } from "../../shared/Api.js";
-import { getProduct } from "../../shared/Api.js";
-import getCurrentTimestamp from "../js/setTime.js"
+import { getSeller, logout, addCart, getProduct } from "../../shared/Api.js";
+import getCurrentTimestamp from "../js/setTime.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -52,16 +50,19 @@ cartItems.forEach(async (item) => {
   let id = item.id;
   let customer = item.customer;
   let quantity = item.quantity;
-  let product = item.product;
+  let productId = item.product;
+  const product = await getProduct(productId);
+  let seller = await getSeller(product.seller);
   let total = item.total;
   let createdAt = getCurrentTimestamp();
   let data = {
     id,
     customer,
-    product,
+    product: productId,
+    seller,
     quantity,
     total,
-    createdAt
+    createdAt,
   };
   const response = await getProduct(product);
   const image = document.getElementById("imagepath");
@@ -72,8 +73,15 @@ cartItems.forEach(async (item) => {
   // productqty.innerText=`Qty ${item.quantity}`;
 
   const cartTable = document.querySelector(".productdetails");
-  const productRow = document.createElement('div');
-  productRow.classList.add('row', 'cart-item','d-flex', 'mb-3','justify-content-between','align-content-between');
+  const productRow = document.createElement("div");
+  productRow.classList.add(
+    "row",
+    "cart-item",
+    "d-flex",
+    "mb-3",
+    "justify-content-between",
+    "align-content-between"
+  );
 
   productRow.innerHTML = `
     <div class="col-6 cart-item-image d-flex justify-content-between align-content-between">  
@@ -90,12 +98,8 @@ cartItems.forEach(async (item) => {
 
   cartTable.appendChild(productRow);
 
-
-
-
   console.log(response);
   console.log(data);
-
 });
 totaltext.innerHTML = `${totalPrice}`;
 paymentbtn.innerHTML = `Pay $ ${totalPrice}`;
@@ -114,13 +118,11 @@ paymentbtn.addEventListener("click", () => {
       product,
       quantity,
       total,
-      createdAt
+      createdAt,
     };
     console.log(data);
     await addCart(data);
   });
   localStorage.removeItem("cart");
   window.location.href = "../index.html";
-})
-
-
+});
