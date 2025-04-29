@@ -1,7 +1,8 @@
+import { getProduct, getSeller } from "../../shared/Api.js";
 import createId from "./createId.js";
 import getCurrentTimestamp from "./setTime.js";
 
-export function addToCart(
+export async function addToCart(
     productId,
     name,
     price,
@@ -34,6 +35,7 @@ export function addToCart(
       carts[productIndex].total =
         carts[productIndex].quantity * price_after_discount;
     } else {
+      const product = await getProduct(productId);
       const newCart = {
         id: createId(),
         customer: localStorage.getItem("Id"),
@@ -42,6 +44,8 @@ export function addToCart(
         name: name,
         price: price,
         stock: stock,
+        seller: product.seller,
+        price_after_discount: price_after_discount,
         total: price_after_discount * quantity,
         createdAt: getCurrentTimestamp(),
       };

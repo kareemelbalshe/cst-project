@@ -115,38 +115,33 @@ export async function addCart(body) {
     body: JSON.stringify(body),
   });
 
-  const cartItem = await res.json();
+  console.log(body);
 
+  const cartItem = await res.json();
   const product = await getProduct(body.product);
 
-  const updatedProduct = {
-    ...product,
-    sales: (product.sales || 0) + (body.quantity || 1),
-    quantity: (product.quantity || 0) - (body.quantity || 1),
-  };
+  const qty = body.quantity || 1;
+  const price = body.price || product.price;
 
-  await updateProduct(product.id, updatedProduct);
+  const updatedProduct = {
+    quantity: (product.quantity || 0) - qty,
+    sales: (product.sales || 0) + qty,
+  };
+  await updateProduct(body.product, updatedProduct);
 
   const customer = await getCustomer(body.customer);
-
   const updatedCustomer = {
-    ...customer,
-    totalSpent: (customer.totalSpent || 0) + (body.quantity || 1) * body.price,
-    numSells: (customer.numSells || 0) + body.quantity,
+    numBuys: (customer.numBuys || 0) + qty,
+    totalSpent: (customer.totalSpent || 0) + parseFloat(body.total),
   };
-
-  await updateCustomer(customer.id, updatedCustomer);
+  await updateCustomer(body.customer, updatedCustomer);
 
   const seller = await getSeller(product.seller);
-
   const updatedSeller = {
-    ...seller,
-    totalRevenue:
-      (seller.totalRevenue || 0) + (body.quantity || 1) * body.price,
-    numSells: (seller.numSells || 0) + body.quantity,
+    numSells: (seller.numSells || 0) + qty,
+    totalRevenue: (seller.totalRevenue || 0) + parseFloat(body.total),
   };
-
-  await updateSeller(seller.id, updatedSeller);
+  await updateSeller(product.seller, updatedSeller);
 
   return cartItem;
 }
@@ -424,7 +419,7 @@ export async function registerSeller(body) {
 
 export async function updateSeller(id, body) {
   const res = await fetch(`http://localhost:5000/sellers/${id}`, {
-    method: "PUT",
+    method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
