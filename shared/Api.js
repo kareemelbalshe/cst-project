@@ -238,7 +238,6 @@ export async function addReview(body) {
   const newRating = totalStars / totalRatings;
 
   const updatedProduct = {
-    ...product,
     reviewIds: [...(product.reviewIds || []), review.id],
     totalRatings,
     totalStars,
@@ -267,7 +266,6 @@ export async function editReview(id, updatedReview) {
   const newReview = await res.json();
 
   const updatedProduct = {
-    ...product,
     totalStars: newTotalStars,
     rating: Number(rating.toFixed(1)),
   };
@@ -288,7 +286,6 @@ export async function deleteReview(id) {
   const newRating = newTotalRatings > 0 ? newTotalStars / newTotalRatings : 0;
 
   const updatedProduct = {
-    ...product,
     reviewIds: newReviewIds,
     totalRatings: newTotalRatings,
     totalStars: newTotalStars,

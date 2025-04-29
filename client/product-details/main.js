@@ -1,4 +1,10 @@
-import { logout, addReview, getReviews, getProduct, getCategory } from "../../shared/Api.js";
+import {
+  logout,
+  addReview,
+  getReviews,
+  getProduct,
+  getCategory,
+} from "../../shared/Api.js";
 import createId from "../js/createId.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,8 +48,8 @@ document.addEventListener("DOMContentLoaded", () => {
     cartLink.href = "../cart/index.html";
     cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
 
-    headerActions.appendChild(cartLink);
     headerActions.appendChild(logoutBtn);
+    headerActions.appendChild(cartLink);
   }
 
   function handleStarClick(index) {
@@ -84,25 +90,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const reviewBody = {
-      id:createId(),
+      id: createId(),
       stars: selectedStars,
       comment: commentInput.value.trim(),
       product: productId,
       user: currentUser.id,
       userName: currentUser.name,
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
     };
 
     try {
-      await addReview(reviewBody); 
-      
+      await addReview(reviewBody);
+
       const reviewElement = document.createElement("div");
       reviewElement.className = "border-bottom pb-2 mb-2";
 
       reviewElement.innerHTML = `
         <div class="d-flex justify-content-between align-items-center">
           <strong>${currentUser.name}</strong>
-          <small class="text-muted">${new Date(reviewBody.createdAt).toLocaleString()}</small>
+          <small class="text-muted">${new Date(
+            reviewBody.createdAt
+          ).toLocaleString()}</small>
         </div>
         <div class="mb-1">
           ${"★".repeat(reviewBody.stars)}${"☆".repeat(5 - reviewBody.stars)}
@@ -111,11 +119,10 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
 
       commentList.prepend(reviewElement);
-      
+
       commentInput.value = "";
       selectedStars = 0;
-      handleStarClick(-1); 
-
+      handleStarClick(-1);
     } catch (error) {
       console.error(error);
       alert("Failed to submit review. Try again later.");
@@ -125,7 +132,9 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadReviews() {
     try {
       const allReviews = await getReviews();
-      const productReviews = allReviews.filter((review) => review.product === productId);
+      const productReviews = allReviews.filter(
+        (review) => review.product === productId
+      );
 
       commentList.innerHTML = "";
 
@@ -141,10 +150,14 @@ document.addEventListener("DOMContentLoaded", () => {
         reviewElement.innerHTML = `
           <div class="d-flex justify-content-between align-items-center">
             <strong>${review.userName}</strong>
-            <small class="text-muted">${new Date(review.createdAt).toLocaleString()}</small>
+            <small class="text-muted">${new Date(
+              review.createdAt
+            ).toLocaleString()}</small>
           </div>
           <div class="mb-1">
-            ${"★".repeat(review.stars)}${"☆".repeat(5 - review.stars)}
+            ${"⭐".repeat(review.stars)}${`<i class="bi bi-star"></i>`.repeat(
+          5 - review.stars
+        )}
           </div>
           <p>${review.comment}</p>
         `;
@@ -158,26 +171,52 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   async function loadProduct() {
-      const product = await getProduct(productId);
+    const product = await getProduct(productId);
 
-      console.log(product)
+    const Category = await getCategory(product.category);
+    // Update product name
+    productName.textContent = product.name;
 
-      const Category=await getCategory(product.category)
-      // Update product name
-      productName.textContent = product.name;
-      
-      // Set image properties and ensure it's visible
-      productImage.src = product.image;
-      productImage.alt = product.name;
-      
-      // Update product description
-      productDescription.textContent = product.description;
+    // Set image properties and ensure it's visible
+    productImage.src = product.image;
+    productImage.alt = product.name;
 
-      // Update product details - fixing the spacing in the text formatting
-      productDetailsList[0].textContent = `Name: ${product.name}`;
-      productDetailsList[1].textContent = `Price: ${product.price}$  Discount: ${product.discount}%`;
-      productDetailsList[2].textContent = `Category: ${Category.name}`;
-      productDetailsList[3].textContent = `Rating: ${product.rating}⭐`;
+    // Update product description
+    productDescription.textContent = product.description;
+
+    // Update product details - fixing the spacing in the text formatting
+    productDetailsList[0].textContent = `Name: ${product.name}`;
+    if (product.discount > 0) {
+      const discountedPrice = (
+        product.price *
+        (1 - product.discount / 100)
+      ).toFixed(2);
+      productDetailsList[1].innerHTML = `
+          <span style="text-decoration: line-through; color: gray; font-size: 0.9em;">
+            ${product.price}$
+          </span>
+          <span style="color: green; font-weight: bold; margin-left: 8px;">
+            ${discountedPrice}$
+          </span>
+          <span style="color: red; margin-left: 8px;">
+            (${product.discount}% OFF)
+          </span>
+        `;
+    } else {
+      productDetailsList[1].innerHTML = `
+          <span style="font-weight: bold; color: black;">
+            ${product.price}$
+          </span>
+        `;
+    }
+    productDetailsList[2].textContent = `Category: ${Category.name}`;
+    productDetailsList[3].textContent = `Rating: ${product.rating}⭐`;
+    productDetailsList[4].textContent = `Reviews: ${product.totalRatings}`;
+    productDetailsList[5].textContent = `Sales: ${product.sales}`;
+    productDetailsList[6].textContent = `Quantity: ${product.quantity}`;
+    productDetailsList[7].textContent = `Created At: ${new Date(
+      product.createdAt
+    ).toLocaleString()}`;
   }
 
   // Initialize

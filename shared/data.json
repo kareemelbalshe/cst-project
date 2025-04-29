@@ -116,7 +116,15 @@
       "quantity": 10,
       "image": "https://i.ibb.co/4j3m5kH/kareem.jpg",
       "seller": "id-m9pneidhexdkc",
-      "createdAt": "2025-04-20T12:51:21.684Z"
+      "createdAt": "2025-04-20T12:51:21.684Z",
+      "reviewIds": [
+        "id-ma2l6xs9lywed",
+        "id-ma2lamu2411u6",
+        "id-ma2lme3jhdhko"
+      ],
+      "totalRatings": 3,
+      "totalStars": 14,
+      "rating": 4.7
     },
     {
       "id": "id-m9pneidhexdke",
@@ -436,6 +444,34 @@
       "createdAt": "2025-04-23T17:42:59.642Z"
     }
   ],
-  "reviews": [],
+  "reviews": [
+    {
+      "id": "id-ma2l6xs9lywed",
+      "stars": 5,
+      "comment": "omg",
+      "product": "id-m9pnboici6awn",
+      "user": "id-m9pneidhexdkm",
+      "userName": "kareem",
+      "createdAt": "2025-04-29T14:12:41.481Z"
+    },
+    {
+      "id": "id-ma2lamu2411u6",
+      "stars": 5,
+      "comment": "ok",
+      "product": "id-m9pnboici6awn",
+      "user": "id-m9pneidhexdkm",
+      "userName": "kareem",
+      "createdAt": "2025-04-29T14:15:33.914Z"
+    },
+    {
+      "id": "id-ma2lme3jhdhko",
+      "stars": 4,
+      "comment": "ok",
+      "product": "id-m9pnboici6awn",
+      "user": "id-m9pneidhexdkm",
+      "userName": "kareem",
+      "createdAt": "2025-04-29T14:24:42.463Z"
+    }
+  ],
   "site_reviews": []
 }
