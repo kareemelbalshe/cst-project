@@ -1,25 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Product Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="../style.css" />
+    <link rel="icon" href="../assets/logoSite.icon" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Product Details</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
-  <link rel="stylesheet" href="../style.css">
-</head>
-
-<body>
-  <!-- Header -->
-  <header
+  <body>
+    <header
       class="container-fluid border-bottom border-3 border-dark bg-white sticky-top"
     >
       <nav class="navbar navbar-expand-lg container">
         <div class="container-fluid">
           <a class="navbar-brand" href="../index.html">
-            <img src="../../headerLogo.png" style="width: 100px" alt="Logo" />
+            <img src="../assets/headerLogo.png" style="width: 100px" alt="Logo" />
           </a>
 
           <button
@@ -69,87 +75,113 @@
       </nav>
     </header>
 
-  <!-- Main Content -->
-  <div class="container my-5">
-    <!-- Product Name -->
-    <h1 class="mb-4 text-center" id="product-name">Loading...</h1>
+    <!-- Main Content -->
+    <div class="container my-5">
+      <!-- Product Name -->
+      <h1 class="mb-4 text-center" id="product-name">Loading...</h1>
 
-    <!-- Product Image - Fixed container to ensure it shows up -->
-    <div class="text-center mb-4">
-      <img id="product-image" src="" class="img-fluid" style="max-height: 400px; object-fit: contain; display: block; margin: 0 auto;"
-        alt="Product Image" />
-    </div>
-
-    <!-- Product Description -->
-    <div class="mb-4">
-      <h4>Description</h4>
-      <p id="product-description">Loading...</p>
-    </div>
-
-    <!-- Product Details -->
-    <div class="mb-5">
-      <h4>Product Details</h4>
-      <ul class="list-group" id="product-details">
-        <li class="list-group-item">Name: Loading...</li>
-        <li class="list-group-item">Price: Loading...</li>
-        <li class="list-group-item">Category: Loading...</li>
-        <li class="list-group-item">Category: Loading...</li>
-      </ul>
-    </div>
-
-    <!-- Rating and Comment Section -->
-    <div class="mb-5">
-      <h4>Rate this Product</h4>
-
-      <!-- Star Rating -->
-      <div class="mb-3" id="starContainer">
-        <i class="bi bi-star fs-4"></i>
-        <i class="bi bi-star fs-4"></i>
-        <i class="bi bi-star fs-4"></i>
-        <i class="bi bi-star fs-4"></i>
-        <i class="bi bi-star fs-4"></i>
+      <!-- Product Image - Fixed container to ensure it shows up -->
+      <div class="text-center mb-4">
+        <img
+          id="product-image"
+          src=""
+          class="img-fluid"
+          style="
+            max-height: 400px;
+            object-fit: contain;
+            display: block;
+            margin: 0 auto;
+          "
+          alt="Product Image"
+        />
       </div>
 
-      <!-- Comment Box -->
-      <div class="mb-3">
-        <label for="comment" class="form-label">Your Comment</label>
-        <textarea class="form-control" id="comment" rows="4" placeholder="Write your review..."></textarea>
+      <!-- Product Description -->
+      <div class="mb-4">
+        <h4>Description</h4>
+        <p id="product-description">Loading...</p>
       </div>
 
-      <!-- Submit Button -->
-      <button class="btn btn-success" id="submitReview">
-        <i class="bi bi-send"></i> Submit Review
-      </button>
+      <!-- Product Details -->
+      <div class="">
+        <h4>Product Details</h4>
+        <ul class="list-group" id="product-details">
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+          <li class="list-group-item">Loading...</li>
+        </ul>
+        <button class="btn btn-dark my-4 mx-auto" id="addToCartButton">
+          <i class="bi bi-cart-plus"></i> Add to Cart
+        </button>
+      </div>
+
+      <!-- Rating and Comment Section -->
+      <div class="mb-5">
+        <h4>Rate this Product</h4>
+
+        <!-- Star Rating -->
+        <div class="mb-3" id="starContainer">
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+          <i class="bi bi-star fs-4"></i>
+        </div>
+
+        <!-- Comment Box -->
+        <div class="mb-3">
+          <label for="comment" class="form-label">Your Comment</label>
+          <textarea
+            class="form-control"
+            id="comment"
+            rows="4"
+            placeholder="Write your review..."
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-success" id="submitReview">
+          <i class="bi bi-send"></i> Submit Review
+        </button>
+      </div>
+
+      <!-- Display Comments -->
+      <div class="mt-4">
+        <h5>Previous Reviews</h5>
+        <div id="commentList" class="border rounded p-3 bg-light"></div>
+      </div>
+
+      <!-- Back to Catalog Button -->
+      <div class="text-center mt-4">
+        <a href="../index.html" class="btn btn-primary">
+          <i class="bi bi-arrow-left"></i> Back to Home
+        </a>
+      </div>
     </div>
 
-    <!-- Display Comments -->
-    <div class="mt-4">
-      <h5>Previous Reviews</h5>
-      <div id="commentList" class="border rounded p-3 bg-light"></div>
-    </div>
-
-    <!-- Back to Catalog Button -->
-    <div class="text-center mt-4">
-      <a href="../index.html" class="btn btn-primary">
-        <i class="bi bi-arrow-left"></i> Back to Home
-      </a>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer style="
+    <!-- Footer -->
+    <footer
+      style="
         background: var(--white-color);
         border-top: 3px solid var(--black-color);
-      " class="container-fluid d-flex justify-content-center align-items-center">
-    copyright 2025 by
-    <img style="width: 100px" src="../../copyright.png" alt="" />
-  </footer>
+      "
+      class="container-fluid d-flex justify-content-center align-items-center"
+    >
+      copyright 2025 by
+      <img style="width: 100px" src="../assets/copyright.png" alt="" />
+    </footer>
 
-  <!-- Scripts -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
-    crossorigin="anonymous"></script>
-  <script src="main.js" type="module"></script>
-</body>
-
+    <!-- Scripts -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+      crossorigin="anonymous"
+    ></script>
+    <script src="main.js" type="module"></script>
+  </body>
 </html>

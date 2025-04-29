@@ -47,6 +47,7 @@ const paginationContainer = document.getElementById("pagination-container");
 paginationContainer.className = "d-flex justify-content-center my-4";
 
 let allProducts = await getProducts();
+allProducts = allProducts.filter((product) => product.quantity > 0);
 let currentPage = 1;
 const pageSize = 6;
 
