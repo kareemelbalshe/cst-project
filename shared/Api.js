@@ -41,17 +41,6 @@ export async function getProducts() {
   return data;
 }
 
-export async function getProductDetail(id) {
-  const res = await fetch(`http://localhost:5000/products/${id}`);
-  const data = await res.json();
-
-  const category = await getCategory(data.category);
-  const reviews = await Promise.all(
-    data.map((item) => item.reviewIds.map((id) => getReview(id)))
-  );
-  return { data, category, reviews };
-}
-
 export async function getProduct(id) {
   const res = await fetch(`http://localhost:5000/products/${id}`);
   const data = await res.json();
