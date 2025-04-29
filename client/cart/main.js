@@ -110,18 +110,30 @@ function updateCartTotals() {
   document.querySelector(".subtotal").textContent = `EGP${subtotal.toFixed(2)}`;
   document.querySelector(".total").textContent = `EGP${total.toFixed(2)}`;
 }
+function showToast(message, type = 'danger') {
+  const toastEl = document.getElementById('customToast');
+  const toastBody = document.getElementById('toastMessage');
+
+  toastBody.textContent = message;
+  toastEl.className = `toast align-items-center text-bg-${type} border-0`;
+
+  const toast = new bootstrap.Toast(toastEl);
+  toast.show();
+}
 
 function handleCheckout() {
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
 
   if (cartItems.length === 0) {
-    alert("Your cart is empty. Please add items to your cart before checking out.");
+    // alert("Your cart is empty. Please add items to your cart before checking out.");
+    showToast("Your cart is empty. Please add items to your cart before checking out.");
     return;
   }
 
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
-    alert("Please log in to proceed with checkout.");
+    // alert("Please log in to proceed with checkout.");
+    showToast("Please log in to proceed with checkout.");
     window.location.href = "../login/index.html";
     return;
   }
