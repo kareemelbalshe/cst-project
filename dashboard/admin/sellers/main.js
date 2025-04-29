@@ -3,8 +3,8 @@ import { renderDataTable } from "../../js/table.js";
 
 window.addEventListener("load", () => {
   if (
-    localStorage.getItem("isLoggedIn") !== true &&
-    localStorage.getItem("isAdmin") !== true
+    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../index.html";
   }
@@ -12,8 +12,8 @@ window.addEventListener("load", () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") !== true &&
-    localStorage.getItem("isAdmin") !== true
+    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../index.html";
   }

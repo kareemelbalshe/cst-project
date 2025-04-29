@@ -191,8 +191,7 @@
       ],
       "totalRatings": 3,
       "totalStars": 10,
-      "rating": 3.3
-
+      "rating": 3.3,
       "sales": 2
     },
     {
@@ -213,7 +212,7 @@
       ],
       "totalRatings": 2,
       "totalStars": 8,
-      "rating": 4
+      "rating": 4,
       "sales": 2
     },
     {
@@ -427,8 +426,6 @@
       "customer": "id-m9uawsy9dhsmn",
       "product": "id-m9pnboici6awn",
       "quantity": 4,
-      "total": null,
-      "createdAt": "2025-04-29T12:35:38.431Z"
       "seller": "id-m9pneidhexdkc",
       "total": "95.00",
       "createdAt": "2025-04-29T14:08:06.331Z"
