@@ -44,13 +44,21 @@ const totalProductsBought = document.getElementById("totalProductsBought");
 const profileImageInput = document.getElementById("profileImage");
 const profileImagePreview = document.getElementById("profileImagePreview");
 
-// Load customer data
+const toastLive = document.getElementById("liveToast");
+const toastBootstrap = new bootstrap.Toast(toastLive);
+const toastTitle = document.getElementById("toastTitle");
+const toastBody = document.getElementById("toastBody");
+
 async function loadCustomerData() {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   if (!currentUser) {
-    alert("You must be logged in to view your profile.");
-    window.location.href = "../login/index.html";
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "You must be logged in to view your profile.";
+    toastBootstrap.show();
+    setTimeout(() => {
+      window.location.href = "../login/index.html";
+    }, 1500);
     return;
   }
 
@@ -65,14 +73,15 @@ async function loadCustomerData() {
       totalAmountSpent.innerText = `$${(customer.totalSpent || 0).toFixed(2)}`;
       totalProductsBought.innerText = customer.numBuys || 0;
 
-      // Optionally display the current image (base64 or URL)
       if (customer.image) {
-        profileImagePreview.src = customer.image; // Show the current profile image
+        profileImagePreview.src = customer.image;
       }
     }
   } catch (error) {
     console.error("Error loading customer data:", error);
-    alert("Failed to load profile data. Please try again.");
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Failed to load profile data. Please try again.";
+    toastBootstrap.show();
   }
 }
 
@@ -82,17 +91,41 @@ profileForm.addEventListener("submit", async function (event) {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   if (!currentUser) {
-    alert("You must be logged in to update your profile.");
-    window.location.href = "../login/index.html";
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "You must be logged in to update your profile.";
+    toastBootstrap.show();
+    setTimeout(() => {
+      window.location.href = "../login/index.html";
+    }, 1500);
     return;
   }
 
   try {
-    // If an image is selected, resize it and convert to base64
+    // Validation check
+    if (
+      !nameInput.value.trim() ||
+      !emailInput.value.trim() ||
+      !addressInput.value.trim() ||
+      !phoneInput.value.trim()
+    ) {
+      toastTitle.innerHTML = "Validation Error";
+      toastBody.innerHTML = "All fields are required.";
+      toastBootstrap.show();
+      return;
+    }
+
+    const emailValue = emailInput.value.trim();
+    if (!emailValue.includes("@") || !emailValue.endsWith(".com")) {
+      toastTitle.innerHTML = "Validation Error";
+      toastBody.innerHTML = "Please enter a valid email (must contain @ and end with .com).";
+      toastBootstrap.show();
+      return;
+    }
+
     let imageBase64 = null;
     if (profileImageInput.files && profileImageInput.files[0]) {
       const file = profileImageInput.files[0];
-      imageBase64 = await resizeImage(file); 
+      imageBase64 = await resizeImage(file);
     }
 
     const updatedCustomerData = {
@@ -100,29 +133,34 @@ profileForm.addEventListener("submit", async function (event) {
       email: emailInput.value,
       address: addressInput.value,
       phone: phoneInput.value,
-      image: imageBase64, 
+      image: imageBase64,
     };
 
     const updatedCustomer = await updateCustomer(currentUser.id, updatedCustomerData);
 
     if (updatedCustomer) {
-      alert("Profile updated successfully!");
+      toastTitle.innerHTML = "Success";
+      toastBody.innerHTML = "Profile updated successfully!";
+      toastBootstrap.show();
     } else {
-      alert("Something went wrong. Please try again.");
+      toastTitle.innerHTML = "Error";
+      toastBody.innerHTML = "Something went wrong. Please try again.";
+      toastBootstrap.show();
     }
   } catch (error) {
     console.error("Error updating profile:", error);
-    alert("Failed to update profile. Please try again.");
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Failed to update profile. Please try again.";
+    toastBootstrap.show();
   }
 });
 
-// Event listener for profile image preview
 profileImageInput.addEventListener("change", function () {
   if (this.files && this.files[0]) {
     const reader = new FileReader();
 
     reader.onload = function (e) {
-      profileImagePreview.src = e.target.result; // Preview the selected image
+      profileImagePreview.src = e.target.result;
     };
 
     reader.readAsDataURL(this.files[0]);

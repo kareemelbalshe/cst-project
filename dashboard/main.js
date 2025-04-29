@@ -27,6 +27,19 @@ window.addEventListener("load", () => {
 
 loginFormDashboard.addEventListener("submit", (e) => {
   e.preventDefault();
+
+  // Check for empty fields
+  if (
+    emailInput.value.trim() === "" ||
+    passwordInput.value.trim() === "" ||
+    roleInput.value === ""
+  ) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please fill in all fields.";
+    toastBootstrap.show();
+    return;
+  }
+
   if (roleInput.value === "admin") {
     loginAdmin({
       email: emailInput.value,
@@ -36,12 +49,11 @@ loginFormDashboard.addEventListener("submit", (e) => {
         window.location.href = "./admin/index.html";
       } else {
         toastTitle.innerHTML = "Error";
-        toastBody.innerHTML = "email or password is incorrect";
+        toastBody.innerHTML = "Email or password is incorrect.";
         toastBootstrap.show();
       }
     });
-  }
-  if (roleInput.value === "seller") {
+  } else if (roleInput.value === "seller") {
     loginSeller({
       email: emailInput.value,
       password: passwordInput.value,
@@ -50,13 +62,13 @@ loginFormDashboard.addEventListener("submit", (e) => {
         window.location.href = "./seller-dashboard/index.html";
       } else {
         toastTitle.innerHTML = "Error";
-        toastBody.innerHTML = "email or password is incorrect";
+        toastBody.innerHTML = "Email or password is incorrect.";
         toastBootstrap.show();
       }
     });
   } else {
     toastTitle.innerHTML = "Error";
-    toastBody.innerHTML = "Please select a role";
+    toastBody.innerHTML = "Please select a valid role.";
     toastBootstrap.show();
   }
 });

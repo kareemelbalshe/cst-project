@@ -1,23 +1,55 @@
-import { loginSeller, registerSeller} from "../../../shared/Api.js";
+import { loginSeller, registerSeller } from "../../../shared/Api.js";
 import createId from "../../js/createId.js";
 import getCurrentTimestamp from "../../js/setTime.js";
 
 const form = document.querySelector("form");
 
+const toastLive = document.getElementById("liveToast");
+const toastBootstrap = new bootstrap.Toast(toastLive);
+const toastTitle = document.getElementById("toastTitle");
+const toastBody = document.getElementById("toastBody");
+
 form.addEventListener("submit", async function (e) {
   e.preventDefault();
 
   const id = createId();
-  const name = document.getElementById("sellername").value;
-  const email = document.getElementById("selleremail").value;
-  const password = document.getElementById("sellerpassword").value;
-  const confirmPassword = document.getElementById("sellerconfirmPassword").value;
-  const phone = document.getElementById("sellerphone").value;
-  const address = document.getElementById("sellerAddress").value;
+  const name = document.getElementById("sellername").value.trim();
+  const email = document.getElementById("selleremail").value.trim();
+  const password = document.getElementById("sellerpassword").value.trim();
+  const confirmPassword = document.getElementById("sellerconfirmPassword").value.trim();
+  const phone = document.getElementById("sellerphone").value.trim();
+  const address = document.getElementById("sellerAddress").value.trim();
   const createdAt = getCurrentTimestamp();
 
-  if (password !== confirmPassword) {  
-    alert("Passwords don't match!");
+  // Check for empty fields
+  if (!name || !email || !password || !confirmPassword || !phone || !address) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "All fields are required.";
+    toastBootstrap.show();
+    return;
+  }
+
+  // Email validation
+  if (!email.includes("@") || !email.endsWith(".com")) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid email address (must contain @ and end with .com).";
+    toastBootstrap.show();
+    return;
+  }
+
+  // Password length validation
+  if (password.length < 6) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Password must be at least 6 characters.";
+    toastBootstrap.show();
+    return;
+  }
+
+  // Password match validation
+  if (password !== confirmPassword) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Passwords don't match!";
+    toastBootstrap.show();
     return;
   }
 
@@ -31,10 +63,24 @@ form.addEventListener("submit", async function (e) {
     createdAt,
   };
 
-  await registerSeller(newSeller);
-  await loginSeller({email, password});
-  alert("Welcome")
-  window.location.href = "../index.html";
+  try {
+    await registerSeller(newSeller);
+    await loginSeller({ email, password });
+
+    toastTitle.innerHTML = "Success";
+    toastBody.innerHTML = "Welcome!";
+    toastBootstrap.show();
+
+    setTimeout(() => {
+      window.location.href = "../index.html";
+    }, 1500);
+
+  } catch (error) {
+    console.error("Error registering seller:", error);
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Failed to register. Please try again.";
+    toastBootstrap.show();
+  }
 });
 
 window.addEventListener("load", () => {

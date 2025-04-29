@@ -16,8 +16,36 @@ form.addEventListener("submit", async function (e) {
   const address = document.getElementById("Address").value;
   const createdAt = getCurrentTimestamp();
 
+  const toastLive = document.getElementById("liveToast");
+  const toastBootstrap = new bootstrap.Toast(toastLive);
+  const toastTitle = document.getElementById("toastTitle");
+  const toastBody = document.getElementById("toastBody");
+
+  if (!name || !email || !password || !confirmPassword || !phone || !address) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "All fields must be filled.";
+    toastBootstrap.show();
+    return;
+  }
+
+  if (!email.includes("@") || !email.endsWith(".com")) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Email must contain '@' and end with '.com'";
+    toastBootstrap.show();
+    return;
+  }
+
+  if (password.length < 6) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Password must be at least 6 characters.";
+    toastBootstrap.show();
+    return;
+  }
+
   if (password !== confirmPassword) {
-    alert("Passwords don't match!");
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Passwords don't match!";
+    toastBootstrap.show();
     return;
   }
 
@@ -51,16 +79,25 @@ form.addEventListener("submit", async function (e) {
         })
       );
 
-      alert("Login successful!");
-      window.location.href = "../index.html";
+      toastTitle.innerHTML = "Success";
+      toastBody.innerHTML = "Login successful!";
+      toastBootstrap.show();
+
+      setTimeout(() => {
+        window.location.href = "../index.html";
+      }, 1500);
+
     } else {
-      alert("Invalid email or password. Please try again.");
+      toastTitle.innerHTML = "Error";
+      toastBody.innerHTML = "Invalid email or password. Please try again.";
+      toastBootstrap.show();
     }
   } catch (err) {
     console.error("Login failed:", err);
-    alert("Login failed. Please try again later.");
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Login failed. Please try again later.";
+    toastBootstrap.show();
   }
-  window.location.href = "../index.html";
 });
 
 window.addEventListener("load", () => {

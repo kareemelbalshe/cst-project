@@ -120,19 +120,19 @@
             id="profilename"
             name="name"
             placeholder="Your full name"
-            required
+            
           />
         </div>
 
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
           <input
-            type="email"
+            type="text"
             class="form-control"
             id="profileemail"
             name="email"
             placeholder="you@example.com"
-            required
+            
           />
         </div>
 
@@ -144,7 +144,7 @@
             id="profileaddress"
             name="address"
             placeholder="Your full address"
-            required
+            
           />
         </div>
 
@@ -156,7 +156,6 @@
             id="profilephone"
             name="phone"
             placeholder="Your phone number"
-            required
           />
         </div>
 
@@ -174,6 +173,28 @@
           <button type="submit" class="btn btn-dark">Update</button>
         </div>
       </form>
+      <div class="toast-container position-fixed top-0 start-0 p-3">
+        <div
+          style="background-color: var(--danger-color)"
+          id="liveToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong id="toastTitle" class="me-auto"></strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="toastBody" class="toast-body"></div>
+        </div>
+      </div>
+      
     </main>
 
     <footer
