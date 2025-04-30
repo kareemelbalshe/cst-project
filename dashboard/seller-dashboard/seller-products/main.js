@@ -39,5 +39,5 @@ renderDataTable({
     await deleteProduct(id);
   },
   editUrl: "./edit-product/index.html",
-  //   viewUrl: "./view-product/index.html",
+  viewUrl: "./view-product/index.html",
 });

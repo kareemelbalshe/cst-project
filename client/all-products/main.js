@@ -101,10 +101,10 @@ async function displayProducts(keyword = "", category = "") {
     <div class="row align-items-center g-5">
       <div class="col-md-6">
         <div class="card product-card shadow-lg p-4">
-    <div class="card-body">
+    <div class="card-body position-relative">
       <a 
         href="../product-details/index.html?id=${product.id}" 
-        class="eye-icon position-fixed top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
+        class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
         style="width: 40px; height: 40px;z-index: 1000;"
       >
         <i class="bi bi-eye fs-4 text-primary"></i>
