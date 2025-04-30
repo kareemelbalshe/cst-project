@@ -15,7 +15,7 @@ console.log(product);
 
 window.addEventListener("load", async () => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isSeller") !== "true"
   ) {
     window.location.href = "../../../index.html";
@@ -51,7 +51,7 @@ populateForm();
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isSeller") !== "true"
   ) {
     window.location.href = "../../../index.html";

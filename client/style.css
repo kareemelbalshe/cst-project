@@ -21,6 +21,80 @@ body {
   font-family: var(--font-family-sans-serif);
 }
 
+.categoryItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: var(--white-color);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+}
+
+.categoryItem:hover {
+  transform: scale(1.05);
+}
+
+.bgGradient {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  color: var(--white-color);
+}
+
+.bgGradient:hover {
+  background: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+  color: var(--white-color);
+}
+
+.hTwo {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--secondary-color);
+  text-align: center;
+  margin: 20px auto;
+  width: fit-content;
+  position: relative;
+}
+
+.hTwo::before {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 5px;
+  background-color: var(--primary-color);
+  border-radius: 20px;
+  top: -2px;
+}
+
+.hTwo::after {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 5px;
+  background-color: var(--primary-color);
+  bottom: -2px;
+  right: 0;
+  border-radius: 20px;
+}
+
+.hTwo:hover::before {
+  width: 100%;
+  transition: 0.9s ease-in-out;
+}
+
+.hTwo:hover::after {
+  width: 100%;
+  transition: 0.9s ease-in-out;
+}
+
 .btn {
   display: flex;
   gap: 5px;
@@ -60,13 +134,29 @@ body {
   transform: scale(1.02);
 }
 
+.eye-icon {
+  display: none;
+}
+
+.product-card:hover .eye-icon {
+  display: block;
+}
+
 .add-to-cart-btn {
-  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
   border: none;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .add-to-cart-btn:hover {
   transform: scale(1.05);
-  background: linear-gradient(to right, var(--secondary-color), var(--primary-color));
+  background: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
 }

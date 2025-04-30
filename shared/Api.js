@@ -110,12 +110,17 @@ export async function addCart(body) {
   const product = await getProduct(body.product);
 
   const qty = body.quantity || 1;
-  const price = body.price || product.price;
 
   const updatedProduct = {
     quantity: (product.quantity || 0) - qty,
     sales: (product.sales || 0) + qty,
   };
+  if (updatedProduct.quantity < 0) {
+    return {
+      success: false,
+      message: "Cannot add negative quantity to product",
+    };
+  }
   await updateProduct(body.product, updatedProduct);
 
   const customer = await getCustomer(body.customer);
@@ -206,9 +211,7 @@ export async function getReviews() {
 export async function getReview(id) {
   const res = await fetch(`http://localhost:5000/reviews/${id}`);
   const data = await res.json();
-  const product = await getProduct(data.product);
-  const customer = await getCustomer(data.customer);
-  return { data, product, customer };
+  return data;
 }
 
 export async function addReview(body) {
@@ -300,8 +303,9 @@ export async function getSiteReviews() {
   return await res.json();
 } 
 
+
 export async function getSiteReview(id) {
-  const res = await fetch(`http://localhost:5000/site-reviews/${id}`);
+  const res = await fetch(`http://localhost:5000/site_reviews/${id}`);
   const data = await res.json();
   return data;
 }

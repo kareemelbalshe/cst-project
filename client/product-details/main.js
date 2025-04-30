@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         stars: selectedStars,
         comment: commentInput.value.trim(),
         product: productId,
-        user: currentUser.id,
+        customer: currentUser.id,
         userName: currentUser.name,
         createdAt: new Date().toISOString(),
       };
