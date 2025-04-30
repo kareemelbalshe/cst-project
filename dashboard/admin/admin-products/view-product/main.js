@@ -2,7 +2,7 @@ import { logout, getProduct, getSeller, getCategory } from "../../../../shared/A
 
 window.addEventListener("load", async () => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../../index.html";
@@ -59,7 +59,7 @@ window.addEventListener("load", async () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../../index.html";

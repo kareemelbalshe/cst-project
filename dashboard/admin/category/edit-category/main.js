@@ -48,7 +48,7 @@ window.addEventListener("load", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
   const isAdmin = localStorage.getItem("isAdmin") === "true";
 
-  if (!isLoggedIn && !isAdmin) {
+  if (!isLoggedIn || !isAdmin) {
     window.location.href = "../../../index.html";
     return;
   }
@@ -56,7 +56,7 @@ window.addEventListener("load", () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../../../index.html";

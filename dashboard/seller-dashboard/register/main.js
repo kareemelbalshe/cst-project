@@ -116,7 +116,7 @@ window.addEventListener("load", () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") === "true" &&
+    localStorage.getItem("isLoggedIn") === "true" ||
     localStorage.getItem("isSeller") === "true"
   ) {
     window.location.href = "../index.html";
