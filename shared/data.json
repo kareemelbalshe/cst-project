@@ -118,9 +118,7 @@
       "totalRatings": 1,
       "reviews": [],
       "createdAt": "2025-04-29T18:11:59.995Z",
-      "reviewIds": [
-        "id-ma2v79yiaodao"
-      ]
+      "reviewIds": ["id-ma2v79yiaodao"]
     },
     {
       "id": "id-ma2ui66rj42mc",
@@ -474,7 +472,8 @@
       "stars": 5,
       "comment": "dawood",
       "customer": "id-ma3vmj71hq8zx"
-},{
+    },
+    {
       "id": "id-ma3tq0lgqgnrq",
       "stars": 4,
       "comment": "it is great",

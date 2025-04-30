@@ -301,8 +301,7 @@ export async function getSiteReviews() {
     throw new Error(`Failed to fetch site reviews. Server says: ${text}`);
   }
   return await res.json();
-} 
-
+}
 
 export async function getSiteReview(id) {
   const res = await fetch(`http://localhost:5000/site_reviews/${id}`);
@@ -332,7 +331,6 @@ export async function deleteSiteReview(id) {
   const data = await res.json();
   return data;
 }
-
 
 export async function getCustomers() {
   const res = await fetch("http://localhost:5000/customers");
