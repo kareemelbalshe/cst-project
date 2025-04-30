@@ -14,6 +14,17 @@
       "numBuys": 4,
       "totalSpent": 29688,
       "createdAt": "2025-04-29T18:07:02.171Z"
+    },
+    {
+      "id": "id-ma3vmj71hq8zx",
+      "name": "x",
+      "email": "x@x",
+      "password": "1",
+      "phone": "201201247198",
+      "address": "x",
+      "numBuys": 0,
+      "totalSpent": 0,
+      "createdAt": "2025-04-30T11:52:31.405Z"
     }
   ],
   "sellers": [
@@ -49,6 +60,15 @@
       "createdAt": "2025-04-29T19:05:05.772Z",
       "numSells": 1,
       "totalRevenue": 29400
+    },
+    {
+      "id": "id-ma3vpobmkpit9",
+      "name": "xseller",
+      "email": "xseller@yahoo.com",
+      "password": "123456",
+      "phone": "201555364675",
+      "address": "saf",
+      "createdAt": "2025-04-30T11:54:58.018Z"
     }
   ],
   "products": [

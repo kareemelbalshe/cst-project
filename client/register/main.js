@@ -49,6 +49,29 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
+  function validateEgyptianPhone(phoneNumber) {
+    const validPrefixes = ["2010", "2011", "2012", "2015"];
+    let isValid = false;
+    
+    if (phoneNumber.length === 12) {
+      for (const prefix of validPrefixes) {
+        if (phoneNumber.startsWith(prefix)) {
+          isValid = true;
+          break;
+        }
+      }
+    }
+    
+    return isValid;
+  }
+
+  if (!validateEgyptianPhone(phone)) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
+    toastBootstrap.show();
+    return;
+  }
+
   const newCustomer = {
     id,
     name,
@@ -116,3 +139,4 @@ setTimeout(() => {
     window.location.href = "../index.html";
   }
 }, 1000);
+
