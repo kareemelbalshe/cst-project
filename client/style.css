@@ -106,7 +106,7 @@ body {
 
 .product-card {
   width: 400px;
-  height: 650px;
+  min-height: 650px;
   border: none;
   border-radius: 20px;
   overflow: hidden;

@@ -197,7 +197,7 @@
       .review-track {
         display: flex;
         gap: 2rem;
-        animation: scrollReviews 25s linear infinite;
+        animation: scrollReviews 50s linear infinite;
         will-change: transform;
       }
 
@@ -216,10 +216,16 @@
 
       @keyframes scrollReviews {
         0% {
-          transform: translateX(0);
+          transform: translateX(100%);
+        }
+        49.9% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(100%);
         }
         100% {
-          transform: translateX(-50%);
+          transform: translateX(-100%);
         }
       }
     </style>
@@ -227,7 +233,10 @@
   <body>
     <div id="review-popup" class="popup-overlay">
       <div class="popup-box">
-        <h3>Leave a Review</h3>
+        <div class="">
+          <h3>Leave a Review</h3>
+          <button><i class="bi bi-x"></i></button>
+        </div>
         <div class="stars" id="star-rating">
           <span><i data-value="1" class="bi bi-star-fill"></i></span>
           <span><i data-value="2" class="bi bi-star-fill"></i></span>

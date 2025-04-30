@@ -16,7 +16,9 @@ form.addEventListener("submit", async function (e) {
   const name = document.getElementById("sellername").value.trim();
   const email = document.getElementById("selleremail").value.trim();
   const password = document.getElementById("sellerpassword").value.trim();
-  const confirmPassword = document.getElementById("sellerconfirmPassword").value.trim();
+  const confirmPassword = document
+    .getElementById("sellerconfirmPassword")
+    .value.trim();
   const phone = document.getElementById("sellerphone").value.trim();
   const address = document.getElementById("sellerAddress").value.trim();
   const createdAt = getCurrentTimestamp();
@@ -30,7 +32,8 @@ form.addEventListener("submit", async function (e) {
 
   if (!email.includes("@") || !email.endsWith(".com")) {
     toastTitle.innerHTML = "Error";
-    toastBody.innerHTML = "Please enter a valid email address (must contain @ and end with .com).";
+    toastBody.innerHTML =
+      "Please enter a valid email address (must contain @ and end with .com).";
     toastBootstrap.show();
     return;
   }
@@ -52,7 +55,7 @@ form.addEventListener("submit", async function (e) {
   function validateEgyptianPhone(phoneNumber) {
     const validPrefixes = ["2010", "2011", "2012", "2015"];
     let isValid = false;
-    
+
     if (phoneNumber.length === 12) {
       for (const prefix of validPrefixes) {
         if (phoneNumber.startsWith(prefix)) {
@@ -61,13 +64,14 @@ form.addEventListener("submit", async function (e) {
         }
       }
     }
-    
+
     return isValid;
   }
 
   if (!validateEgyptianPhone(phone)) {
     toastTitle.innerHTML = "Error";
-    toastBody.innerHTML = "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
+    toastBody.innerHTML =
+      "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
     toastBootstrap.show();
     return;
   }
@@ -103,7 +107,7 @@ form.addEventListener("submit", async function (e) {
 
 window.addEventListener("load", () => {
   if (
-    localStorage.getItem("isLoggedIn") === "true" &&
+    localStorage.getItem("isLoggedIn") === "true" ||
     localStorage.getItem("isSeller") === "true"
   ) {
     window.location.href = "../index.html";
@@ -118,4 +122,3 @@ setTimeout(() => {
     window.location.href = "../index.html";
   }
 }, 100);
-
