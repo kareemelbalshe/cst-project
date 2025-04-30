@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const comment = document.getElementById("review-comment").value.trim();
     const customerId = localStorage.getItem("Id");
 
-    if (!comment || selectedStars === 0 || !customerId) {
+    if (!comment || selectedStars === 0) {
       alert("Please fill in all fields.");
       return;
     }
