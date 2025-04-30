@@ -9,12 +9,12 @@ document.addEventListener("DOMContentLoaded", () => {
     profileLink.className = "btn btn-outline-dark me-2";
     profileLink.href = "../profile/index.html";
     profileLink.innerHTML = `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`;
-    
+
     const cartLink = document.createElement("a");
     cartLink.className = "btn btn-outline-dark me-2";
     cartLink.href = "../cart/index.html";
     cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
-    
+
     const logoutBtn = document.createElement("button");
     logoutBtn.className = "btn btn-outline-dark";
     logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
@@ -27,9 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.append(profileLink, logoutBtn, cartLink);
   }
 
+  // Animate table and card
+  document.querySelector("table")?.classList.add("animate-cart");
+  document.querySelector(".card")?.classList.add("animate-cart");
+
   renderCartTable();
   document.querySelector(".checkout")?.addEventListener("click", handleCheckout);
 });
+
 
 function renderCartTable() {
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];

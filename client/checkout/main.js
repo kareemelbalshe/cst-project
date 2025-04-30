@@ -65,16 +65,17 @@ cartItems.forEach(async (item) => {
   );
 
   productRow.innerHTML = `
-    <div class="col-6 cart-item-image d-flex justify-content-between align-content-between">  
-      <img src="${response.image}" alt="${response.name}" class="img-fluid"/>
-    </div>
-    <div class="col-6 cart-item-details">
-      <h5>${response.name}</h5>
-      <p>Price: $${item.price}</p>
-      <p>Quantity: ${item.quantity}</p>
-      <p>Total: $${item.total}</p>
-    </div>
-  `;
+  <div class="col-md-4 cart-item-image">
+    <img src="${response.image}" alt="${response.name}" class="img-fluid" />
+  </div>
+  <div class="col-md-8 cart-item-details">
+    <h5>${response.name}</h5>
+    <p>Price: $${item.price}</p>
+    <p>Quantity: ${item.quantity}</p>
+    <p>Total: $${item.total}</p>
+  </div>
+`;
+
 
   cartTable.appendChild(productRow);
 });
@@ -95,6 +96,18 @@ paymentbtn.addEventListener("click", async () => {
     };
     await addCart(data);
   }
+
   localStorage.removeItem("cart");
-  window.location.href = "../index.html";
+
+  if(!localStorage.getItem("cart")) {
+    const toastEl = document.getElementById("successToast");
+    const toast = new bootstrap.Toast(toastEl);
+    setTimeout(() => {
+      toast.show();
+    }, 2500);
+  }
+  setTimeout(() => {
+    window.location.href = "../index.html";
+  }, 2500);
 });
+
