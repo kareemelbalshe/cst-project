@@ -110,12 +110,17 @@ export async function addCart(body) {
   const product = await getProduct(body.product);
 
   const qty = body.quantity || 1;
-  const price = body.price || product.price;
 
   const updatedProduct = {
     quantity: (product.quantity || 0) - qty,
     sales: (product.sales || 0) + qty,
   };
+  if (updatedProduct.quantity < 0) {
+    return {
+      success: false,
+      message: "Cannot add negative quantity to product",
+    };
+  }
   await updateProduct(body.product, updatedProduct);
 
   const customer = await getCustomer(body.customer);
