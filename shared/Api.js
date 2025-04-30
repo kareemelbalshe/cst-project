@@ -304,7 +304,7 @@ export async function getSiteReview(id) {
 }
 
 export async function addSiteReview(body) {
-  const res = await fetch("http://localhost:5000/site-reviews", {
+  const res = await fetch("http://localhost:5000/site_reviews", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -315,7 +315,7 @@ export async function addSiteReview(body) {
 }
 
 export async function deleteSiteReview(id) {
-  const res = await fetch(`http://localhost:5000/site-reviews/${id}`, {
+  const res = await fetch(`http://localhost:5000/site_reviews/${id}`, {
     method: "DELETE",
   });
 

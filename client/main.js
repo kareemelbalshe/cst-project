@@ -1,12 +1,14 @@
 import {
+  addSiteReview,
   getCategories,
   getCategory,
   getProducts,
   logout,
 } from "../shared/Api.js";
 import { addToCart } from "./js/addToCart.js";
+import createId from "./js/createId.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const headerActions = document.getElementById("header-actions");
 
@@ -37,141 +39,297 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.appendChild(logoutBtn);
     headerActions.appendChild(cartLink);
   }
-});
 
-const CategorySection = document.getElementById("categories");
-const categories = await getCategories();
+  const popup = document.getElementById("review-popup");
+  const submitBtn = document.getElementById("submit-review");
+  const starRating = document.getElementById("star-rating");
+  let selectedStars = 0;
 
-categories.map((item) => {
-  CategorySection.innerHTML += `
+  starRating.addEventListener("click", (e) => {
+    console.log(e.target);
+    if (e.target.tagName === "I") {
+      selectedStars = parseInt(e.target.dataset.value);
+      updateStarUI(selectedStars);
+    }
+  });
+
+  function updateStarUI(value) {
+    const stars = starRating.querySelectorAll("span");
+    stars.forEach((star, index) => {
+      star.classList.toggle("active", index < value);
+    });
+  }
+
+  setTimeout(() => {
+    if (localStorage.getItem("siteReviewed") !== "true") {
+      popup.style.display = "flex";
+    }
+  }, 2000);
+
+  submitBtn.addEventListener("click", async () => {
+    const comment = document.getElementById("review-comment").value.trim();
+    const customerId = localStorage.getItem("Id");
+
+    if (!comment || selectedStars === 0 || !customerId) {
+      alert("Please fill in all fields.");
+      return;
+    }
+
+    const review = {
+      id: createId(),
+      stars: selectedStars,
+      comment,
+      customer: customerId,
+    };
+
+    await addSiteReview(review);
+    localStorage.setItem("siteReviewed", "true");
+    popup.style.display = "none";
+    alert("Thank you for your review!");
+  });
+
+  const CategorySection = document.getElementById("categories");
+  const categories = await getCategories();
+
+  categories.map((item) => {
+    CategorySection.innerHTML += `
         <a href="./all-products/index.html?category=${item.id}" class="d-flex flex-column align-items-center text-decoration-none text-dark border border-3 border-dark rounded-lg shadow-sm">
           <img style="width: 150px; height: 150px;object-fit: cover;" src="${item.image}" alt="${item.name}" class="border-3 border-bottom border-dark mb-2" />
           <p>${item.name}</p>
         </a>`;
-});
-
-const bestSalesSection = document.getElementById("slider-track");
-
-const products = await getProducts();
-products.sort((a, b) => b.sales - a.sales);
-
-const bestSales = products.filter((item) => item.quantity > 0).slice(0, 20);
-
-const cardWidth = 440;
-
-bestSales.forEach(async (product) => {
-  const categoryObj = await getCategory(product.category);
-  bestSalesSection.innerHTML += `
-     <div class="row align-items-center g-5">
-      <div class="col-md-6">
-        <div class="card product-card shadow-lg p-4">
-    <div class="card-body">
-      <a 
-        href="./product-details/index.html?id=${product.id}" 
-        class="eye-icon position-fixed top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
-        style="width: 40px; height: 40px;z-index: 1000;"
-      >
-        <i class="bi bi-eye fs-4 text-primary"></i>
-      </a>
-
-      <img
-        id="product-image"
-        src="${product.image}"
-        alt="Product Image"
-        class="img-fluid product-image"
-      />
-      <div class="m-2">
-        <h2 class="card-title fw-bold mb-3" id="product-name">
-          ${product.name}
-        </h2>
-        <p class="text-muted" id="product-description">
-          ${product.description.slice(0, 100)}...
-        </p>
-        <ul class="list-unstyled mt-3 mb-4">
-          <li>
-            <strong>Price:</strong>
-            ${
-              product.discount > 0
-                ? `<span class="text-danger text-decoration-line-through" id="product-price">${product.price}</span>`
-                : ""
-            }
-            <span
-              class="text-success fw-bold ms-2"
-              id="product-price-after"
-            >${product.price_after_discount}</span>
-          </li>
-          ${
-            product.discount > 0
-              ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
-              : ""
-          }
-          <li>
-            <strong>Quantity:</strong>
-            <span id="product-quantity">${product.quantity}</span>
-          </li>
-          <li>
-            <strong>Rating:</strong>
-            <span id="product-rating">${product.rating}</span> ⭐
-          </li>
-          <li>
-            <strong>Category:</strong>
-            <span id="product-category">(${categoryObj.name})</span>
-          </li>
-        </ul>
-        <button
-  class="btn add-to-cart-btn px-4 py-2 rounded-pill text-white"
-  data-id="${product.id}"
-  data-name="${product.name}"
-  data-price="${product.price}"
-  data-price-after-discount="${product.price_after_discount}"
-  data-stock="${product.quantity}"
-  data-quantity="1"
-  id="add-to-cart-btn"
->
-  <i class="bi bi-cart-plus"></i> Add to Cart
-</button>
-      </div>
-    </div>
-  </div>
-</div>
-  `;
-  document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const id = btn.getAttribute("data-id");
-      const name = btn.getAttribute("data-name");
-      const price = parseFloat(btn.getAttribute("data-price"));
-      const priceAfterDiscount = parseFloat(
-        btn.getAttribute("data-price-after-discount")
-      );
-      const quantity = parseInt(btn.getAttribute("data-quantity"));
-      const stock = parseInt(btn.getAttribute("data-stock"));
-
-      addToCart(id, name, price, priceAfterDiscount, quantity, stock);
-    });
   });
-});
 
-let currentPosition = 0;
-const bestSalesSlider = document.getElementById("slider-track");
-const prevBtn = document.getElementById("prev-btn");
-const nextBtn = document.getElementById("next-btn");
+  const products = await getProducts();
+  const bestSalesSection = document.getElementById("slider-track");
+  bestSalesSection.innerHTML = "";
 
-prevBtn.addEventListener("click", () => {
-  if (currentPosition < 0) {
-    currentPosition += cardWidth;
-    bestSalesSlider.style.transform = `translateX(${currentPosition}px)`;
-    bestSalesSlider.style.transition = "transform 0.5s ease";
-  }
-});
+  const bestSales = (products || [])
+    .filter((item) => item.quantity > 0)
+    .sort((a, b) => b.sales - a.sales)
+    .slice(0, 20);
 
-nextBtn.addEventListener("click", () => {
-  const maxScroll = -(
-    cardWidth *
-    (bestSales.length - Math.floor(window.innerWidth / cardWidth))
-  );
-  if (currentPosition > maxScroll) {
-    currentPosition -= cardWidth;
-    bestSalesSlider.style.transform = `translateX(${currentPosition}px)`;
-    bestSalesSlider.style.transition = "transform 0.5s ease";
-  }
+
+  const cardWidth = 440;
+
+  (async () => {
+    let html = "";
+  
+    for (const product of bestSales) {
+      const categoryObj = await getCategory(product.category);
+  
+      html += `
+        <div class="row align-items-center g-5">
+          <div class="col-md-6">
+            <div class="card product-card shadow-lg p-4">
+              <div class="card-body">
+                <a 
+                  href="./product-details/index.html?id=${product.id}" 
+                  class="eye-icon position-fixed top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
+                  style="width: 40px; height: 40px;z-index: 1000;"
+                >
+                  <i class="bi bi-eye fs-4 text-primary"></i>
+                </a>
+  
+                <img
+                  src="${product.image}"
+                  alt="Product Image"
+                  class="img-fluid product-image"
+                />
+                <div class="m-2">
+                  <h2 class="card-title fw-bold mb-3">${product.name}</h2>
+                  <p class="text-muted">${product.description.slice(0, 100)}...</p>
+                  <ul class="list-unstyled mt-3 mb-4">
+                    <li>
+                      <strong>Price:</strong>
+                      ${
+                        product.discount > 0
+                          ? `<span class="text-danger text-decoration-line-through">${product.price}</span>`
+                          : ""
+                      }
+                      <span class="text-success fw-bold ms-2">${product.price_after_discount}</span>
+                    </li>
+                    ${
+                      product.discount > 0
+                        ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+                        : ""
+                    }
+                    <li><strong>Quantity:</strong> ${product.quantity}</li>
+                    <li><strong>Rating:</strong> ${product.rating} ⭐</li>
+                    <li><strong>Category:</strong> (${categoryObj.name})</li>
+                  </ul>
+                  <button
+                    class="btn add-to-cart-btn px-4 py-2 rounded-pill text-white"
+                    data-id="${product.id}"
+                    data-name="${product.name}"
+                    data-price="${product.price}"
+                    data-price-after-discount="${product.price_after_discount}"
+                    data-stock="${product.quantity}"
+                    data-quantity="1"
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  
+    bestSalesSection.innerHTML = html;
+  
+    document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        const name = btn.getAttribute("data-name");
+        const price = parseFloat(btn.getAttribute("data-price"));
+        const priceAfterDiscount = parseFloat(btn.getAttribute("data-price-after-discount"));
+        const quantity = parseInt(btn.getAttribute("data-quantity"));
+        const stock = parseInt(btn.getAttribute("data-stock"));
+  
+        addToCart(id, name, price, priceAfterDiscount, quantity, stock);
+      });
+    });
+  })();
+  
+
+  let currentPosition = 0;
+  const bestSalesSlider = document.getElementById("slider-track");
+  const prevBtn = document.getElementById("prev-btn");
+  const nextBtn = document.getElementById("next-btn");
+
+  prevBtn.addEventListener("click", () => {
+    if (currentPosition < 0) {
+      currentPosition += cardWidth;
+      bestSalesSlider.style.transform = `translateX(${currentPosition}px)`;
+      bestSalesSlider.style.transition = "transform 0.5s ease";
+    }
+  });
+
+  nextBtn.addEventListener("click", () => {
+    const maxScroll = -(
+      cardWidth *
+      (bestSales.length - Math.floor(window.innerWidth / cardWidth))
+    );
+    if (currentPosition > maxScroll) {
+      currentPosition -= cardWidth;
+      bestSalesSlider.style.transform = `translateX(${currentPosition}px)`;
+      bestSalesSlider.style.transition = "transform 0.5s ease";
+    }
+  });
+
+  const lessQualitySection = document.getElementById("slider-track-less");
+  lessQualitySection.innerHTML = "";
+
+  const lessQuality = (products || [])
+    .filter((item) => item.quantity > 0)
+    .sort((a, b) => a.quantity - b.quantity)
+    .slice(0, 20);
+
+
+    (async () => {
+      let html = "";
+    
+      for (const product of lessQuality) {
+        const categoryObj = await getCategory(product.category);
+    
+        html += `
+          <div class="row align-items-center g-5">
+            <div class="col-md-6">
+              <div class="card product-card shadow-lg p-4">
+                <div class="card-body">
+                  <a 
+                    href="./product-details/index.html?id=${product.id}" 
+                    class="eye-icon position-fixed top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
+                    style="width: 40px; height: 40px;z-index: 10;"
+                  >
+                    <i class="bi bi-eye fs-4 text-primary"></i>
+                  </a>
+    
+                  <img
+                    src="${product.image}"
+                    alt="Product Image"
+                    class="img-fluid product-image"
+                  />
+                  <div class="m-2">
+                    <h2 class="card-title fw-bold mb-3">${product.name}</h2>
+                    <p class="text-muted">${product.description.slice(0, 100)}...</p>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>
+                        <strong>Price:</strong>
+                        ${
+                          product.discount > 0
+                            ? `<span class="text-danger text-decoration-line-through">${product.price}</span>`
+                            : ""
+                        }
+                        <span class="text-success fw-bold ms-2">${product.price_after_discount}</span>
+                      </li>
+                      ${
+                        product.discount > 0
+                          ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+                          : ""
+                      }
+                      <li><strong>Quantity:</strong> ${product.quantity}</li>
+                      <li><strong>Rating:</strong> ${product.rating} ⭐</li>
+                      <li><strong>Category:</strong> (${categoryObj.name})</li>
+                    </ul>
+                    <button
+                      class="btn add-to-cart-btn px-4 py-2 rounded-pill text-white"
+                      data-id="${product.id}"
+                      data-name="${product.name}"
+                      data-price="${product.price}"
+                      data-price-after-discount="${product.price_after_discount}"
+                      data-stock="${product.quantity}"
+                      data-quantity="1"
+                    >
+                      <i class="bi bi-cart-plus"></i> Add to Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+    
+      lessQualitySlider.innerHTML = html;
+    
+      document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const id = btn.getAttribute("data-id");
+          const name = btn.getAttribute("data-name");
+          const price = parseFloat(btn.getAttribute("data-price"));
+          const priceAfterDiscount = parseFloat(btn.getAttribute("data-price-after-discount"));
+          const quantity = parseInt(btn.getAttribute("data-quantity"));
+          const stock = parseInt(btn.getAttribute("data-stock"));
+    
+          addToCart(id, name, price, priceAfterDiscount, quantity, stock);
+        });
+      });
+    })();
+
+  let currentPositionLess = 0;
+  const lessQualitySlider = document.getElementById("slider-track-less");
+  const prevBtnLess = document.getElementById("prev-btn-less");
+  const nextBtnLess = document.getElementById("next-btn-less");
+
+  prevBtnLess.addEventListener("click", () => {
+    if (currentPositionLess < 0) {
+      currentPositionLess += cardWidth;
+      lessQualitySlider.style.transform = `translateX(${currentPositionLess}px)`;
+      lessQualitySlider.style.transition = "transform 0.5s ease";
+    }
+  });
+
+  nextBtnLess.addEventListener("click", () => {
+    const maxScroll = -(
+      cardWidth *
+      (lessQuality.length - Math.floor(window.innerWidth / cardWidth))
+    );
+    if (currentPositionLess > maxScroll) {
+      currentPositionLess -= cardWidth;
+      lessQualitySlider.style.transform = `translateX(${currentPositionLess}px)`;
+      lessQualitySlider.style.transition = "transform 0.5s ease";
+    }
+  });
 });
