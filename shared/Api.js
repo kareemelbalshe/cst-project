@@ -296,9 +296,13 @@ export async function deleteReview(id) {
 
 export async function getSiteReviews() {
   const res = await fetch("http://localhost:5000/site_reviews");
-  const data = await res.json();
-  return data;
-}
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to fetch site reviews. Server says: ${text}`);
+  }
+  return await res.json();
+} 
+
 
 export async function getSiteReview(id) {
   const res = await fetch(`http://localhost:5000/site_reviews/${id}`);
@@ -321,10 +325,14 @@ export async function deleteSiteReview(id) {
   const res = await fetch(`http://localhost:5000/site_reviews/${id}`, {
     method: "DELETE",
   });
-
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to delete review. Server says: ${text}`);
+  }
   const data = await res.json();
   return data;
 }
+
 
 export async function getCustomers() {
   const res = await fetch("http://localhost:5000/customers");
