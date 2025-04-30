@@ -7,6 +7,18 @@ form.addEventListener("submit", async function (e) {
 
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  const toastLive = document.getElementById("liveToast");
+  const toastBootstrap = new bootstrap.Toast(toastLive);
+  const toastTitle = document.getElementById("toastTitle");
+  const toastBody = document.getElementById("toastBody");
+
+  // Check if fields are empty
+  if (!email || !password) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Both email and password are required.";
+    toastBootstrap.show();
+    return;
+  }
 
   try {
     const result = await loginCustomer({ email, password });
@@ -25,14 +37,23 @@ form.addEventListener("submit", async function (e) {
         })
       );
 
-      alert("Login successful!");
-      window.location.href = "../index.html";
+      toastTitle.innerHTML = "Success";
+      toastBody.innerHTML = "Login successful!";
+      toastBootstrap.show();
+
+      setTimeout(() => {
+        window.location.href = "../index.html";
+      }, 1500);
     } else {
-      alert("Invalid email or password. Please try again.");
+      toastTitle.innerHTML = "Error";
+      toastBody.innerHTML = "Invalid email or password. Please try again.";
+      toastBootstrap.show();
     }
   } catch (err) {
     console.error("Login failed:", err);
-    alert("Login failed. Please try again later.");
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Login failed. Please try again later.";
+    toastBootstrap.show();
   }
 });
 

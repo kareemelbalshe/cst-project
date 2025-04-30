@@ -98,17 +98,16 @@
             class="form-control"
             id="name"
             placeholder="Your full name"
-            required
           />
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email Address</label>
           <input
-            type="email"
+            type="text"
             class="form-control"
             id="email"
             placeholder="you@example.com"
-            required
+            
           />
         </div>
 
@@ -119,7 +118,6 @@
             class="form-control"
             id="Address"
             placeholder="Your full Address"
-            required
           />
         </div>
 
@@ -130,7 +128,6 @@
             class="form-control"
             id="phone"
             placeholder="Your Phone number"
-            required
           />
         </div>
 
@@ -141,7 +138,6 @@
             class="form-control"
             id="password"
             placeholder="Create a password"
-            required
           />
         </div>
         <div class="mb-3">
@@ -153,7 +149,6 @@
             class="form-control"
             id="confirmPassword"
             placeholder="Confirm your password"
-            required
           />
         </div>
         <div class="d-grid">
@@ -164,6 +159,28 @@
           <a href="../login/index.html">Login here</a>
         </p>
       </form>
+      <div class="toast-container position-fixed top-0 start-0 p-3">
+        <div
+          style="background-color: var(--danger-color)"
+          id="liveToast"
+          class="toast"
+          role="alert"
+          aria-live="assertive"
+          aria-atomic="true"
+        >
+          <div class="toast-header">
+            <strong id="toastTitle" class="me-auto"></strong>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="toast"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div id="toastBody" class="toast-body"></div>
+        </div>
+      </div>
+      
     </main>
 
     <footer
