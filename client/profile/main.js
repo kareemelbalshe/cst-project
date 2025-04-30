@@ -101,7 +101,6 @@ profileForm.addEventListener("submit", async function (event) {
   }
 
   try {
-    // Validation check
     if (
       !nameInput.value.trim() ||
       !emailInput.value.trim() ||
@@ -118,6 +117,18 @@ profileForm.addEventListener("submit", async function (event) {
     if (!emailValue.includes("@") || !emailValue.endsWith(".com")) {
       toastTitle.innerHTML = "Validation Error";
       toastBody.innerHTML = "Please enter a valid email (must contain @ and end with .com).";
+      toastBootstrap.show();
+      return;
+    }
+
+    const phoneValue = phoneInput.value.trim();
+    const validPrefixes = ["2010", "2011", "2012", "2015"];
+    const isValidPhone = phoneValue.length === 12 && 
+                          validPrefixes.some(prefix => phoneValue.startsWith(prefix));
+    
+    if (!isValidPhone) {
+      toastTitle.innerHTML = "Validation Error";
+      toastBody.innerHTML = "Phone number must start with 2010, 2011, 2012, or 2015 and be 11 digits long.";
       toastBootstrap.show();
       return;
     }
@@ -167,4 +178,65 @@ profileImageInput.addEventListener("change", function () {
   }
 });
 
+const resetPasswordForm = document.getElementById("resetPasswordForm");
+resetPasswordForm.addEventListener("submit", async function(event) {
+  event.preventDefault();
+  
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "You must be logged in to reset your password.";
+    toastBootstrap.show();
+    return;
+  }
+  
+  const newPassword = document.getElementById("newPassword").value;
+  const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+  
+  if (newPassword.length < 6) {
+    toastTitle.innerHTML = "Validation Error";
+    toastBody.innerHTML = "Password must be at least 6 characters long.";
+    toastBootstrap.show();
+    return;
+  }
+  
+  if (newPassword !== confirmNewPassword) {
+    toastTitle.innerHTML = "Validation Error";
+    toastBody.innerHTML = "Passwords do not match.";
+    toastBootstrap.show();
+    return;
+  }
+  
+  try {
+    const updatedPasswordData = {
+      password: newPassword
+    };
+    
+    const updatedCustomer = await updateCustomer(currentUser.id, updatedPasswordData);
+    
+    if (updatedCustomer) {
+      toastTitle.innerHTML = "Success";
+      toastBody.innerHTML = "Password updated successfully!";
+      toastBootstrap.show();
+      
+      const resetPasswordModal = bootstrap.Modal.getInstance(document.getElementById('resetPasswordModal'));
+      resetPasswordModal.hide();
+      
+      resetPasswordForm.reset();
+    } else {
+      toastTitle.innerHTML = "Error";
+      toastBody.innerHTML = "Failed to update password. Please try again.";
+      toastBootstrap.show();
+    }
+  } catch (error) {
+    console.error("Error updating password:", error);
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Failed to update password. Please try again.";
+    toastBootstrap.show();
+  }
+});
+
 document.addEventListener("DOMContentLoaded", loadCustomerData);
+
+
+
