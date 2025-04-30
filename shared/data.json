@@ -16,17 +16,6 @@
       "createdAt": "2025-04-29T18:07:02.171Z"
     },
     {
-      "id": "id-ma3vmj71hq8zx",
-      "name": "x",
-      "email": "x@x",
-      "password": "1",
-      "phone": "201201247198",
-      "address": "x",
-      "numBuys": 0,
-      "totalSpent": 0,
-      "createdAt": "2025-04-30T11:52:31.405Z"
-    },
-    {
       "id": "id-ma45t8e2zc7mb",
       "name": "Youssef Shaker",
       "email": "youssef123@gmail.com",
@@ -118,7 +107,9 @@
       "totalRatings": 1,
       "reviews": [],
       "createdAt": "2025-04-29T18:11:59.995Z",
-      "reviewIds": ["id-ma2v79yiaodao"]
+      "reviewIds": [
+        "id-ma2v79yiaodao"
+      ]
     },
     {
       "id": "id-ma2ui66rj42mc",
