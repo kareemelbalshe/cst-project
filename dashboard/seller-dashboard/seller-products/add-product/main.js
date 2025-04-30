@@ -66,7 +66,7 @@ form.addEventListener("submit", async (e) => {
       rating: 0,
       totalStars: 0,
       totalRatings: 0,
-      reviews: [],
+      reviewIds: [],
       createdAt: getCurrentTimestamp(),
     };
 

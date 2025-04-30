@@ -206,9 +206,7 @@ export async function getReviews() {
 export async function getReview(id) {
   const res = await fetch(`http://localhost:5000/reviews/${id}`);
   const data = await res.json();
-  const product = await getProduct(data.product);
-  const customer = await getCustomer(data.customer);
-  return { data, product, customer };
+  return data;
 }
 
 export async function addReview(body) {
@@ -292,13 +290,13 @@ export async function deleteReview(id) {
 }
 
 export async function getSiteReviews() {
-  const res = await fetch("http://localhost:5000/site-reviews");
+  const res = await fetch("http://localhost:5000/site_reviews");
   const data = await res.json();
   return data;
 }
 
 export async function getSiteReview(id) {
-  const res = await fetch(`http://localhost:5000/site-reviews/${id}`);
+  const res = await fetch(`http://localhost:5000/site_reviews/${id}`);
   const data = await res.json();
   return data;
 }
