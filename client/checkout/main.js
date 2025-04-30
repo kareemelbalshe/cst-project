@@ -32,9 +32,9 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.appendChild(logoutBtn);
     headerActions.appendChild(cartLink);
   }
-  if (!localStorage.getItem("cart")) {
-    window.location.href = "../all-products/index.html";
-  }
+  // if (!localStorage.getItem("cart")) {
+  //   window.location.href = "../all-products/index.html";
+  // }
 });
 
 let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -98,16 +98,17 @@ paymentbtn.addEventListener("click", async () => {
   }
 
   localStorage.removeItem("cart");
+  window.location.href = "../index.html";
 
-  if(!localStorage.getItem("cart")) {
-    const toastEl = document.getElementById("successToast");
-    const toast = new bootstrap.Toast(toastEl);
-    setTimeout(() => {
-      toast.show();
-    }, 2500);
-  }
-  setTimeout(() => {
-    window.location.href = "../index.html";
-  }, 2500);
+  // if(!localStorage.getItem("cart")) {
+  //   const toastEl = document.getElementById("successToast");
+  //   const toast = new bootstrap.Toast(toastEl);
+  //   setTimeout(() => {
+  //     toast.show();
+  //   }, 2500);
+  // }
+  // setTimeout(() => {
+  //   window.location.href = "../index.html";
+  // }, 2500);
 });
 
