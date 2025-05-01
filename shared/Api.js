@@ -110,12 +110,17 @@ export async function addCart(body) {
   const product = await getProduct(body.product);
 
   const qty = body.quantity || 1;
-  const price = body.price || product.price;
 
   const updatedProduct = {
     quantity: (product.quantity || 0) - qty,
     sales: (product.sales || 0) + qty,
   };
+  if (updatedProduct.quantity < 0) {
+    return {
+      success: false,
+      message: "Cannot add negative quantity to product",
+    };
+  }
   await updateProduct(body.product, updatedProduct);
 
   const customer = await getCustomer(body.customer);
@@ -292,13 +297,16 @@ export async function deleteReview(id) {
 }
 
 export async function getSiteReviews() {
-  const res = await fetch("http://localhost:5000/site-reviews");
-  const data = await res.json();
-  return data;
+  const res = await fetch("http://localhost:5000/site_reviews");
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to fetch site reviews. Server says: ${text}`);
+  }
+  return await res.json();
 }
 
 export async function getSiteReview(id) {
-  const res = await fetch(`http://localhost:5000/site-reviews/${id}`);
+  const res = await fetch(`http://localhost:5000/site_reviews/${id}`);
   const data = await res.json();
   return data;
 }
@@ -318,7 +326,10 @@ export async function deleteSiteReview(id) {
   const res = await fetch(`http://localhost:5000/site_reviews/${id}`, {
     method: "DELETE",
   });
-
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Failed to delete review. Server says: ${text}`);
+  }
   const data = await res.json();
   return data;
 }

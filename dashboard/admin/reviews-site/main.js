@@ -1,5 +1,5 @@
-import { logout, deleteProduct, getProducts } from "../../../shared/Api.js";
-import { renderDataTable } from "../../js/table.js";
+import { logout, deleteSiteReview, getSiteReviews } from "../../../shared/Api.js";
+import { renderDataTable } from "../../js/tableReviews.js";
 
 window.addEventListener("load", () => {
   if (
@@ -25,14 +25,15 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "../../index.html";
 });
 
-const products = await getProducts();
+const siteReview = await getSiteReviews();
 
-console.log(products)
+console.log(siteReview)
 renderDataTable({
   containerId: "page",
-  data: products,
+  data: siteReview,
   onDelete: async (id) => {
-    await deleteProduct(id);
+    await deleteSiteReview(id);
   },
-  viewUrl: "./view-product/index.html",
+  viewUrl: "./view-review/index.html",
 });
+ 

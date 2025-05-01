@@ -26,9 +26,9 @@ export function renderDataTable({
         <thead class="table-dark">
           <tr>
             <th style="cursor:pointer" data-col="id">ID</th>
-            <th style="cursor:pointer" data-col="name">Stars </th>
-            <th style="cursor:pointer" data-col="name">Comment </th>
-            <th style="cursor:pointer" data-col="createdAt">Created At</th>
+            <th style="cursor:pointer" data-col="stars">Stars </th>
+            <th style="cursor:pointer" data-col="comment">Comment </th>
+              <th style="cursor:pointer" data-col="createdAt">Created At</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -41,7 +41,7 @@ export function renderDataTable({
           <td>${item.id}</td>
           <td>${item.stars}</td>
           <td>${item.comment.slice(0, 100)}</td>
-          <td>${new Date(item.createdAt).toLocaleString()}</td>
+            <td>${new Date(item.createdAt).toLocaleString()}</td>
           <td class="d-flex flex-wrap align-items-center justify-content-center gap-2">
             ${
               viewUrl

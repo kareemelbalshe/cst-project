@@ -10,7 +10,7 @@ import {
 window.addEventListener("load", async () => {
   if (
 
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../index.html";
@@ -25,7 +25,7 @@ window.addEventListener("load", async () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isAdmin") !== "true"
   ) {
     window.location.href = "../index.html";

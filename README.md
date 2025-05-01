@@ -57,13 +57,15 @@ cart = {
 "product": "product-id",
 seller: "seller-id",
 "quantity": 2,
-"total": 200
+"total": 200,
+"createdAt": "2025-04-17T20:00:00Z"
 }
 
 category ={
 "id": "string",
 "name": "string"
-"image": "url-or-path"
+"image": "url-or-path",
+"createdAt": "2025-04-17T20:00:00Z"
 }
 
 site_review={

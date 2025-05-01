@@ -5,7 +5,7 @@ import getCurrentTimestamp from "../../../js/setTime.js";
 
 window.addEventListener("load", async () => {
   if (
-    localStorage.getItem("isLoggedIn") !== "true" &&
+    localStorage.getItem("isLoggedIn") !== "true" ||
     localStorage.getItem("isSeller") !== "true"
   ) {
     window.location.href = "../../../index.html";
@@ -13,7 +13,7 @@ window.addEventListener("load", async () => {
 
   setTimeout(() => {
     if (
-      localStorage.getItem("isLoggedIn") !== "true" &&
+      localStorage.getItem("isLoggedIn") !== "true" ||
       localStorage.getItem("isSeller") !== "true"
     ) {
       window.location.href = "../../../index.html";
@@ -66,7 +66,7 @@ form.addEventListener("submit", async (e) => {
       rating: 0,
       totalStars: 0,
       totalRatings: 0,
-      reviews: [],
+      reviewIds: [],
       createdAt: getCurrentTimestamp(),
     };
 

@@ -16,12 +16,13 @@ form.addEventListener("submit", async function (e) {
   const name = document.getElementById("sellername").value.trim();
   const email = document.getElementById("selleremail").value.trim();
   const password = document.getElementById("sellerpassword").value.trim();
-  const confirmPassword = document.getElementById("sellerconfirmPassword").value.trim();
+  const confirmPassword = document
+    .getElementById("sellerconfirmPassword")
+    .value.trim();
   const phone = document.getElementById("sellerphone").value.trim();
   const address = document.getElementById("sellerAddress").value.trim();
   const createdAt = getCurrentTimestamp();
 
-  // Check for empty fields
   if (!name || !email || !password || !confirmPassword || !phone || !address) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML = "All fields are required.";
@@ -29,15 +30,14 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // Email validation
   if (!email.includes("@") || !email.endsWith(".com")) {
     toastTitle.innerHTML = "Error";
-    toastBody.innerHTML = "Please enter a valid email address (must contain @ and end with .com).";
+    toastBody.innerHTML =
+      "Please enter a valid email address (must contain @ and end with .com).";
     toastBootstrap.show();
     return;
   }
 
-  // Password length validation
   if (password.length < 6) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML = "Password must be at least 6 characters.";
@@ -45,10 +45,33 @@ form.addEventListener("submit", async function (e) {
     return;
   }
 
-  // Password match validation
   if (password !== confirmPassword) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML = "Passwords don't match!";
+    toastBootstrap.show();
+    return;
+  }
+
+  function validateEgyptianPhone(phoneNumber) {
+    const validPrefixes = ["2010", "2011", "2012", "2015"];
+    let isValid = false;
+
+    if (phoneNumber.length === 12) {
+      for (const prefix of validPrefixes) {
+        if (phoneNumber.startsWith(prefix)) {
+          isValid = true;
+          break;
+        }
+      }
+    }
+
+    return isValid;
+  }
+
+  if (!validateEgyptianPhone(phone)) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML =
+      "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
     toastBootstrap.show();
     return;
   }
@@ -74,7 +97,6 @@ form.addEventListener("submit", async function (e) {
     setTimeout(() => {
       window.location.href = "../index.html";
     }, 1500);
-
   } catch (error) {
     console.error("Error registering seller:", error);
     toastTitle.innerHTML = "Error";
@@ -85,7 +107,7 @@ form.addEventListener("submit", async function (e) {
 
 window.addEventListener("load", () => {
   if (
-    localStorage.getItem("isLoggedIn") === "true" &&
+    localStorage.getItem("isLoggedIn") === "true" ||
     localStorage.getItem("isSeller") === "true"
   ) {
     window.location.href = "../index.html";
@@ -94,7 +116,7 @@ window.addEventListener("load", () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") === "true" &&
+    localStorage.getItem("isLoggedIn") === "true" ||
     localStorage.getItem("isSeller") === "true"
   ) {
     window.location.href = "../index.html";
