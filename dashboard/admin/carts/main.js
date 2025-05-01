@@ -1,37 +1,57 @@
-import { getCarts, getCart, deleteCart } from "../../../shared/Api.js";
-import {renderDataTable} from "../../js/tableCart.js"
+import { getCarts, getCart, deleteCart, logout } from "../../../shared/Api.js";
+import { renderDataTable } from "../../js/tableCart.js";
 
+window.addEventListener("load", () => {
+  if (
+    localStorage.getItem("isLoggedIn") !== "true" ||
+    localStorage.getItem("isAdmin") !== "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+});
+setTimeout(() => {
+  if (
+    localStorage.getItem("isLoggedIn") !== "true" ||
+    localStorage.getItem("isAdmin") !== "true"
+  ) {
+    window.location.href = "../index.html";
+  }
+}, 1000);
+
+const logoutBtn = document.getElementById("logout");
+
+logoutBtn.addEventListener("click", () => {
+  logout();
+  window.location.href = "../../index.html";
+});
 const page = document.getElementById("page");
-const tableContainerId = "categoriesTable"; 
 
 async function loadCarts() {
-  page.innerHTML = ""; 
+  page.innerHTML = "";
 
-    const carts = await getCarts();
+  const carts = await getCarts();
 
-    const enrichedCarts = await Promise.all(
-      carts.map(async (cart) => {
-        const { data, product, customer } = await getCart(cart.id);
-        return {
-          id: data.id,
-          total: data.total,
-          createdAt: data.createdAt,
-          productName: product?.name,
-          customerName: customer?.name,
-        };
-      })
-    );
+  const enrichedCarts = await Promise.all(
+    carts.map(async (cart) => {
+      const { data, product, customer } = await getCart(cart.id);
+      return {
+        id: data.id,
+        total: parseFloat(data.total).toFixed(2),
+        createdAt: data.createdAt,
+        product: product?.name,
+        customer: customer?.name,
+      };
+    })
+  );
 
-    renderDataTable({
-      containerId: tableContainerId,
-      data: enrichedCarts,
-      onDelete: async (id) => {
-        await deleteCart(id);
-        loadCarts(); 
-      },
-      viewUrl: "./view-cart/index.html",
-      itemsPerPage: 7,
-    });
+  renderDataTable({
+    containerId: "page",
+    data: enrichedCarts,
+    onDelete: async (id) => {
+      await deleteCart(id);
+    },
+    viewUrl: "./view-cart/index.html",
+  });
 }
 
 loadCarts();

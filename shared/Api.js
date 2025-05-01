@@ -212,7 +212,7 @@ export async function getReview(id) {
   const res = await fetch(`http://localhost:5000/reviews/${id}`);
   const data = await res.json();
   const product = await getProduct(data.product);
-  const customer = await getCustomer(data.user);
+  const customer = await getCustomer(data.customer);
   return { data, product, customer };
 }
 

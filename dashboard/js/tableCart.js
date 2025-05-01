@@ -1,4 +1,3 @@
-import { getCustomer, getProduct } from "../../shared/Api.js";
 export function renderDataTable({
   containerId,
   data,
@@ -26,8 +25,8 @@ export function renderDataTable({
           <thead class="table-dark">
             <tr>
               <th style="cursor:pointer" data-col="id">ID</th>
-              <th style="cursor:pointer" data-col="productName">Product</th>
-              <th style="cursor:pointer" data-col="customerName">Customer</th>
+              <th style="cursor:pointer" data-col="product">Product</th>
+              <th style="cursor:pointer" data-col="customer">Customer</th>
               <th style="cursor:pointer" data-col="total">Total</th>
               <th style="cursor:pointer" data-col="createdAt">Created At</th>
               <th>Actions</th>
@@ -37,15 +36,15 @@ export function renderDataTable({
     `;
 
     paginated.forEach((item) => {
-      const productName = item.productName || "N/A";
-      const customerName = item.customerName || "N/A";
+      const product = item.product || "N/A";
+      const customer = item.customer || "N/A";
 
       tableHTML += `
         <tr>
           <td>${item.id}</td>
-          <td>${productName}</td>
-          <td>${customerName}</td>
-          <td>${item.total}</td>
+          <td>${product}</td>
+          <td>${customer}</td>
+          <td>${parseFloat(item.total)}</td>
           <td>${new Date(item.createdAt).toLocaleString()}</td>
           <td class="d-flex flex-wrap align-items-center justify-content-center gap-2">
             ${
@@ -97,20 +96,6 @@ export function renderDataTable({
       btn.onclick = () => onDelete?.(id);
     });
 
-    const search = document.getElementById(`${containerId}-search`);
-    const searchBtn = document.getElementById(`${containerId}-search-btn`);
-    if (search && searchBtn) {
-      searchBtn.onclick = () => {
-        const term = search.value.toLowerCase();
-        filteredData = data.filter((item) =>
-          item.customerName.toLowerCase().includes(term) ||
-          item.productName.toLowerCase().includes(term)
-        );
-        currentPage = 1;
-        renderTable();
-      };
-    }
-
     container.querySelectorAll("th[data-col]").forEach((th) => {
       th.onclick = () => {
         const col = th.getAttribute("data-col");
@@ -127,6 +112,15 @@ export function renderDataTable({
           let valB = b[col];
           if (typeof valA === "string") valA = valA.toLowerCase();
           if (typeof valB === "string") valB = valB.toLowerCase();
+          if (valA < valB) return currentSortDirection === "asc" ? -1 : 1;
+          if (valA > valB) return currentSortDirection === "asc" ? 1 : -1;
+          return 0;
+        });
+        filteredData.sort((a, b) => {
+          let valA = a[col];
+          let valB = b[col];
+          if (typeof valA === "number") valA = valA;
+          if (typeof valB === "number") valB = valB;
           if (valA < valB) return currentSortDirection === "asc" ? -1 : 1;
           if (valA > valB) return currentSortDirection === "asc" ? 1 : -1;
           return 0;
