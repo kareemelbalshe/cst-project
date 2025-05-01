@@ -211,7 +211,9 @@ export async function getReviews() {
 export async function getReview(id) {
   const res = await fetch(`http://localhost:5000/reviews/${id}`);
   const data = await res.json();
-  return data;
+  const product = await getProduct(data.product);
+  const customer = await getCustomer(data.user);
+  return { data, product, customer };
 }
 
 export async function addReview(body) {

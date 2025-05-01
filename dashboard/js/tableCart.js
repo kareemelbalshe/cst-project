@@ -1,5 +1,4 @@
 import { getCustomer, getProduct } from "../../shared/Api.js";
-
 export function renderDataTable({
   containerId,
   data,
@@ -23,28 +22,29 @@ export function renderDataTable({
 
     let tableHTML = `
       <div class="table-responsive">
-      <table style="width:100%" class="table table-bordered table-hover text-center align-middle">
-        <thead class="table-dark">
-          <tr>
-            <th style="cursor:pointer" data-col="id">ID</th>
-            <th style="cursor:pointer" data-col="name">product </th>
-            <th style="cursor:pointer" data-col="customer">customer</th>
-            <th style="cursor:pointer" data-col="total">total</th>
-            <th style="cursor:pointer" data-col="createdAt">Created At</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
+        <table style="width:100%" class="table table-bordered table-hover text-center align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th style="cursor:pointer" data-col="id">ID</th>
+              <th style="cursor:pointer" data-col="productName">Product</th>
+              <th style="cursor:pointer" data-col="customerName">Customer</th>
+              <th style="cursor:pointer" data-col="total">Total</th>
+              <th style="cursor:pointer" data-col="createdAt">Created At</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
     `;
 
-    paginated.forEach(async(item) => {
-      const product = await getProduct(item.product);
-      const customer = await getCustomer(item.customer);
+    paginated.forEach((item) => {
+      const productName = item.productName || "N/A";
+      const customerName = item.customerName || "N/A";
+
       tableHTML += `
         <tr>
           <td>${item.id}</td>
-          <td>${product.name}</td>
-          <td>${customer.name}</td>
+          <td>${productName}</td>
+          <td>${customerName}</td>
           <td>${item.total}</td>
           <td>${new Date(item.createdAt).toLocaleString()}</td>
           <td class="d-flex flex-wrap align-items-center justify-content-center gap-2">
@@ -62,11 +62,13 @@ export function renderDataTable({
     });
 
     tableHTML += `</tbody></table></div>`;
+
     if (paginated.length === 0) {
-      container.innerHTML = `<div class="container mt-3">No Products Found</div>`;
+      container.innerHTML = `<div class="container mt-3">No carts found.</div>`;
     } else {
       container.innerHTML = tableHTML;
     }
+
     container.appendChild(paginationContainer);
     renderPagination();
     attachEvents();
@@ -97,14 +99,17 @@ export function renderDataTable({
 
     const search = document.getElementById(`${containerId}-search`);
     const searchBtn = document.getElementById(`${containerId}-search-btn`);
-    searchBtn.onclick = () => {
-      const term = search.value.toLowerCase();
-      filteredData = data.filter((item) =>
-        item.name.toLowerCase().includes(term)
-      );
-      currentPage = 1;
-      renderTable();
-    };
+    if (search && searchBtn) {
+      searchBtn.onclick = () => {
+        const term = search.value.toLowerCase();
+        filteredData = data.filter((item) =>
+          item.customerName.toLowerCase().includes(term) ||
+          item.productName.toLowerCase().includes(term)
+        );
+        currentPage = 1;
+        renderTable();
+      };
+    }
 
     container.querySelectorAll("th[data-col]").forEach((th) => {
       th.onclick = () => {
@@ -118,8 +123,12 @@ export function renderDataTable({
         }
 
         filteredData.sort((a, b) => {
-          if (a[col] < b[col]) return currentSortDirection === "asc" ? -1 : 1;
-          if (a[col] > b[col]) return currentSortDirection === "asc" ? 1 : -1;
+          let valA = a[col];
+          let valB = b[col];
+          if (typeof valA === "string") valA = valA.toLowerCase();
+          if (typeof valB === "string") valB = valB.toLowerCase();
+          if (valA < valB) return currentSortDirection === "asc" ? -1 : 1;
+          if (valA > valB) return currentSortDirection === "asc" ? 1 : -1;
           return 0;
         });
 
