@@ -20,6 +20,11 @@ export function renderDataTable({
     const paginated = filteredData.slice(start, end);
 
     let tableHTML = `
+    <div class="container d-flex justify-content-between align-items-center mb-3">
+        <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control w-75 mx-auto"/>
+        <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
+      </div>
+
       <div class="table-responsive">
         <table style="width:100%" class="table table-bordered table-hover text-center align-middle">
           <thead class="table-dark">
@@ -95,6 +100,17 @@ export function renderDataTable({
       const id = btn.getAttribute("data-id");
       btn.onclick = () => onDelete?.(id);
     });
+
+    const search = document.getElementById(`${containerId}-search`);
+    const searchBtn = document.getElementById(`${containerId}-search-btn`);
+    searchBtn.onclick = () => {
+      const term = search.value.toLowerCase();
+      filteredData = data.filter((item) =>
+        item.product.toLowerCase().includes(term)
+      );
+      currentPage = 1;
+      renderTable();
+    };
 
     container.querySelectorAll("th[data-col]").forEach((th) => {
       th.onclick = () => {
