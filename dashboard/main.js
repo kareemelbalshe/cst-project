@@ -28,7 +28,6 @@ window.addEventListener("load", () => {
 loginFormDashboard.addEventListener("submit", (e) => {
   e.preventDefault();
 
-  // Check for empty fields
   if (
     emailInput.value.trim() === "" ||
     passwordInput.value.trim() === "" ||

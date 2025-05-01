@@ -35,7 +35,6 @@ window.addEventListener("load", async () => {
 
       product.reviewIds.forEach(async (reviewId) => {
         const review = await getReview(reviewId);
-        console.log(review);
         document.getElementById("reviews").innerHTML += `
           <div class="card shadow-sm border-0 rounded-4 p-3 mb-4 bg-light">
   <div class="card-body">
@@ -52,9 +51,7 @@ window.addEventListener("load", async () => {
         ${"<i class='bi bi-star-fill text-warning'></i>".repeat(
           review.data.stars
         )}
-        ${"<i class='bi bi-star text-muted'></i>".repeat(
-          5 - review.data.stars
-        )}
+        ${"<i class='bi bi-star text-muted'></i>".repeat(5 - review.data.stars)}
       </div>
       <span class="ms-2 text-muted">(${review.data.stars} / 5)</span>
     </div>

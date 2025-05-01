@@ -34,6 +34,11 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "../../../index.html";
 });
 
+const toastLiveExample = document.getElementById("liveToast");
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+const toastTitle = document.getElementById("toastTitle");
+const toastBody = document.getElementById("toastBody");
+
 const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
@@ -48,32 +53,70 @@ form.addEventListener("submit", async (e) => {
   const imageInput = document.getElementById("image");
   const imageFile = imageInput.files[0];
 
-  if (name && price && description && category && imageFile && quantity) {
-    const base64String = await resizeImage(imageFile);
-
-    const productData = {
-      id: createId(),
-      name,
-      price,
-      description,
-      category,
-      discount,
-      quantity,
-      seller: localStorage.getItem("Id"),
-      price_after_discount: price - (price * discount) / 100,
-      image: base64String,
-      sales: 0,
-      rating: 0,
-      totalStars: 0,
-      totalRatings: 0,
-      reviewIds: [],
-      createdAt: getCurrentTimestamp(),
-    };
-
-    await addProduct(productData);
-
-    window.location.href = "../index.html";
+  if (!name) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a product name.";
+    toastBootstrap.show();    
+    return;
   }
-  window.location.href = "../index.html";
+  if (!price || isNaN(price) || price <= 0) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid price.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!description) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a description.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!quantity || isNaN(quantity) || quantity < 0) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid quantity.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!category) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please select a category.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!discount || isNaN(discount) || discount < 0) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid discount.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!imageFile) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please select an image.";
+    toastBootstrap.show();
+    return;
+  }
+  const base64String = await resizeImage(imageFile);
 
+  const productData = {
+    id: createId(),
+    name,
+    price,
+    description,
+    category,
+    discount,
+    quantity,
+    seller: localStorage.getItem("Id"),
+    price_after_discount: price - (price * discount) / 100,
+    image: base64String,
+    sales: 0,
+    rating: 0,
+    totalStars: 0,
+    totalRatings: 0,
+    reviewIds: [],
+    createdAt: getCurrentTimestamp(),
+  };
+
+  await addProduct(productData);
+
+  window.location.href = "../index.html";
 });

@@ -11,8 +11,6 @@ const productId = params.get("id");
 
 const product = await getProduct(productId);
 
-console.log(product);
-
 window.addEventListener("load", async () => {
   if (
     localStorage.getItem("isLoggedIn") !== "true" ||
@@ -64,6 +62,11 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "../../../index.html";
 });
 
+const toastLiveExample = document.getElementById("liveToast");
+const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample);
+const toastTitle = document.getElementById("toastTitle");
+const toastBody = document.getElementById("toastBody");
+
 const form = document.querySelector("form");
 
 form.addEventListener("submit", async (e) => {
@@ -80,23 +83,59 @@ form.addEventListener("submit", async (e) => {
 
   let imageUrl = document.getElementById("imagePreview").src;
 
+  console.log(quantity);
+  if (!name) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a product name.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!price || isNaN(price) || price <= 0) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid price.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!description) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a product description.";
+    toastBootstrap.show();
+    return;
+  }
+  if (isNaN(quantity) || quantity < 0) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid quantity.";
+    toastBootstrap.show();
+    return;
+  }
+  if (!category) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please select a category.";
+    toastBootstrap.show();
+    return;
+  }
+  if (isNaN(discount) || discount < 0) {
+    toastTitle.innerHTML = "Error";
+    toastBody.innerHTML = "Please enter a valid discount.";
+    toastBootstrap.show();
+    return;
+  }
   if (file) {
     imageUrl = await resizeImage(file);
   }
-  if (name && price && description && category && quantity) {
-    const productData = {
-      name,
-      price,
-      description,
-      category,
-      discount,
-      quantity,
-      price_after_discount: price - (price * discount) / 100,
-      image: imageUrl,
-    };
 
-    await updateProduct(productId, productData);
+  const productData = {
+    name,
+    price,
+    description,
+    category,
+    discount,
+    quantity,
+    price_after_discount: price - (price * discount) / 100,
+    image: imageUrl,
+  };
 
-    window.location.href = "../index.html";
-  }
+  await updateProduct(productId, productData);
+
+  window.location.href = "../index.html";
 });

@@ -21,7 +21,7 @@ export function renderDataTable({
 
     let tableHTML = `
     <div class="container d-flex justify-content-between align-items-center mb-3">
-        <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control w-75 mx-auto"/>
+        <input type="text" placeholder="Search by product..." id="${containerId}-search" class="form-control w-75 mx-auto"/>
         <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
       </div>
 
@@ -98,7 +98,22 @@ export function renderDataTable({
   function attachEvents() {
     container.querySelectorAll("[data-action='delete']").forEach((btn) => {
       const id = btn.getAttribute("data-id");
-      btn.onclick = () => onDelete?.(id);
+      btn.onclick = () => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "This item will be deleted permanently.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            onDelete?.(id);
+            Swal.fire("Deleted!", "The item has been deleted.", "success");
+          }
+        });
+      };
     });
 
     const search = document.getElementById(`${containerId}-search`);
@@ -106,7 +121,7 @@ export function renderDataTable({
     searchBtn.onclick = () => {
       const term = search.value.toLowerCase();
       filteredData = data.filter((item) =>
-        item.product.toLowerCase().includes(term)
+        item.name.toLowerCase().includes(term)
       );
       currentPage = 1;
       renderTable();
@@ -126,7 +141,7 @@ export function renderDataTable({
         filteredData.sort((a, b) => {
           let valA = a[col];
           let valB = b[col];
-        
+
           if (col === "total" || col === "id") {
             valA = parseFloat(valA);
             valB = parseFloat(valB);
@@ -134,12 +149,11 @@ export function renderDataTable({
             if (typeof valA === "string") valA = valA.toLowerCase();
             if (typeof valB === "string") valB = valB.toLowerCase();
           }
-        
+
           if (valA < valB) return currentSortDirection === "asc" ? -1 : 1;
           if (valA > valB) return currentSortDirection === "asc" ? 1 : -1;
           return 0;
         });
-        
 
         renderTable();
       };

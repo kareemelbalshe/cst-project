@@ -95,7 +95,22 @@ export function renderDataTable({
   function attachEvents() {
     container.querySelectorAll("[data-action='delete']").forEach((btn) => {
       const id = btn.getAttribute("data-id");
-      btn.onclick = () => onDelete?.(id);
+      btn.onclick = () => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: "This item will be deleted permanently.",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            onDelete?.(id);
+            Swal.fire("Deleted!", "The item has been deleted.", "success");
+          }
+        });
+      };
     });
 
     const search = document.getElementById(`${containerId}-search`);

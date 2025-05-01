@@ -18,6 +18,27 @@
     <link rel="icon" href="../../../assets/logoSite.icon" />
   </head>
   <body>
+    <div class="toast-container position-fixed top-0 end-3 p-3">
+      <div
+        style="background-color: var(--danger-color)"
+        id="liveToast"
+        class="toast"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="toast-header">
+          <strong id="toastTitle" class="me-auto"></strong>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div id="toastBody" class="toast-body"></div>
+      </div>
+    </div>
     <header
       class="container-fluid border-bottom border-3 d-flex align-items-center border-dark bg-white sticky-top"
     >
@@ -94,50 +115,50 @@
           <div class="col-md-6">
             <label for="name" class="form-label">Product Name</label>
             <input
+              min="2"
               type="text"
               id="name"
               class="form-control"
               placeholder="Product Name"
-              required
             />
           </div>
 
           <div class="col-md-6">
             <label for="price" class="form-label">Price</label>
             <input
-              type="text"
+              type="number"
+              min="1"
               id="price"
               class="form-control"
               placeholder="Price"
-              required
             />
           </div>
 
           <div class="col-12">
             <label for="description" class="form-label">Description</label>
             <input
+              min="10"
               type="text"
               id="description"
               class="form-control"
               placeholder="Description"
-              required
             />
           </div>
 
           <div class="col-12">
-            <label for="description" class="form-label">Quantity</label>
+            <label for="quantity" class="form-label">Quantity</label>
             <input
-              type="text"
+              type="number"
+              min="0"
               id="quantity"
               class="form-control"
               placeholder="Quantity"
-              required
             />
           </div>
 
           <div class="col-md-6">
             <label for="category" class="form-label">Category</label>
-            <select id="category" class="form-select" required>
+            <select id="category" class="form-select">
               <option value="">Select a category</option>
             </select>
           </div>
@@ -146,6 +167,8 @@
             <label for="discount" class="form-label">Discount (%)</label>
             <input
               type="number"
+              min="0"
+              max="100"
               id="discount"
               class="form-control"
               placeholder="Discount"
