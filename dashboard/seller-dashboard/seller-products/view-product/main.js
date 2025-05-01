@@ -40,9 +40,9 @@ window.addEventListener("load", async () => {
           <div class="card shadow-sm border-0 rounded-4 p-3 mb-4 bg-light">
   <div class="card-body">
     <div class="d-flex justify-content-between align-items-center mb-2">
-    <p class="card-text text-dark mb-2">${review.comment}</p>
+    <p class="card-text text-dark mb-2">${review.data.comment}</p>
       <small class="text-muted">${new Date(
-        review.createdAt
+        review.data.createdAt
       ).toLocaleDateString()}</small>
     </div>
 
@@ -50,14 +50,18 @@ window.addEventListener("load", async () => {
     <div class="d-flex align-items-center">
       <div>
         ${"<i class='bi bi-star-fill text-warning'></i>".repeat(
-          review.stars
+          review.data.stars
         )}
         ${"<i class='bi bi-star text-muted'></i>".repeat(
-          5 - review.stars
+          5 - review.data.stars
         )}
       </div>
-      <span class="ms-2 text-muted">(${review.stars} / 5)</span>
+      <span class="ms-2 text-muted">(${review.data.stars} / 5)</span>
     </div>
+    <div class="text-end">by
+      <small class="text-primary mt-2 fw-bold">
+         ${review.customer.name}
+      </small>
   </div>
 </div>
         `;
