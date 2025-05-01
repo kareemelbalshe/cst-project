@@ -8,7 +8,7 @@
       "id": "id-ma2tkb2z01gt7",
       "name": "kareem",
       "email": "kareem@customer.com",
-      "password": "123",
+      "password": "123456",
       "phone": "201064906723",
       "address": "cairo",
       "numBuys": 17,
@@ -600,6 +600,13 @@
       "stars": 5,
       "comment": "i love this site it is pretty",
       "customer": "id-ma45t8e2zc7mb"
+    },
+    {
+      "id": "id-ma5qjz84tc1lh",
+      "stars": 5,
+      "comment": "I always buy from here",
+      "customer": "id-ma2ufbhjtwo6u",
+      "createdAt": "2025-05-01T19:06:06.484Z"
     }
   ]
 }

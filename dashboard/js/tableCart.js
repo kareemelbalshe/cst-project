@@ -110,21 +110,20 @@ export function renderDataTable({
         filteredData.sort((a, b) => {
           let valA = a[col];
           let valB = b[col];
-          if (typeof valA === "string") valA = valA.toLowerCase();
-          if (typeof valB === "string") valB = valB.toLowerCase();
+        
+          if (col === "total" || col === "id") {
+            valA = parseFloat(valA);
+            valB = parseFloat(valB);
+          } else {
+            if (typeof valA === "string") valA = valA.toLowerCase();
+            if (typeof valB === "string") valB = valB.toLowerCase();
+          }
+        
           if (valA < valB) return currentSortDirection === "asc" ? -1 : 1;
           if (valA > valB) return currentSortDirection === "asc" ? 1 : -1;
           return 0;
         });
-        filteredData.sort((a, b) => {
-          let valA = a[col];
-          let valB = b[col];
-          if (typeof valA === "number") valA = valA;
-          if (typeof valB === "number") valB = valB;
-          if (valA < valB) return currentSortDirection === "asc" ? -1 : 1;
-          if (valA > valB) return currentSortDirection === "asc" ? 1 : -1;
-          return 0;
-        });
+        
 
         renderTable();
       };
