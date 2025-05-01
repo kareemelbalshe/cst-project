@@ -1,16 +1,205 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Declares the document type and version of HTML -->
+<html lang="en"> <!-- Root element of the page, language set to English -->
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Order</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <!-- Metadata and links to stylesheets and icons -->
+    <meta charset="UTF-8"> <!-- Sets character encoding -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes the site responsive -->
+    <title>Order Details</title> <!-- Sets the title shown in the browser tab -->
+
+    <!-- Bootstrap CSS for styling -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="..." crossorigin="anonymous">
+
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom stylesheet -->
     <link rel="stylesheet" href="../../../style.css">
+
+    <!-- Favicon for browser tab -->
     <link rel="icon" href="../../../assets/logoSite.icon" />
 </head>
+
 <body>
-    
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <!-- Header containing navigation bar -->
+    <header class="container-fluid border-bottom border-3 d-flex align-items-center border-dark bg-white sticky-top">
+        <nav class="navbar navbar-expand-lg container">
+            <div class="container-fluid">
+                <!-- Brand logo/link -->
+                <a class="navbar-brand" href="../../index.html">
+                    <h4 class="fw-bolder">Seller Dashboard</h4>
+                </a>
+
+                <!-- Hamburger menu button for mobile view -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Collapsible navbar links -->
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../index.html">Dashboard</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../../../client/index.html">Home Site</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../../../../client/all-products/index.html">All Products</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Logout button -->
+            <div class="d-flex gap-2">
+                <button id="logout" class="btn btn-outline-dark d-flex align-items-center gap-2">
+                    <span>Logout</span>
+                    <span><i class="bi bi-box-arrow-left"></i></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main layout: sidebar and content -->
+    <main class="d-flex">
+        <!-- Sidebar with navigation links -->
+        <aside class="sidebar">
+            <a href="../../seller-products/index.html">
+                <i class="bi bi-p-circle"></i>
+                <span>Products</span>
+            </a>
+            <a href="../index.html">
+                <i class="bi bi-bag-fill"></i>
+                <span>Orders</span>
+            </a>
+        </aside>
+
+        <!-- Main content container -->
+        <div class="container mt-3">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <!-- Card header with order title and date -->
+                        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">Order Details</h4>
+                            <span class="badge bg-light text-dark" id="orderDate">Loading...</span>
+                        </div>
+
+                        <div class="card-body">
+                            <!-- Spinner shown while data is loading -->
+                            <div class="loading-spinner d-flex justify-content-center" id="spinner">
+                                <div class="spinner-border text-primary m-5" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                            </div>
+
+                            <!-- Actual order details (hidden by default) -->
+                            <div id="orderDetails" class="d-none">
+                                <div class="row mb-4">
+                                    <!-- Customer Information card -->
+                                    <div class="col-md-6">
+                                        <div class="card h-100">
+                                            <div class="card-header bg-light">
+                                                <h5 class="mb-0"><i class="bi bi-person-fill me-2"></i>Customer Information</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Name:</span>
+                                                        <span id="customerName">Loading...</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Email:</span>
+                                                        <span id="customerEmail">Loading...</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Phone:</span>
+                                                        <span id="customerPhone">Loading...</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Address:</span>
+                                                        <span id="customerAddress">Loading...</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Order Information card -->
+                                    <div class="col-md-6">
+                                        <div class="card h-100">
+                                            <div class="card-header bg-light">
+                                                <h5 class="mb-0"><i class="bi bi-info-circle-fill me-2"></i>Order Information</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Order ID:</span>
+                                                        <span id="orderId">Loading...</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Total Amount:</span>
+                                                        <span id="orderTotal">Loading...</span>
+                                                    </li>
+                                                    <li class="list-group-item d-flex justify-content-between">
+                                                        <span class="fw-bold">Status:</span>
+                                                        <span id="orderStatus" class="badge bg-success">Completed</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Product Details Table -->
+                                <div class="card mb-4">
+                                    <div class="card-header bg-light">
+                                        <h5 class="mb-0"><i class="bi bi-cart-fill me-2"></i>Product Details</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-hover">
+                                                <thead class="table-dark">
+                                                    <tr>
+                                                        <th>Product Name</th>
+                                                        <th>Description</th>
+                                                        <th>Price</th>
+                                                        <th>Quantity</th>
+                                                        <th>Subtotal</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="productTableBody">
+                                                    <!-- Product details will be loaded here -->
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> <!-- End of #orderDetails -->
+                        </div> <!-- End of card-body -->
+                    </div> <!-- End of card -->
+                </div>
+            </div>
+
+            <!-- Back button to Orders page -->
+            <div class="container mt-3 mb-3 d-flex justify-content-end gap-2">
+                <a class="btn btn-dark" href="../index.html">
+                    <i class="bi bi-arrow-left"></i>
+                    <span>Back to Orders</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- External JavaScript for functionality -->
+    <script src="main.js" type="module"></script>
+
+    <!-- Bootstrap JS bundle for interactivity (e.g., navbar toggling) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="..." crossorigin="anonymous"></script>
 </body>
+
 </html>
