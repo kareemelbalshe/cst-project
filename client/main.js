@@ -8,6 +8,9 @@ import {
 } from "../shared/Api.js";
 import { addToCart } from "./js/addToCart.js";
 import createId from "./js/createId.js";
+import getCurrentTimestamp from "./js/setTime.js";
+
+
 
 document.addEventListener("DOMContentLoaded", async () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -81,6 +84,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       stars: selectedStars,
       comment,
       customer: customerId,
+      createdAt: getCurrentTimestamp() 
     };
 
     await addSiteReview(review);

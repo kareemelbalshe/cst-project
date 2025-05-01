@@ -12,7 +12,6 @@ form.addEventListener("submit", async function (e) {
   const toastTitle = document.getElementById("toastTitle");
   const toastBody = document.getElementById("toastBody");
 
-  // Check if fields are empty
   if (!email || !password) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML = "Both email and password are required.";
@@ -37,9 +36,9 @@ form.addEventListener("submit", async function (e) {
         })
       );
 
-      toastTitle.innerHTML = "Success";
-      toastBody.innerHTML = "Login successful!";
-      toastBootstrap.show();
+      // toastTitle.innerHTML = "Success";
+      // toastBody.innerHTML = "Login successful!";
+      // toastBootstrap.show();
 
       setTimeout(() => {
         window.location.href = "../index.html";
