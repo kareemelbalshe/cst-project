@@ -89,6 +89,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     alert("Thank you for your review!");
   });
 
+  const closePopup = document.getElementById("close-popup");
+  closePopup.addEventListener("click", () => {
+    popup.style.display = "none";
+  });
+
   const CategorySection = document.getElementById("categories");
   const categories = await getCategories();
 
