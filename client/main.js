@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <a 
                   href="./product-details/index.html?id=${product.id}" 
                   class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
-                  style="width: 40px; height: 40px;z-index: 1000;"
+                  style="width: 40px; height: 40px"
                 >
                   <i class="bi bi-eye fs-4 text-primary"></i>
                 </a>
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <a 
                     href="./product-details/index.html?id=${product.id}" 
                     class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
-                    style="width: 40px; height: 40px;z-index: 10;"
+                    style="width: 40px; height: 40px;"
                   >
                     <i class="bi bi-eye fs-4 text-primary"></i>
                   </a>
@@ -376,7 +376,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   <a 
                     href="./product-details/index.html?id=${product.id}" 
                     class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
-                    style="width: 40px; height: 40px;z-index: 10;"
+                    style="width: 40px; height: 40px"
                   >
                     <i class="bi bi-eye fs-4 text-primary"></i>
                   </a>
