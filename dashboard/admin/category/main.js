@@ -31,12 +31,7 @@ renderDataTable({
   containerId: "page",
   data: Category,
   onDelete: async (id) => {
-    const res = await deleteCategory(id);
-    if (res.success) {
-      alert("Category deleted successfully!");
-    } else {
-      alert("Category is used by products, cannot delete!");
-    }
+    await deleteCategory(id);
   },
   editUrl: "./edit-category/index.html",
 });

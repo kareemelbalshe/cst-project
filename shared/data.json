@@ -215,24 +215,6 @@
   ],
   "carts": [
     {
-      "id": "id-ma2ul6m01e9o7",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tp28snoom7",
-      "quantity": 2,
-      "seller": "id-ma2tllpukyulh",
-      "total": "198.00",
-      "createdAt": "2025-04-29T18:36:18.251Z"
-    },
-    {
-      "id": "id-ma2ul8qtj36dz",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tqovv05m73",
-      "quantity": 1,
-      "seller": "id-ma2tllpukyulh",
-      "total": "90.00",
-      "createdAt": "2025-04-29T18:36:18.344Z"
-    },
-    {
       "id": "id-ma2v6w1hb7lnv",
       "customer": "id-ma2tkb2z01gt7",
       "product": "id-ma2tqovv05m73",
@@ -240,15 +222,6 @@
       "seller": "id-ma2tllpukyulh",
       "total": "90.00",
       "createdAt": "2025-04-30T01:03:04.862Z"
-    },
-    {
-      "id": "id-ma38frhmdt224",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tp28snoom7",
-      "quantity": 2,
-      "seller": "id-ma2tllpukyulh",
-      "total": "200.00",
-      "createdAt": "2025-04-30T01:04:00.360Z"
     },
     {
       "id": "id-ma38frhmdt224",
@@ -321,24 +294,6 @@
       "seller": "id-ma2ufbhjtwo6u",
       "total": "29400.00",
       "createdAt": "2025-04-30T02:04:19.890Z"
-    },
-    {
-      "id": "id-ma3ul0zm44bsn",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tqovv05m73",
-      "quantity": 1,
-      "seller": "id-ma2tllpukyulh",
-      "total": "90.00",
-      "createdAt": "2025-04-30T11:35:53.614Z"
-    },
-    {
-      "id": "id-ma3ul0zm44bsn",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tqovv05m73",
-      "quantity": 1,
-      "seller": "id-ma2tllpukyulh",
-      "total": "90.00",
-      "createdAt": "2025-04-30T11:36:01.388Z"
     },
     {
       "id": "id-ma3ul0zm44bsn",

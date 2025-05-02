@@ -9,6 +9,7 @@ export function renderDataTable({
   let currentSortColumn = null;
   let currentSortDirection = "asc";
   let filteredData = [...data];
+  const selectedItems = [];
 
   const container = document.getElementById(containerId);
   const paginationContainer = document.createElement("ul");
@@ -20,16 +21,20 @@ export function renderDataTable({
     const paginated = filteredData.slice(start, end);
 
     let tableHTML = `
-    <div class="container d-flex justify-content-between align-items-center mb-3">
+    <div class="container d-flex justify-content-between align-items-center mb-3 gap-2">
         <input type="text" placeholder="Search by product..." id="${containerId}-search" class="form-control w-75 mx-auto"/>
         <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
+        <button id="${containerId}-delete-btn" class="btn btn-danger">Delete</button>
       </div>
 
       <div class="table-responsive">
         <table style="width:100%" class="table table-bordered table-hover text-center align-middle">
           <thead class="table-dark">
             <tr>
-              <th style="cursor:pointer" data-col="id">ID</th>
+            <th style="cursor:pointer;z-index:1" data-col="id">
+            <input style="cursor:pointer;z-index:10" type="checkbox" id="selectAll" />
+            ID
+            </th>
               <th style="cursor:pointer" data-col="product">Product</th>
               <th style="cursor:pointer" data-col="customer">Customer</th>
               <th style="cursor:pointer" data-col="total">Total</th>
@@ -45,8 +50,13 @@ export function renderDataTable({
       const customer = item.customer || "N/A";
 
       tableHTML += `
-        <tr>
-          <td>${item.id}</td>
+        <tr id="tr-${item.id}">
+          <td>
+          <input type="checkbox" class="form-check-input" id="${containerId}-${
+        item.id
+      }" />
+          ${item.id}
+          </td>
           <td>${product}</td>
           <td>${customer}</td>
           <td>${parseFloat(item.total)}</td>
@@ -157,6 +167,81 @@ export function renderDataTable({
 
         renderTable();
       };
+    });
+
+    const selectAll = document.getElementById("selectAll");
+    selectAll.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const checkboxes = container.querySelectorAll(
+        `input[type="checkbox"]:not(#selectAll)`
+      );
+      checkboxes.forEach((checkbox) => {
+        const id = checkbox.id.replace(`${containerId}-`, "");
+        checkbox.checked = e.target.checked;
+
+        const row = document.getElementById(`tr-${id}`);
+        if (e.target.checked) {
+          selectedItems.push(id);
+          row.classList.add("table-active", "border", "border-dark");
+        } else {
+          selectedItems.pop(id);
+          row.classList.remove("table-active", "border", "border-dark");
+        }
+      });
+    });
+
+    container
+      .querySelectorAll(`input[type="checkbox"]:not(#selectAll)`)
+      .forEach((checkbox) => {
+        checkbox.addEventListener("change", (e) => {
+          const id = e.target.id.replace(`${containerId}-`, "");
+          const row = document.getElementById(`tr-${id}`);
+
+          if (e.target.checked) {
+            selectedItems.push(id);
+            row.classList.add("table-active", "border", "border-dark");
+          } else {
+            selectedItems.splice(selectedItems.indexOf(id), 1);
+            row.classList.remove("table-active", "border", "border-dark");
+          }
+
+          const allCheckboxes = container.querySelectorAll(
+            `input[type="checkbox"]:not(#selectAll)`
+          );
+          const allChecked = [...allCheckboxes].every((cb) => cb.checked);
+          selectAll.checked = allChecked;
+        });
+      });
+
+    const deleteBtn = document.getElementById(`${containerId}-delete-btn`);
+    deleteBtn.addEventListener("click", () => {
+      if (selectedItems.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          title: "No items selected",
+          text: "Please select at least one item to delete.",
+        });
+        return;
+      }
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "This item will be deleted permanently.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          selectedItems.forEach(async (id) => {
+            await onDelete?.(id);
+          });
+          Swal.fire("Deleted!", "The items have been deleted.", "success");
+          selectedItems.length = 0;
+          renderTable();
+        }
+      });
     });
   }
 
