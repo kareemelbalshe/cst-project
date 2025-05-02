@@ -6,10 +6,10 @@
   "customers": [
     {
       "id": "id-ma2tkb2z01gt7",
-      "name": "kareem",
+      "name": "kareem ahmed",
       "email": "kareem@customer.com",
       "password": "123456",
-      "phone": "201064906723",
+      "phone": "01064906723",
       "address": "cairo",
       "numBuys": 17,
       "totalSpent": 118858,

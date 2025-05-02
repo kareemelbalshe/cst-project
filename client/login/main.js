@@ -1,4 +1,4 @@
-import { loginCustomer } from "../../shared/Api.js";
+import { getCustomer, loginCustomer } from "../../shared/Api.js";
 
 const form = document.querySelector("form");
 
@@ -23,9 +23,7 @@ form.addEventListener("submit", async function (e) {
     const result = await loginCustomer({ email, password });
 
     if (result) {
-      const response = await fetch("http://localhost:5000/customers");
-      const customers = await response.json();
-      const customer = customers.find((c) => c.email === email);
+      const customer = await getCustomer(localStorage.getItem("Id"));
 
       localStorage.setItem(
         "currentUser",
@@ -35,10 +33,6 @@ form.addEventListener("submit", async function (e) {
           email: customer.email,
         })
       );
-
-      // toastTitle.innerHTML = "Success";
-      // toastBody.innerHTML = "Login successful!";
-      // toastBootstrap.show();
 
       setTimeout(() => {
         window.location.href = "../index.html";
