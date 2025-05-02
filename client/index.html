@@ -203,7 +203,7 @@
       .review-track {
         display: flex;
         gap: 2rem;
-        animation: scrollReviews 50s linear infinite;
+        animation: scrollReviews 60s linear infinite;
         will-change: transform;
       }
 
@@ -222,12 +222,6 @@
 
       @keyframes scrollReviews {
         0% {
-          transform: translateX(100%);
-        }
-        49.999% {
-          transform: translateX(-100%);
-        }
-        50% {
           transform: translateX(100%);
         }
         100% {
@@ -433,9 +427,9 @@
 
     <br />
 
-    <h2 class="hTwo">Categories</h2>
+    <h2 id="categories" class="hTwo">Categories</h2>
     <section
-      id="categories"
+      id="categoriesSection"
       class="container d-flex flex-wrap gap-4 justify-content-center align-items-center my-5"
     ></section>
 

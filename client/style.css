@@ -55,44 +55,74 @@ body {
 }
 
 .hTwo {
-  font-size: 2rem;
-  font-weight: 700;
-  color: var(--secondary-color);
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--dark-color);
   text-align: center;
-  margin: 20px auto;
+  margin: 30px auto;
   width: fit-content;
   position: relative;
+  padding: 10px 30px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
 }
 
-.hTwo::before {
-  content: "";
-  position: absolute;
-  width: 50px;
-  height: 5px;
-  background-color: var(--primary-color);
-  border-radius: 20px;
-  top: -2px;
-}
-
+.hTwo::before,
 .hTwo::after {
   content: "";
   position: absolute;
-  width: 50px;
-  height: 5px;
-  background-color: var(--primary-color);
-  bottom: -2px;
+  height: 4px;
+  width: 0;
+  border-radius: 50px;
+  transition: all 0.6s ease-in-out;
+}
+
+.hTwo::before {
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+}
+
+.hTwo::after {
+  bottom: 0;
   right: 0;
-  border-radius: 20px;
+  background: linear-gradient(to left, var(--primary-color), var(--secondary-color));
 }
 
-.hTwo:hover::before {
-  width: 100%;
-  transition: 0.9s ease-in-out;
+.hTwo:hover {
+  transform: scale(1.05);
+  color: #111;
+  text-shadow: 1px 1px 8px rgba(0, 0, 0, 0.1);
 }
 
+.hTwo:hover::before,
 .hTwo:hover::after {
   width: 100%;
-  transition: 0.9s ease-in-out;
+}
+
+.hTwo::first-letter {
+  color: var(--primary-color);
+  font-size: 3rem;
+  transition: all 0.4s ease-in-out;
+}
+
+.hTwo:hover::first-letter {
+  color: var(--secondary-color);
+}
+
+@keyframes slideInFade {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.hTwo {
+  animation: slideInFade 0.8s ease-out both;
 }
 
 .btn {
@@ -139,7 +169,7 @@ body {
 }
 
 .product-card:hover .eye-icon {
-  display: block;
+  display: flex;
 }
 
 .add-to-cart-btn {

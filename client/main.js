@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     popup.style.display = "none";
   });
 
-  const CategorySection = document.getElementById("categories");
+  const CategorySection = document.getElementById("categoriesSection");
   const categories = await getCategories();
 
   categories.map((item) => {
@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", async () => {
               <div class="card-body position-relative">
                 <a 
                   href="./product-details/index.html?id=${product.id}" 
-                  class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
+                  class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
                   style="width: 40px; height: 40px;z-index: 10;"
                 >
                   <i class="bi bi-eye fs-4 text-primary"></i>
@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="card-body position-relative">
                   <a 
                     href="./product-details/index.html?id=${product.id}" 
-                    class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
+                    class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
                     style="width: 40px; height: 40px;z-index: 10;"
                   >
                     <i class="bi bi-eye fs-4 text-primary"></i>
@@ -375,7 +375,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 <div class="card-body position-relative">
                   <a 
                     href="./product-details/index.html?id=${product.id}" 
-                    class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow d-flex align-items-center justify-content-center"
+                    class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
                     style="width: 40px; height: 40px;z-index: 10;"
                   >
                     <i class="bi bi-eye fs-4 text-primary"></i>
