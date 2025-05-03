@@ -49,4 +49,5 @@ renderDataTable({
     }
   },
   editUrl: "./edit-category/index.html",
+  viewUrl: "./view-category/index.html",
 });
