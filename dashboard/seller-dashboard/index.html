@@ -109,6 +109,81 @@
           </div>
         </div>
       </div>
+<div class="toast-container position-fixed top-0 start-0 p-3">
+  <div
+    style="background-color: var(--danger-color)"
+    id="liveToast"
+    class="toast"
+    role="alert"
+    aria-live="assertive"
+    aria-atomic="true"
+  >
+    <div class="toast-header">
+      <strong id="toastTitle" class="me-auto"></strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="toast"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div id="toastBody" class="toast-body"></div>
+    
+  </div>
+  
+</div>
+<div class="fixed-bottom bg-white border-top py-3">
+  <div class="container d-flex justify-content-end gap-3">
+    <button class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#resetPasswordModal">Reset Password</button>
+    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteAccountModal">Delete Account</button>
+  </div>
+</div>
+
+
+<div class="modal fade" id="resetPasswordModal" tabindex="-1" aria-labelledby="resetPasswordModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="resetPasswordModalLabel">Reset Password</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="resetPasswordForm">
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">New Password</label>
+            <input type="password" class="form-control" id="newPassword" placeholder="Enter new password" required>
+          </div>
+          <div class="mb-3">
+            <label for="confirmNewPassword" class="form-label">Confirm New Password</label>
+            <input type="password" class="form-control" id="confirmNewPassword" placeholder="Confirm new password" required>
+          </div>
+          <div class="d-grid">
+            <button type="submit" class="btn btn-dark">Save Password</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="deleteAccountModal" tabindex="-1" aria-labelledby="deleteAccountModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content border-danger">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="deleteAccountModalLabel">Delete Account</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-danger fw-bold">Are you sure you want to permanently delete your account? This action cannot be undone.</p>
+        <div class="d-flex justify-content-end gap-2">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button id="confirmDeleteAccount" type="button" class="btn btn-danger">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
     </main>
 
     <script src="main.js" type="module"></script>
