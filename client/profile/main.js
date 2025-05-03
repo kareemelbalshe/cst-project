@@ -1,4 +1,4 @@
-import { logout, getCustomer, updateCustomer } from "../../shared/Api.js";
+import { logout, getCustomer, updateCustomer , deleteCustomer} from "../../shared/Api.js";
 import { resizeImage } from "../js/resizeImage.js";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -31,6 +31,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loadCustomerData();
+  
+  const form = document.querySelector("form");
+  const deleteAccountBtn = document.createElement("button");
+  deleteAccountBtn.type = "button";
+  deleteAccountBtn.className = "btn btn-danger mt-3";
+  deleteAccountBtn.setAttribute("data-bs-toggle", "modal");
+  deleteAccountBtn.setAttribute("data-bs-target", "#deleteAccountModal");
+  deleteAccountBtn.textContent = "Delete Account";
+  form.appendChild(deleteAccountBtn);
 });
 
 const profileForm = document.querySelector("form");
@@ -100,9 +109,9 @@ profileForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  const validPrefixes = ["010", "011", "012", "015"];
-  if (phone.length !== 11 || !validPrefixes.some((p) => phone.startsWith(p))) {
-    showToast("Validation Error", "Phone number must start with 010, 011, 012, or 015 and be 11 digits long.");
+  const validPrefixes = ["2010", "2011", "2012", "2015"];
+  if (phone.length !== 12 || !validPrefixes.some((p) => phone.startsWith(p))) {
+    showToast("Validation Error", "Phone number must start with 2010, 2011, 2012, or 2015 and be 12 digits long.");
     return;
   }
 
@@ -180,6 +189,71 @@ resetPasswordForm.addEventListener("submit", async (event) => {
   } catch (error) {
     console.error("Error updating password:", error);
     showToast("Error", "Failed to update password. Please try again.");
+  }
+});
+
+async function handleDeleteAccount() {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    showToast("Error", "You must be logged in to delete your account.");
+    return;
+  }
+
+  try {
+    await deleteCustomer(currentUser.id);
+    
+    logout();
+    
+    showToast("Success", "Your account has been deleted successfully!");
+    
+    setTimeout(() => {
+      window.location.href = "../index.html";
+    }, 2000);
+    
+  } catch (error) {
+    console.error("Error deleting account:", error);
+    showToast("Error", "Failed to delete account. Please try again.");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const modalDiv = document.createElement("div");
+  modalDiv.className = "modal fade";
+  modalDiv.id = "deleteAccountModal";
+  modalDiv.tabIndex = "-1";
+  modalDiv.setAttribute("aria-labelledby", "deleteAccountModalLabel");
+  modalDiv.setAttribute("aria-hidden", "true");
+  
+  modalDiv.innerHTML = `
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="deleteAccountModalLabel">Confirm Account Deletion</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+          <p class="text-danger"><strong>Warning:</strong> All your account data will be permanently deleted and you will be logged out.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteAccount">Delete Account</button>
+        </div>
+      </div>
+    </div>
+  `;
+  
+  document.body.appendChild(modalDiv);
+  
+  const confirmDeleteBtn = document.getElementById("confirmDeleteAccount");
+  if (confirmDeleteBtn) {
+    confirmDeleteBtn.addEventListener("click", function() {
+      const deleteModal = bootstrap.Modal.getInstance(document.getElementById("deleteAccountModal"));
+      if (deleteModal) {
+        deleteModal.hide();
+      }
+      handleDeleteAccount();
+    });
   }
 });
 
