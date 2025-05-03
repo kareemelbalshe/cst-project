@@ -31,7 +31,22 @@ renderDataTable({
   containerId: "page",
   data: Category,
   onDelete: async (id) => {
-    await deleteCategory(id);
+    const res = await deleteCategory(id);
+    if (res.status === true) {
+      Swal.fire({
+        icon: "success",
+        title: "Deleted!",
+        text: "Category has been deleted.",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Error!",
+        text: "Failed to delete category, because it has products.",
+      });
+    }
   },
   editUrl: "./edit-category/index.html",
 });
