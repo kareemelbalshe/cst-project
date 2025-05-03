@@ -12,10 +12,21 @@
     <link rel="icon" href="../../../assets/logoSite.icon" />
 </head>
 <style>
+    /* Animation for rotating the card */
+    @keyframes rotateCard {
+        0% {
+            transform: rotateX(0deg);
+        }
+        100% {
+            transform: rotateX(360deg);
+        }
+    }
+
     .custom-circle-card {
         width: 500px;
         height: 500px;
         border-radius: 50%;
+        animation: rotateCard 1s ease-in-out forwards; /* Apply the rotation animation */
     }
 
     .custom-image {
@@ -25,6 +36,7 @@
         border-radius: 50%;
     }
 </style>
+
 
 <body>
     <header class="container-fluid border-bottom border-3 d-flex align-items-center border-dark bg-white sticky-top">
