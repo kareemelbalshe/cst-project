@@ -24,8 +24,12 @@ export function renderDataTable({
     <div class="d-flex flex-wrap align-items-start justify-content-between mb-3 gap-2">
         <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control w-75"/>
         <div>
-          <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
-          <button id="${containerId}-delete-btn" class="btn btn-danger">Delete</button>
+          <button id="${containerId}-search-btn" class="btn btn-dark">
+          <i class="bi bi-search"></i>
+          Search</button>
+          <button id="${containerId}-delete-btn" class="btn btn-danger">
+          <i class="bi bi-trash"></i>
+          Delete</button>
         </div>
       </div>
 
