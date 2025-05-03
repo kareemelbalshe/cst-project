@@ -215,15 +215,6 @@
   ],
   "carts": [
     {
-      "id": "id-ma2v6w1hb7lnv",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tqovv05m73",
-      "quantity": 1,
-      "seller": "id-ma2tllpukyulh",
-      "total": "90.00",
-      "createdAt": "2025-04-30T01:03:04.862Z"
-    },
-    {
       "id": "id-ma38frhmdt224",
       "customer": "id-ma2tkb2z01gt7",
       "product": "id-ma2tp28snoom7",
@@ -258,15 +249,6 @@
       "seller": "id-ma2tllpukyulh",
       "total": "100.00",
       "createdAt": "2025-04-30T01:05:40.164Z"
-    },
-    {
-      "id": "id-ma38si8potjyj",
-      "customer": "id-ma2tkb2z01gt7",
-      "product": "id-ma2tqovv05m73",
-      "quantity": 4,
-      "seller": "id-ma2tllpukyulh",
-      "total": "360.00",
-      "createdAt": "2025-04-30T01:13:29.424Z"
     },
     {
       "id": "id-ma3992nb7jq0a",

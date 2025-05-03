@@ -1,4 +1,4 @@
-import { logout, getCustomer } from "../../../../shared/Api.js";
+import { logout, getCustomer, deleteCustomer } from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   if (
@@ -52,3 +52,21 @@ try {
   console.error("Failed to fetch customer:", err);
   alert("An error occurred while fetching customer data.");
 }
+
+const deleteThis = document.getElementById("deleteThis");
+deleteThis.addEventListener("click", async () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This item will be deleted permanently.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await deleteCustomer(customerid);
+      window.location.href = "../index.html";
+    }
+  });
+});

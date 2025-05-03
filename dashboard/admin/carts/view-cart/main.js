@@ -1,4 +1,9 @@
-import { getCart, getSeller, logout } from "../../../../shared/Api.js";
+import {
+  deleteCart,
+  getCart,
+  getSeller,
+  logout,
+} from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -59,3 +64,28 @@ if (cartId) {
     container.appendChild(card);
   });
 }
+
+const deleteThis = document.getElementById("deleteThis");
+deleteThis.addEventListener("click", async () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This item will be deleted permanently.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      if (cartId) {
+        try {
+          await deleteCart(cartId);
+          window.location.href = "../index.html";
+        } catch (err) {
+          console.error("Failed to delete cart:", err);
+        }
+      } else {
+      }
+    }
+  });
+});

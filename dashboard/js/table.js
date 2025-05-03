@@ -22,10 +22,12 @@ export function renderDataTable({
     const paginated = filteredData.slice(start, end);
 
     let tableHTML = `
-      <div class="container d-flex justify-content-between align-items-center mb-3 gap-2">
-        <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control w-75 mx-auto"/>
-        <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
-        <button id="${containerId}-delete-btn" class="btn btn-danger">Delete</button>
+      <div class="d-flex flex-wrap align-items-start justify-content-between mb-3 gap-2">
+        <input type="text" placeholder="Search..." id="${containerId}-search" class="form-control w-75"/>
+        <div>
+          <button id="${containerId}-search-btn" class="btn btn-dark">Search</button>
+          <button id="${containerId}-delete-btn" class="btn btn-danger">Delete</button>
+        </div>
       </div>
 
       <div class="table-responsive">

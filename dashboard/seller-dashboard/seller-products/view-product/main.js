@@ -1,4 +1,5 @@
 import {
+  deleteProduct,
   getCategories,
   getProduct,
   getReview,
@@ -95,4 +96,24 @@ const logoutBtn = document.getElementById("logout");
 logoutBtn.addEventListener("click", () => {
   logout();
   window.location.href = "../../../index.html";
+});
+
+const deleteThis = document.getElementById("deleteThis");
+deleteThis.addEventListener("click", async () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This item will be deleted permanently.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get("id");
+      await deleteProduct(productId);
+      window.location.href = "../index.html";
+    }
+  });
 });

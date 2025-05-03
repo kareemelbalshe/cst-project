@@ -16,6 +16,7 @@
     />
     <link rel="stylesheet" href="../../../style.css" />
     <link rel="icon" href="../../../assets/logoSite.icon" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <header
@@ -102,15 +103,8 @@
           <span>Reviews Site</span>
         </a>
       </aside>
-      <div class="container mt-3">
-        <!-- <div id="page" class="container mt-3">
-          <div class="d-flex justify-content-center">
-            <div class="spinner-border text-primary m-5" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div> -->
-        <div id="page" class="container mt-4 w-50">
+      <div class="container-fluid bg-secondary-subtle">
+        <div id="page" class="container mt-4">
           <div class="card shadow rounded-4">
             <div
               class="card-header bg-dark text-white d-flex justify-content-between align-items-center"
@@ -120,9 +114,7 @@
                 <i class="bi bi-star-fill"></i> 5 Stars
               </span>
             </div>
-            <div
-              class="card-body d-flex flex-column align-items-center bg-secondary-subtle"
-            >
+            <div class="card-body d-flex flex-column align-items-center">
               <div
                 class="d-none justify-content-start mb-3 customer-image-container"
               >
@@ -141,40 +133,36 @@
 
               <p class="mb-2">
                 <strong>Customer Name:</strong>
-                <span id="customername" class="text-success fw-bold"
-                  >Youssef</span
-                >
+                <span id="customername" class="text-success fw-bold"></span>
               </p>
               <p class="mb-2">
                 <strong>Email:</strong>
-                <span id="customeremail" class="text-info fw-semibold"
-                  >Youssef</span
-                >
+                <span id="customeremail" class="text-info fw-semibold"></span>
               </p>
               <p class="mb-2">
                 <strong>Address:</strong>
-                <span id="custmoeradd" class="text-muted fw-medium"
-                  >Youssef</span
-                >
+                <span id="custmoeradd" class="text-muted fw-medium"></span>
               </p>
               <p class="mb-2">
                 <strong>Phone:</strong>
-                <span id="customerphone" class="text-dark fw-semibold"
-                  >Youssef</span
-                >
+                <span id="customerphone" class="text-dark fw-semibold"></span>
               </p>
               <p class="mb-0">
                 <strong>Review:</strong>
-                <span class="text-secondary" id="review">it is great</span>
+                <span class="text-secondary" id="review"></span>
               </p>
             </div>
             <div class="card-footer text-muted small">
-              Review ID: <code id="reviewid">id-ma3z5ulsg1fwi</code>
+              Review ID: <code id="reviewid"></code>
             </div>
           </div>
         </div>
 
-        <div class="container mt-3 d-flex justify-content-end gap-2">
+        <div class="container my-3 d-flex justify-content-end gap-2">
+          <button id="deleteThis" class="btn btn-danger">
+            <i class="bi bi-trash"></i>
+            Delete Review
+          </button>
           <a class="btn btn-dark" href="../index.html">
             <i class="bi bi-arrow-left"></i>
             <span>Back</span>

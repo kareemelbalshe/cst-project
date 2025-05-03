@@ -1,4 +1,8 @@
-import { logout, deleteSiteReview, getSiteReviews } from "../../../shared/Api.js";
+import {
+  logout,
+  deleteSiteReview,
+  getSiteReviews,
+} from "../../../shared/Api.js";
 import { renderDataTable } from "../../js/tableReviews.js";
 
 window.addEventListener("load", () => {
@@ -27,7 +31,7 @@ logoutBtn.addEventListener("click", () => {
 
 const siteReview = await getSiteReviews();
 
-console.log(siteReview)
+console.log(siteReview);
 renderDataTable({
   containerId: "page",
   data: siteReview,
@@ -36,4 +40,3 @@ renderDataTable({
   },
   viewUrl: "./view-review/index.html",
 });
- 

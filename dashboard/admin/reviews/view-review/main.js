@@ -1,4 +1,4 @@
-import { getReview, logout } from "../../../../shared/Api.js";
+import { deleteReview, getReview, logout } from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
@@ -45,3 +45,21 @@ async function loadReview() {
     createdAtElement.innerHTML = new Date(data.createdAt).toLocaleString()
 }
 loadReview();
+
+const deleteThis = document.getElementById("deleteThis");
+deleteThis.addEventListener("click", async () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This item will be deleted permanently.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await deleteReview(reviewId);
+      window.location.href = "../index.html";
+    }
+  });
+});

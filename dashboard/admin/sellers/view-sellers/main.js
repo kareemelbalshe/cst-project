@@ -1,4 +1,10 @@
-import { logout, getProductsToSeller, getSeller, getCategory } from "../../../../shared/Api.js";
+import {
+  logout,
+  getProductsToSeller,
+  getSeller,
+  getCategory,
+  deleteSeller,
+} from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   if (
@@ -26,7 +32,6 @@ document.getElementById("logout").addEventListener("click", () => {
 const params = new URLSearchParams(window.location.search);
 const sellerid = params.get("id");
 
-
 async function loadSellerData() {
   try {
     const response = await getSeller(sellerid);
@@ -42,7 +47,8 @@ async function loadSellerData() {
       }`;
       document.querySelector("#createdat").innerText =
         new Date(response.createdAt).toLocaleString() || "N/A";
-      document.querySelector("#numsells").innerText = response.numSells ?? "N/A";
+      document.querySelector("#numsells").innerText =
+        response.numSells ?? "N/A";
       document.querySelector("#numofproduct").innerText =
         response.products?.length ?? "N/A";
 
@@ -60,9 +66,7 @@ async function loadSellerData() {
         card.innerHTML = `
           <div class="row g-0 align-items-center">
             <div class="col-md-4 text-center bg-light p-3 rounded-start">
-              <img src="${
-                product.image || "https://via.placeholder.com/150"
-              }"
+              <img src="${product.image || "https://via.placeholder.com/150"}"
                 class="img-fluid rounded shadow-sm border" alt="Product Image" style="max-height: 200px; object-fit: contain;">
             </div>
             <div class="col-md-8">
@@ -71,15 +75,21 @@ async function loadSellerData() {
                   product.name
                 }</h5>
                 <div class="row">
-                  <div class="col-sm-6 mb-2"><strong>ID:</strong> ${product.id}</div>
-                  <div class="col-sm-6 mb-2"><strong>Category Name:</strong> ${categoryresponse?.name || "N/A"}</div>
+                  <div class="col-sm-6 mb-2"><strong>ID:</strong> ${
+                    product.id
+                  }</div>
+                  <div class="col-sm-6 mb-2"><strong>Category Name:</strong> ${
+                    categoryresponse?.name || "N/A"
+                  }</div>
                   <div class="col-sm-6 mb-2"><strong>Price:</strong> <span class="text-success">$${
                     product.price
                   }</span></div>
                   <div class="col-sm-6 mb-2"><strong>Discount:</strong> <span class="text-danger">${
                     product.discount
                   }%</span></div>
-                  <div class="col-sm-6 mb-2"><strong>Quantity:</strong> ${product.quantity}</div>
+                  <div class="col-sm-6 mb-2"><strong>Quantity:</strong> ${
+                    product.quantity
+                  }</div>
                   <div class="col-12 mb-2"><strong>Description:</strong><br><span class="text-muted">${
                     product.description
                   }</span></div>
@@ -105,5 +115,27 @@ async function loadSellerData() {
   }
 }
 
-
 loadSellerData();
+
+document.getElementById("deleteThis").addEventListener("click", async () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This item will be deleted permanently.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      if (sellerid) {
+        try {
+          await deleteSeller(sellerid);
+          window.location.href = "../index.html";
+        } catch (err) {
+          console.error("Failed to delete seller:", err);
+        }
+      }
+    }
+  });
+});

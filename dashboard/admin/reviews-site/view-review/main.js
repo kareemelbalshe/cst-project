@@ -1,4 +1,4 @@
-import { logout, getSiteReview,getCustomer } from "../../../../shared/Api.js";
+import { logout, getSiteReview,getCustomer, deleteSiteReview } from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   if (
@@ -27,10 +27,8 @@ logoutBtn.addEventListener("click", () => {
 const params = new URLSearchParams(window.location.search);
 const site_reviews = params.get("id");
 const response_SiteReview = await getSiteReview(site_reviews);
-console.log(response_SiteReview);
 const customerId = response_SiteReview.customer;
 const response_Customer = await getCustomer(customerId);
-console.log(response_Customer);
 
 const review = document.getElementById("review");
 const reviewid=document.getElementById("reviewid");
@@ -54,3 +52,21 @@ if (response_Customer.image) {
 } else {
   customerImageContainer.classList.add("d-none");
 }
+
+const deleteThis = document.getElementById("deleteThis");
+deleteThis.addEventListener("click", async () => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "This item will be deleted permanently.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      await deleteSiteReview(site_reviews);
+      window.location.href = "../index.html";
+    }
+  });
+});
