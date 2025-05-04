@@ -245,7 +245,7 @@ export async function addReview(body) {
 
 export async function editReview(id, updatedReview) {
   const oldReview = await getReview(id);
-  const product = await getProduct(oldReview.product);
+  const product = await getProduct(oldReview.product.id);
 
   const newTotalStars =
     product.totalStars - oldReview.stars + updatedReview.stars;
@@ -271,11 +271,11 @@ export async function editReview(id, updatedReview) {
 
 export async function deleteReview(id) {
   const review = await getReview(id);
-  const product = await getProduct(review.product);
+  const product = await getProduct(review.product.id);
 
   const newReviewIds = (product.reviewIds || []).filter((rid) => rid !== id);
   const newTotalRatings = (product.totalRatings || 1) - 1;
-  const newTotalStars = (product.totalStars || 0) - review.stars;
+  const newTotalStars = (product.totalStars || 0) - review.data.stars;
 
   const newRating = newTotalRatings > 0 ? newTotalStars / newTotalRatings : 0;
 
