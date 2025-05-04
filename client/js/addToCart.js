@@ -22,10 +22,6 @@ export async function addToCart(
       alert("Quantity must be greater than 0");
       return;
     }
-    if(localStorage.getItem("isLoggedIn") !== "true"){
-      alert("Please login to add items to cart");
-      return;
-    }
     let carts = JSON.parse(localStorage.getItem("cart")) || [];
   
     const productIndex = carts.findIndex((cart) => cart.product === productId);
