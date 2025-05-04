@@ -3,23 +3,11 @@
     "email": "admin@admin.com",
     "password": "admin"
   },
-  "customers": [
-
-  ],
-  "sellers": [
-
-  ],
-  "products": [
-
-  ],
-  "carts": [
-    
-  ],
-  "categories": [
-    
-  ],
-  "reviews": [
-    
-  ],
+  "customers": [],
+  "sellers": [],
+  "products": [],
+  "carts": [],
+  "categories": [],
+  "reviews": [],
   "site_reviews": []
 }

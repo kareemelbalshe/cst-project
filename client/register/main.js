@@ -1,4 +1,8 @@
-import { loginCustomer, registerCustomer } from "../../shared/Api.js";
+import {
+  getCustomer,
+  loginCustomer,
+  registerCustomer,
+} from "../../shared/Api.js";
 import createId from "../js/createId.js";
 import getCurrentTimestamp from "../js/setTime.js";
 
@@ -50,10 +54,10 @@ form.addEventListener("submit", async function (e) {
   }
 
   function validateEgyptianPhone(phoneNumber) {
-    const validPrefixes = ["2010", "2011", "2012", "2015"];
+    const validPrefixes = ["010", "011", "012", "015"];
     let isValid = false;
-    
-    if (phoneNumber.length === 12) {
+
+    if (phoneNumber.length === 1) {
       for (const prefix of validPrefixes) {
         if (phoneNumber.startsWith(prefix)) {
           isValid = true;
@@ -61,13 +65,14 @@ form.addEventListener("submit", async function (e) {
         }
       }
     }
-    
+
     return isValid;
   }
 
   if (!validateEgyptianPhone(phone)) {
     toastTitle.innerHTML = "Error";
-    toastBody.innerHTML = "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
+    toastBody.innerHTML =
+      "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
     toastBootstrap.show();
     return;
   }
@@ -89,9 +94,7 @@ form.addEventListener("submit", async function (e) {
     const result = await loginCustomer({ email, password });
 
     if (result) {
-      const response = await fetch("http://localhost:5000/customers");
-      const customers = await response.json();
-      const customer = customers.find((c) => c.email === email);
+      const customer = await getCustomer(localStorage.getItem("Id"));
 
       localStorage.setItem(
         "currentUser",
@@ -109,7 +112,6 @@ form.addEventListener("submit", async function (e) {
       setTimeout(() => {
         window.location.href = "../index.html";
       }, 1500);
-
     } else {
       toastTitle.innerHTML = "Error";
       toastBody.innerHTML = "Invalid email or password. Please try again.";
@@ -139,4 +141,3 @@ setTimeout(() => {
     window.location.href = "../index.html";
   }
 }, 1000);
-
