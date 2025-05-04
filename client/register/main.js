@@ -57,7 +57,7 @@ form.addEventListener("submit", async function (e) {
     const validPrefixes = ["010", "011", "012", "015"];
     let isValid = false;
 
-    if (phoneNumber.length === 1) {
+    if (phoneNumber.length === 11) {
       for (const prefix of validPrefixes) {
         if (phoneNumber.startsWith(prefix)) {
           isValid = true;
@@ -72,7 +72,7 @@ form.addEventListener("submit", async function (e) {
   if (!validateEgyptianPhone(phone)) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML =
-      "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
+      "Please enter a valid Egyptian phone number starting with 010, 011, 012, or 2015 and having a total length of 1 digits.";
     toastBootstrap.show();
     return;
   }
@@ -107,6 +107,7 @@ form.addEventListener("submit", async function (e) {
 
       toastTitle.innerHTML = "Success";
       toastBody.innerHTML = "Login successful!";
+      toastLive.style = "background-color: #198754; color: white;";
       toastBootstrap.show();
 
       setTimeout(() => {

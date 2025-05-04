@@ -83,7 +83,7 @@ form.addEventListener("submit", async (e) => {
     toastBootstrap.show();
     return;
   }
-  if (!discount || isNaN(discount) || discount < 0) {
+  if (discount < 0) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML = "Please enter a valid discount.";
     toastBootstrap.show();

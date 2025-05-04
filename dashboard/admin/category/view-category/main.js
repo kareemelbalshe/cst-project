@@ -153,12 +153,7 @@ deleteThis.addEventListener("click", async () => {
       await deleteProduct(product.id);
     }
     await deleteCategory(categoryId);
-    Swal.fire(
-      "Deleted!",
-      "Category and its products were deleted.",
-      "success"
-    ).then(() => {
-      window.location.href = "../index.html";
-    });
+    window.location.href = "../index.html";
+
   }
 });

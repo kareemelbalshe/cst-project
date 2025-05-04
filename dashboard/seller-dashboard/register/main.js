@@ -53,10 +53,10 @@ form.addEventListener("submit", async function (e) {
   }
 
   function validateEgyptianPhone(phoneNumber) {
-    const validPrefixes = ["2010", "2011", "2012", "2015"];
+    const validPrefixes = ["010", "011", "012", "015"];
     let isValid = false;
 
-    if (phoneNumber.length === 12) {
+    if (phoneNumber.length === 11) {
       for (const prefix of validPrefixes) {
         if (phoneNumber.startsWith(prefix)) {
           isValid = true;
@@ -71,7 +71,7 @@ form.addEventListener("submit", async function (e) {
   if (!validateEgyptianPhone(phone)) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML =
-      "Please enter a valid Egyptian phone number starting with 2010, 2011, 2012, or 2015 and having a total length of 12 digits.";
+      "Please enter a valid Egyptian phone number starting with 010, 011, 012, or 015 and having a total length of 11 digits.";
     toastBootstrap.show();
     return;
   }
@@ -107,7 +107,7 @@ form.addEventListener("submit", async function (e) {
 
 window.addEventListener("load", () => {
   if (
-    localStorage.getItem("isLoggedIn") === "true" ||
+    localStorage.getItem("isLoggedIn") === "true" &&
     localStorage.getItem("isSeller") === "true"
   ) {
     window.location.href = "../index.html";
@@ -116,7 +116,7 @@ window.addEventListener("load", () => {
 
 setTimeout(() => {
   if (
-    localStorage.getItem("isLoggedIn") === "true" ||
+    localStorage.getItem("isLoggedIn") === "true" &&
     localStorage.getItem("isSeller") === "true"
   ) {
     window.location.href = "../index.html";
