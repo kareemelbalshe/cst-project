@@ -30,43 +30,27 @@ logoutBtn.addEventListener("click", () => {
   window.location.href = "../../index.html";
 });
 
-(async function () {
-  const params = new URLSearchParams(window.location.search);
-  const categoryId = params.get("id");
+const params = new URLSearchParams(window.location.search);
+const categoryId = params.get("id");
 
-  const categoryResponse = await getCategory(categoryId);
-  let allProducts = await getProducts();
-  allProducts = allProducts.filter((product) => product.quantity > 0);
+const categoryResponse = await getCategory(categoryId);
+let allProducts = await getProducts();
 
-  function filterProducts(keyword = "", category = "") {
-    return allProducts.filter((product) => {
-      const matchName = product.name
-        .toLowerCase()
-        .includes(keyword.toLowerCase());
-      const matchCategory = category ? product.category == category : true;
-      return matchName && matchCategory;
-    });
-  }
+function filterProducts(category = "") {
+  return allProducts.filter((product) => {
+    const matchCategory = category ? product.category == category : true;
+    return matchCategory;
+  });
+}
+const categoryProducts = filterProducts(categoryId);
+renderProducts(categoryProducts, categoryResponse);
 
-  const categoryImage = document.getElementById("categoryImage");
-  const categoryName = document.getElementById("categoryName");
-  const categoryCreatedAt = document.getElementById("categoryCreatedAt");
+function renderProducts(products, categoryresponse) {
+  const productContainer = document.getElementById("product-container");
+  productContainer.innerHTML = "";
 
-  categoryImage.src = categoryResponse.image;
-  categoryName.textContent = categoryResponse.name;
-  categoryCreatedAt.textContent = `Created At: ${new Date(
-    categoryResponse.createdAt
-  ).toLocaleDateString()}`;
-
-  const categoryProducts = filterProducts("", categoryId);
-  renderProducts(categoryProducts, categoryResponse);
-
-  function renderProducts(products, categoryresponse) {
-    const productContainer = document.getElementById("product-container");
-    productContainer.innerHTML = "";
-
-    products.forEach((product) => {
-      const productHTML = `
+  products.forEach((product) => {
+    const productHTML = `
         <div class="card mb-4 shadow-sm rounded-4 overflow-hidden">
           <div class="row g-0 align-items-center">
             <div class="col-md-4 text-center bg-light p-3">
@@ -101,9 +85,8 @@ logoutBtn.addEventListener("click", () => {
                     product.createdAt
                   ).toLocaleString()}</div>
                 </div>
-                <button class="btn btn-danger mt-3" onclick="handleDeleteProduct('${
-                  product.id
-                }')">
+                <button class="btn btn-danger mt-3" data-id="${product.id}"
+                  onclick="handleDeleteProduct(event)">
                   <i class="bi bi-trash"></i> Delete
                 </button>
               </div>
@@ -111,22 +94,37 @@ logoutBtn.addEventListener("click", () => {
           </div>
         </div>
       `;
-      productContainer.insertAdjacentHTML("beforeend", productHTML);
-    });
-  }
+    productContainer.insertAdjacentHTML("beforeend", productHTML);
+  });
+}
+async function loadCategory() {
+  const categoryImage = document.getElementById("categoryImage");
+  const categoryName = document.getElementById("categoryName");
+  const categoryCreatedAt = document.getElementById("categoryCreatedAt");
 
-  window.handleDeleteProduct = async function (productId) {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
+  categoryImage.src = categoryResponse.image;
+  categoryName.textContent = categoryResponse.name;
+  categoryCreatedAt.textContent = `Created At: ${new Date(
+    categoryResponse.createdAt
+  ).toLocaleDateString()}`;
+}
 
+loadCategory();
+
+window.handleDeleteProduct = async function (event) {
+   Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then(async (result) => {
     if (result.isConfirmed) {
+      const productId = event.target.getAttribute("data-id");
+
+      console.log(productId);
       await deleteProduct(productId);
       Swal.fire("Deleted!", "The product has been deleted.", "success").then(
         () => {
@@ -134,33 +132,33 @@ logoutBtn.addEventListener("click", () => {
         }
       );
     }
-  };
-
-  // ✅ حذف الكاتيجوري وكل منتجاته
-  const deleteThis = document.getElementById("deleteThis");
-  deleteThis.addEventListener("click", async () => {
-    const result = await Swal.fire({
-      title: "Are you sure?",
-      text: "This will delete the category and all its products!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    });
-
-    if (result.isConfirmed) {
-      for (const product of categoryProducts) {
-        await deleteProduct(product.id);
-      }
-      await deleteCategory(categoryId);
-      Swal.fire(
-        "Deleted!",
-        "Category and its products were deleted.",
-        "success"
-      ).then(() => {
-        window.location.href = "../index.html";
-      });
-    }
   });
-})();
+};
+
+const deleteThis = document.getElementById("deleteThis");
+deleteThis.addEventListener("click", async () => {
+  const result = await Swal.fire({
+    title: "Are you sure?",
+    text: "This will delete the category and all its products!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  });
+
+  if (result.isConfirmed) {
+    console.log(categoryProducts);
+    for (const product of categoryProducts) {
+      await deleteProduct(product.id);
+    }
+    await deleteCategory(categoryId);
+    Swal.fire(
+      "Deleted!",
+      "Category and its products were deleted.",
+      "success"
+    ).then(() => {
+      window.location.href = "../index.html";
+    });
+  }
+});
