@@ -39,7 +39,7 @@ async function loadCarts() {
         total: parseFloat(data.total).toFixed(2),
         createdAt: data.createdAt,
         product: product?.name,
-        customer: customer?.name,
+        customer: customer ? customer.name : "Deleted Account",
       };
     })
   );

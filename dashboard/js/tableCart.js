@@ -64,7 +64,7 @@ export function renderDataTable({
           ${item.id}
           </td>
           <td>${product}</td>
-          <td>${customer}</td>
+          <td>${customer?customer:"Deleted Account"}</td>
           <td>${parseFloat(item.total)}</td>
           <td>${new Date(item.createdAt).toLocaleString()}</td>
           <td class="d-flex flex-wrap align-items-center justify-content-center gap-2">

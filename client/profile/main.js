@@ -109,8 +109,8 @@ profileForm.addEventListener("submit", async (event) => {
     return;
   }
 
-  const validPrefixes = ["2010", "2011", "2012", "2015"];
-  if (phone.length !== 12 || !validPrefixes.some((p) => phone.startsWith(p))) {
+  const validPrefixes = ["010", "011", "012", "015"];
+  if (phone.length !== 11 || !validPrefixes.some((p) => phone.startsWith(p))) {
     showToast("Validation Error", "Phone number must start with 2010, 2011, 2012, or 2015 and be 12 digits long.");
     return;
   }
@@ -260,5 +260,6 @@ document.addEventListener("DOMContentLoaded", () => {
 function showToast(title, message) {
   toastTitle.innerHTML = title;
   toastBody.innerHTML = message;
+  toastLive.style = "background-color: #198754; color: white;";
   toastBootstrap.show();
 }

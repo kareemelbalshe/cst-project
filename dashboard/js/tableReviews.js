@@ -58,7 +58,7 @@ export function renderDataTable({
 
     tableHTML += `</tbody></table></div>`;
     if (paginated.length === 0) {
-      container.innerHTML = `<div class="container mt-3">No Products Found</div>`;
+      container.innerHTML = `<div class="container mt-3">No Reviews Found.</div>`;
     } else {
       container.innerHTML = tableHTML;
     }

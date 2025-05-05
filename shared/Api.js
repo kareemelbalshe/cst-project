@@ -104,8 +104,6 @@ export async function addCart(body) {
     body: JSON.stringify(body),
   });
 
-  console.log(body);
-
   const cartItem = await res.json();
   const product = await getProduct(body.product);
 
@@ -376,6 +374,25 @@ export async function updateCustomer(id, body) {
 }
 
 export async function deleteCustomer(id) {
+  const carts = await getCarts();
+  carts.forEach(async (cart) => {
+    if (cart.customer === id) {
+      await deleteCart(cart.id);
+    }
+  });
+  const reviews = await getReviews();
+  reviews.forEach(async (review) => {
+    if (review.customer === id) {
+      await deleteReview(review.id);
+    }
+  });
+  const siteReviews = await getSiteReviews();
+  siteReviews.forEach(async (siteReview) => {
+    if (siteReview.customer === id) {
+      await deleteSiteReview(siteReview.id);
+    }
+  });
+
   const res = await fetch(`http://localhost:5000/customers/${id}`, {
     method: "DELETE",
   });

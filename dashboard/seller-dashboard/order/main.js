@@ -36,7 +36,7 @@ const enrichedOrder = await Promise.all(
         total: parseFloat(data.total).toFixed(2),
         createdAt: data.createdAt,
         product: product?.name,
-        customer: customer?.name,
+        customer: customer ? customer.name : "Deleted Account",
       };
     })
   );
