@@ -375,17 +375,21 @@ export async function updateCustomer(id, body) {
 
 export async function deleteCustomer(id) {
   const carts = await getCarts();
-  carts.forEach(async (cart) => {
-    if (cart.customer === id) {
-      await deleteCart(cart.id);
-    }
-  });
+  await Promise.all(
+    carts.map(async (cart) => {
+      if (cart.customer === id) {
+        await deleteCart(cart.id);
+      }
+    })
+  );
   const reviews = await getReviews();
-  reviews.forEach(async (review) => {
-    if (review.customer === id) {
-      await deleteReview(review.id);
-    }
-  });
+  await Promise.all(
+    reviews.forEach(async (review) => {
+      if (review.customer === id) {
+        await deleteReview(review.id);
+      }
+    })
+  );
   const siteReviews = await getSiteReviews();
   siteReviews.forEach(async (siteReview) => {
     if (siteReview.customer === id) {
