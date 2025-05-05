@@ -384,7 +384,7 @@ export async function deleteCustomer(id) {
   );
   const reviews = await getReviews();
   await Promise.all(
-    reviews.forEach(async (review) => {
+    reviews.map(async (review) => {
       if (review.customer === id) {
         await deleteReview(review.id);
       }
