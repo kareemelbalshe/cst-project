@@ -60,7 +60,7 @@ export function renderDataTable({
       }" />
           ${item.id}
           </td>
-          <td>${item.name}</td>
+          <td>${item.name.slice(0, 40)}</td>
           <td>${new Date(item.createdAt).toLocaleString()}</td>
           <td class="d-flex flex-wrap align-items-center justify-content-center gap-2">
             ${

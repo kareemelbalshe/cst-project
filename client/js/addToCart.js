@@ -49,4 +49,9 @@ export async function addToCart(
     }
   
     localStorage.setItem("cart", JSON.stringify(carts));
+    Swal.fire({
+      title: "Success",
+      text: "Product added to cart",
+      icon: "success",
+    });
   }

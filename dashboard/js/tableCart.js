@@ -63,7 +63,7 @@ export function renderDataTable({
       }" />
           ${item.id}
           </td>
-          <td>${product}</td>
+          <td>${product.slice(0, 40)}</td>
           <td>${customer?customer:"Deleted Account"}</td>
           <td>${parseFloat(item.total)}</td>
           <td>${new Date(item.createdAt).toLocaleString()}</td>

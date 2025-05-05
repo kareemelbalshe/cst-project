@@ -90,7 +90,11 @@ document.addEventListener("DOMContentLoaded", async () => {
     await addSiteReview(review);
     localStorage.setItem("siteReviewed", "true");
     popup.style.display = "none";
-    alert("Thank you for your review!");
+    Swal.fire({
+      title: "Success",
+      text: "Thank you for your review!",
+      icon: "success",
+    });
   });
 
   const closePopup = document.getElementById("close-popup");
@@ -145,7 +149,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                   class="img-fluid product-image"
                 />
                 <div class="m-2">
-                  <h2 class="card-title fw-bold mb-3">${product.name}</h2>
+                  <h2 class="card-title fw-bold mb-3">${product.name.slice(0, 20)}</h2>
                   <p class="text-muted">${product.description.slice(
                     0,
                     100
@@ -265,7 +269,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     class="img-fluid product-image"
                   />
                   <div class="m-2">
-                    <h2 class="card-title fw-bold mb-3">${product.name}</h2>
+                    <h2 class="card-title fw-bold mb-3">${product.name.slice(0, 20)}</h2>
                     <p class="text-muted">${product.description.slice(
                       0,
                       100
@@ -387,7 +391,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     class="img-fluid product-image"
                   />
                   <div class="m-2">
-                    <h2 class="card-title fw-bold mb-3">${product.name}</h2>
+                    <h2 class="card-title fw-bold mb-3">${product.name.slice(0, 20)}</h2>
                     <p class="text-muted">${product.description.slice(
                       0,
                       100

@@ -133,6 +133,7 @@ profileForm.addEventListener("submit", async (event) => {
     const updatedCustomer = await updateCustomer(currentUser.id, updatedCustomerData);
 
     if (updatedCustomer) {
+      toastLive.style = "background-color: #198754; color: white;";
       showToast("Success", "Profile updated successfully!");
     } else {
       showToast("Error", "Something went wrong. Please try again.");
@@ -178,6 +179,7 @@ resetPasswordForm.addEventListener("submit", async (event) => {
     const updatedCustomer = await updateCustomer(currentUser.id, { password: newPassword });
 
     if (updatedCustomer) {
+      toastLive.style = "background-color: #198754; color: white;";
       showToast("Success", "Password updated successfully!");
 
       const resetPasswordModal = bootstrap.Modal.getInstance(document.getElementById("resetPasswordModal"));
@@ -203,7 +205,7 @@ async function handleDeleteAccount() {
     await deleteCustomer(currentUser.id);
     
     logout();
-    
+    toastLive.style = "background-color: #198754; color: white;";
     showToast("Success", "Your account has been deleted successfully!");
     
     setTimeout(() => {
@@ -260,6 +262,5 @@ document.addEventListener("DOMContentLoaded", () => {
 function showToast(title, message) {
   toastTitle.innerHTML = title;
   toastBody.innerHTML = message;
-  toastLive.style = "background-color: #198754; color: white;";
   toastBootstrap.show();
 }

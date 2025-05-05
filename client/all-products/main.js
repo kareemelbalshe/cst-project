@@ -118,7 +118,7 @@ async function displayProducts(keyword = "", category = "") {
       />
       <div class="m-2">
         <h2 class="card-title fw-bold mb-3" id="product-name">
-          ${product.name}
+          ${product.name.slice(0, 20)}
         </h2>
         <p class="text-muted" id="product-description">
           ${product.description.slice(0, 100)}...
