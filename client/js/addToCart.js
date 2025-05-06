@@ -10,44 +10,19 @@ export async function addToCart(
     quantity,
     stock
   ) {
-    const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-    if (!currentUser) {
-      Swal.fire({
-        title: "Error",
-        text: "Please login first to add items to cart",
-        icon: "error"
-      });
-      window.location.href = "../login/index.html";
-      return;
-    }
-
     if (stock <= 0) {
-      Swal.fire({
-        title: "Error",
-        text: "Out of stock",
-        icon: "error"
-      });
+      alert("Out of stock");
       return;
     }
     if (quantity > stock) {
-      Swal.fire({
-        title: "Error",
-        text: "Quantity exceeds available stock",
-        icon: "error"
-      });
+      alert("Quantity exceeds available stock");
       return;
     }
     if (quantity <= 0) {
-      Swal.fire({
-        title: "Error",
-        text: "Quantity must be greater than 0",
-        icon: "error"
-      });
+      alert("Quantity must be greater than 0");
       return;
     }
-
-    const cartKey = `cart_${currentUser.id}`;
-    let carts = JSON.parse(localStorage.getItem(cartKey)) || [];
+    let carts = JSON.parse(localStorage.getItem("cart")) || [];
   
     const productIndex = carts.findIndex((cart) => cart.product === productId);
   
@@ -59,7 +34,7 @@ export async function addToCart(
       const product = await getProduct(productId);
       const newCart = {
         id: createId(),
-        customer: currentUser.id,
+        customer: localStorage.getItem("Id"),
         product: productId,
         quantity: quantity,
         name: name,
@@ -73,10 +48,10 @@ export async function addToCart(
       carts.push(newCart);
     }
   
-    localStorage.setItem(cartKey, JSON.stringify(carts));
+    localStorage.setItem("cart", JSON.stringify(carts));
     Swal.fire({
       title: "Success",
       text: "Product added to cart",
       icon: "success",
     });
-  } 
+  }
