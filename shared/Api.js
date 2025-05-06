@@ -369,6 +369,12 @@ export async function updateCustomer(id, body) {
     body: JSON.stringify(body),
   });
 
+  if (!res.ok) {
+    const errorText = await res.text();
+    console.error("Failed to update customer:", res.status, errorText);
+    throw new Error("Failed to update customer");
+  }
+
   const data = await res.json();
   return data;
 }
@@ -469,24 +475,37 @@ export async function deleteSeller(id) {
 
 export async function loginCustomer(body) {
   const customers = await getCustomers();
-  if (
-    customers.some(
-      (customer) =>
-        customer.email === body.email && customer.password === body.password
-    )
-  ) {
-    localStorage.setItem(
-      "Id",
-      customers.find(
-        (customer) =>
-          customer.email === body.email && customer.password === body.password
-      ).id
-    );
+
+  const matchedCustomer = customers.find(
+    (customer) =>
+      customer.email === body.email && customer.password === body.password
+  );
+
+  if (matchedCustomer) {
+    localStorage.setItem("Id", matchedCustomer.id);
+
+    const customer = await getCustomer(matchedCustomer.id);
+
+    if (customer.cart && customer.cart.length > 0) {
+      const updatedCart = [];
+
+      for (const item of customer.cart) {
+        const product = await getProduct(item.product);
+        if (product.quantity > 0) {
+          updatedCart.push(item);
+        }
+      }
+
+      customer.cart = updatedCart;
+    }
+
+    localStorage.setItem("cart", JSON.stringify(customer.cart || []));
     localStorage.setItem("isLoggedIn", true);
     localStorage.setItem("isAdmin", false);
     localStorage.setItem("isSeller", false);
     localStorage.setItem("isCustomer", true);
     localStorage.setItem("currentUser", null);
+
     return true;
   }
 
@@ -535,12 +554,26 @@ export async function loginAdmin(body) {
   return false;
 }
 
-export function logout() {
-  localStorage.removeItem("isLoggedIn");
-  localStorage.removeItem("isAdmin");
-  localStorage.removeItem("isSeller");
-  localStorage.removeItem("isCustomer");
-  localStorage.removeItem("currentUser");
-  localStorage.removeItem("Id");
-  localStorage.removeItem("cart"); // Clear cart data when logging out
+export async function logout() {
+
+  if (localStorage.getItem("isCustomer") === "true") {
+    const id = localStorage.getItem("Id");
+    const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    try {
+      await updateCustomer(id, { cart });
+      console.log("Cart updated successfully.");
+    } catch (err) {
+      console.error("Error while updating customer cart:", err);
+    }
+
+    localStorage.setItem("cart", JSON.stringify([]));
+  }
+
+  localStorage.setItem("Id", "");
+  localStorage.setItem("isLoggedIn", false);
+  localStorage.setItem("isAdmin", false);
+  localStorage.setItem("isSeller", false);
+  localStorage.setItem("isCustomer", false);
+  localStorage.setItem("currentUser", null);
 }

@@ -57,7 +57,7 @@ function renderCartTable() {
     tr.dataset.id = item.id;
 
     tr.innerHTML = `
-      <th scope="row">${item.name}</th>
+      <th scope="row">${item.name.slice(0, 30)}</th>
       <td>${item.price}</td>
       <td>
         <input
