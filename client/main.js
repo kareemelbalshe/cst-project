@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     const logoutBtn = document.createElement("button");
     logoutBtn.className = "btn btn-outline-dark";
     logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
-    logoutBtn.addEventListener("click", () => {
-      logout();
+    logoutBtn.addEventListener("click", async () => {
+      await logout();
       window.location.href = "index.html";
     });
 

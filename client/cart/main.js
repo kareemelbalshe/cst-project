@@ -18,8 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.createElement("button");
     logoutBtn.className = "btn btn-outline-dark";
     logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
-    logoutBtn.addEventListener("click", () => {
-      logout();
+    logoutBtn.addEventListener("click", async () => {
+      await logout();
       window.location.href = "../index.html";
     });
 
@@ -32,9 +32,10 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector(".card")?.classList.add("animate-cart");
 
   renderCartTable();
-  document.querySelector(".checkout")?.addEventListener("click", handleCheckout);
+  document
+    .querySelector(".checkout")
+    ?.addEventListener("click", handleCheckout);
 });
-
 
 function renderCartTable() {
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -62,7 +63,9 @@ function renderCartTable() {
       </td>
       <td class="item-total">EGP${parseFloat(item.total).toFixed(2)}</td>
       <td>
-        <button type="button" class="btn btn-danger delete" data-id="${item.id}">Delete</button>
+        <button type="button" class="btn btn-danger delete" data-id="${
+          item.id
+        }">Delete</button>
       </td>
     `;
 
@@ -109,15 +112,21 @@ function attachQuantityListeners() {
 
 function updateCartTotals() {
   const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-  const subtotal = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
-  const total = cartItems.reduce((acc, item) => acc + parseFloat(item.total), 0);
+  const subtotal = cartItems.reduce(
+    (acc, item) => acc + item.price * item.quantity,
+    0
+  );
+  const total = cartItems.reduce(
+    (acc, item) => acc + parseFloat(item.total),
+    0
+  );
 
   document.querySelector(".subtotal").textContent = `EGP${subtotal.toFixed(2)}`;
   document.querySelector(".total").textContent = `EGP${total.toFixed(2)}`;
 }
-function showToast(message, type = 'danger') {
-  const toastEl = document.getElementById('customToast');
-  const toastBody = document.getElementById('toastMessage');
+function showToast(message, type = "danger") {
+  const toastEl = document.getElementById("customToast");
+  const toastBody = document.getElementById("toastMessage");
 
   toastBody.textContent = message;
   toastEl.className = `toast align-items-center text-bg-${type} border-0`;
@@ -131,7 +140,9 @@ function handleCheckout() {
 
   if (cartItems.length === 0) {
     // alert("Your cart is empty. Please add items to your cart before checking out.");
-    showToast("Your cart is empty. Please add items to your cart before checking out.");
+    showToast(
+      "Your cart is empty. Please add items to your cart before checking out."
+    );
     return;
   }
 

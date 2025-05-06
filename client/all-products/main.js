@@ -16,8 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.createElement("button");
     logoutBtn.className = "btn btn-outline-dark";
     logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
-    logoutBtn.addEventListener("click", () => {
-      logout();
+    logoutBtn.addEventListener("click", async () => {
+      await logout();
       window.location.href = "../index.html";
     });
 
@@ -77,8 +77,9 @@ function renderPagination(products) {
   const pageCount = Math.ceil(products.length / pageSize);
   let buttons = "";
   for (let i = 1; i <= pageCount; i++) {
-    buttons += `<button class="btn btn-sm btn-${i === currentPage ? "dark" : "outline-dark"
-      } mx-1">${i}</button>`;
+    buttons += `<button class="btn btn-sm btn-${
+      i === currentPage ? "dark" : "outline-dark"
+    } mx-1">${i}</button>`;
   }
   paginationContainer.innerHTML = buttons;
   [...paginationContainer.querySelectorAll("button")].forEach((btn) =>
@@ -96,8 +97,7 @@ async function displayProducts(keyword = "", category = "") {
 
   for (const product of paginated) {
     const categoryObj = await getCategory(product.category);
-    productsContainer.innerHTML +=
-      `
+    productsContainer.innerHTML += `
     <div class="row align-items-center g-5">
       <div class="col-md-6">
         <div class="card product-card shadow-lg p-4">
@@ -126,19 +126,21 @@ async function displayProducts(keyword = "", category = "") {
         <ul class="list-unstyled mt-3 mb-4">
           <li>
             <strong>Price:</strong>
-            ${product.discount > 0
-        ? `<span class="text-danger text-decoration-line-through" id="product-price">${product.price}</span>`
-        : ""
-      }
+            ${
+              product.discount > 0
+                ? `<span class="text-danger text-decoration-line-through" id="product-price">${product.price}</span>`
+                : ""
+            }
             <span
               class="text-success fw-bold ms-2"
               id="product-price-after"
             >${product.price_after_discount}</span>
           </li>
-          ${product.discount > 0
-        ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
-        : ""
-      }
+          ${
+            product.discount > 0
+              ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+              : ""
+          }
           <li>
             <strong>Quantity:</strong>
             <span id="product-quantity">${product.quantity}</span>

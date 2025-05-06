@@ -75,13 +75,13 @@
           "id": "id-macuioxeblmw6",
           "customer": "id-mab3h2fehpu8m",
           "product": "id-mabe2sts8f3g5",
-          "quantity": 1,
+          "quantity": 2,
           "name": "Xiaomi REDMI 13 256GB 8RAM Mediatek helio G91 ultra processor| 6.79",
           "price": 7272,
           "stock": 7,
           "seller": "id-mabdurq1vt8ju",
           "price_after_discount": 7272,
-          "total": 7272,
+          "total": "14544.00",
           "createdAt": "2025-05-06T18:31:28.178Z"
         },
         {
