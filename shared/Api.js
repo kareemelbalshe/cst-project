@@ -555,14 +555,12 @@ export async function loginAdmin(body) {
 }
 
 export async function logout() {
-  console.log("customer logout");
 
   if (localStorage.getItem("isCustomer") === "true") {
     const id = localStorage.getItem("Id");
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     try {
-      console.log("Updating customer with ID:", id, "and cart:", cart);
       await updateCustomer(id, { cart });
       console.log("Cart updated successfully.");
     } catch (err) {
