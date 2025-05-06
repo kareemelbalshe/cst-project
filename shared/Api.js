@@ -535,11 +535,12 @@ export async function loginAdmin(body) {
   return false;
 }
 
-export async function logout() {
-  localStorage.setItem("Id", "");
-  localStorage.setItem("isLoggedIn", false);
-  localStorage.setItem("isAdmin", false);
-  localStorage.setItem("isSeller", false);
-  localStorage.setItem("isCustomer", false);
-  localStorage.setItem("currentUser", null);
+export function logout() {
+  localStorage.removeItem("isLoggedIn");
+  localStorage.removeItem("isAdmin");
+  localStorage.removeItem("isSeller");
+  localStorage.removeItem("isCustomer");
+  localStorage.removeItem("currentUser");
+  localStorage.removeItem("Id");
+  localStorage.removeItem("cart"); // Clear cart data when logging out
 }

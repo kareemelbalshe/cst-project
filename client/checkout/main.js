@@ -3,47 +3,53 @@ import getCurrentTimestamp from "../js/setTime.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const headerActions = document.getElementById("header-actions");
+  if (!currentUser) {
+    window.location.href = "../login/index.html";
+    return;
+  }
 
+  const headerActions = document.getElementById("header-actions");
   if (!headerActions) return;
 
-  if (currentUser) {
-    const logoutBtn = document.createElement("button");
-    logoutBtn.className = "btn btn-outline-dark";
-    logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
-    logoutBtn.addEventListener("click", () => {
-      logout();
-      window.location.href = "../index.html";
-    });
+  const logoutBtn = document.createElement("button");
+  logoutBtn.className = "btn btn-outline-dark";
+  logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
+  logoutBtn.addEventListener("click", () => {
+    logout();
+    window.location.href = "../index.html";
+  });
 
-    headerActions.innerHTML = "";
+  headerActions.innerHTML = "";
 
-    const profileLink = document.createElement("a");
-    profileLink.className = "btn btn-outline-dark me-2";
-    profileLink.href = "../profile/index.html";
-    profileLink.innerHTML = `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`;
+  const profileLink = document.createElement("a");
+  profileLink.className = "btn btn-outline-dark me-2";
+  profileLink.href = "../profile/index.html";
+  profileLink.innerHTML = `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`;
 
-    const cartLink = document.createElement("a");
-    cartLink.className = "btn btn-outline-dark me-2";
-    cartLink.href = "../cart/index.html";
-    cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
+  const cartLink = document.createElement("a");
+  cartLink.className = "btn btn-outline-dark me-2";
+  cartLink.href = "../cart/index.html";
+  cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
 
-    headerActions.appendChild(profileLink);
-    headerActions.appendChild(logoutBtn);
-    headerActions.appendChild(cartLink);
-  }
-  // if (!localStorage.getItem("cart")) {
-  //   window.location.href = "../all-products/index.html";
-  // }
+  headerActions.appendChild(profileLink);
+  headerActions.appendChild(logoutBtn);
+  headerActions.appendChild(cartLink);
 });
 
-let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+if (!currentUser) {
+  window.location.href = "../login/index.html";
+}
+
+const cartKey = `cart_${currentUser.id}`;
+let cartItems = JSON.parse(localStorage.getItem(cartKey)) || [];
 let totalPrice = 0;
 let totalQuantity = 0;
 let totaltext = document.querySelector(".total");
 let quantitytext = document.querySelector(".quantity");
 let itemtext = document.querySelector(".item");
 let paymentbtn = document.querySelector(".payment");
+
 cartItems.forEach(async (item) => {
   totalPrice += parseFloat(item.total);
   totalQuantity += item.quantity;
@@ -74,8 +80,7 @@ cartItems.forEach(async (item) => {
     <p>Quantity: ${item.quantity}</p>
     <p>Total: $${item.total}</p>
   </div>
-`;
-
+  `;
 
   cartTable.appendChild(productRow);
 });
@@ -87,7 +92,7 @@ paymentbtn.addEventListener("click", async () => {
   for (const item of cartItems) {
     const data = {
       id: item.id,
-      customer: item.customer,
+      customer: currentUser.id,
       product: item.product,
       quantity: item.quantity,
       seller: item.seller,
@@ -97,18 +102,7 @@ paymentbtn.addEventListener("click", async () => {
     await addCart(data);
   }
 
-  localStorage.removeItem("cart");
+  localStorage.removeItem(cartKey);
   window.location.href = "../index.html";
-
-  // if(!localStorage.getItem("cart")) {
-  //   const toastEl = document.getElementById("successToast");
-  //   const toast = new bootstrap.Toast(toastEl);
-  //   setTimeout(() => {
-  //     toast.show();
-  //   }, 2500);
-  // }
-  // setTimeout(() => {
-  //   window.location.href = "../index.html";
-  // }, 2500);
 });
 
