@@ -39,7 +39,7 @@ export async function addToCart(
   const productIndex = carts.findIndex((cart) => cart.product === productId);
 
   if (productIndex !== -1) {
-    carts[productIndex].quantity += quantity;
+    carts[productIndex].quantity += 1;
     carts[productIndex].total =
       carts[productIndex].quantity * price_after_discount;
   } else {

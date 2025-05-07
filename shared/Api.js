@@ -487,11 +487,12 @@ export async function loginCustomer(body) {
     const customer = await getCustomer(matchedCustomer.id);
 
     if (customer.cart && customer.cart.length > 0) {
-      const updatedCart = [];
+      const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
 
       for (const item of customer.cart) {
         const product = await getProduct(item.product);
         if (product.quantity > 0) {
+          item.stock = product.quantity;
           updatedCart.push(item);
         }
       }
@@ -562,9 +563,7 @@ export async function logout() {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
     try {
-      console.log("Updating customer with ID:", id, "and cart:", cart);
       await updateCustomer(id, { cart });
-      console.log("Cart updated successfully.");
     } catch (err) {
       console.error("Error while updating customer cart:", err);
     }

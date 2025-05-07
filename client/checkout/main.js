@@ -96,7 +96,7 @@ paymentbtn.addEventListener("click", async () => {
     await addCart(data);
   }
 
-  localStorage.removeItem("cart");
+  localStorage.setItem("cart", JSON.stringify([]));
   window.location.href = "../index.html";
 
   // if(!localStorage.getItem("cart")) {
