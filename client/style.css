@@ -190,3 +190,57 @@ body {
     var(--primary-color)
   );
 }
+.add-to-cart-btn-1 {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn-1:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+.add-to-cart-btn-2 {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn-2:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}
+.add-to-cart-btn-3 {
+  background: linear-gradient(
+    to right,
+    var(--primary-color),
+    var(--secondary-color)
+  );
+  border: none;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.add-to-cart-btn-3:hover {
+  transform: scale(1.05);
+  background: linear-gradient(
+    to right,
+    var(--secondary-color),
+    var(--primary-color)
+  );
+}

@@ -8,12 +8,40 @@ import {
 import { addToCart } from "../js/addToCart.js";
 import createId from "../js/createId.js";
 
-document.addEventListener("DOMContentLoaded", async () => {
+document.addEventListener("DOMContentLoaded", () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const headerActions = document.getElementById("header-actions");
+
+  if (!headerActions) return;
+
+  if (currentUser) {
+    const logoutBtn = document.createElement("button");
+    logoutBtn.className = "btn btn-outline-dark";
+    logoutBtn.innerHTML = 'Logout <i class="bi bi-box-arrow-left"></i>';
+    logoutBtn.addEventListener("click", async () => {
+      await logout();
+      window.location.href = "../index.html";
+    });
+
+    headerActions.innerHTML = "";
+
+    const profileLink = document.createElement("a");
+    profileLink.className = "btn btn-outline-dark me-2";
+    profileLink.href = "../profile/index.html";
+    profileLink.innerHTML = `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`;
+
+    const cartLink = document.createElement("a");
+    cartLink.className = "btn btn-outline-dark me-2";
+    cartLink.href = "../cart/index.html";
+    cartLink.innerHTML = '<i class="bi bi-cart4"></i>';
+
+    headerActions.appendChild(profileLink);
+    headerActions.appendChild(logoutBtn);
+    headerActions.appendChild(cartLink);
+  }
 
   const productId = new URLSearchParams(window.location.search).get("id");
 
-  const headerActions = document.getElementById("header-actions");
   const productName = document.getElementById("product-name");
   const productImage = document.getElementById("product-image");
   const productDescription = document.getElementById("product-description");
@@ -25,47 +53,6 @@ document.addEventListener("DOMContentLoaded", async () => {
   const addToCartBtn = document.getElementById("addToCartButton");
 
   let selectedStars = 0;
-
-  // Header (login/logout)
-  if (headerActions) setupHeader();
-
-  function setupHeader() {
-    headerActions.innerHTML = "";
-    if (currentUser) {
-      const profileLink = createButton(
-        "a",
-        "btn btn-outline-dark me-2",
-        `<i class="bi bi-person-circle me-1"></i> ${currentUser.name}`,
-        "../profile/index.html"
-      );
-      const cartLink = createButton(
-        "a",
-        "btn btn-outline-dark me-2",
-        `<i class="bi bi-cart4"></i>`,
-        "../cart/index.html"
-      );
-      const logoutBtn = createButton(
-        "button",
-        "btn btn-outline-dark",
-        'Logout <i class="bi bi-box-arrow-left"></i>'
-      );
-
-      logoutBtn.addEventListener("click", async () => {
-        await logout();
-        window.location.href = "../index.html";
-      });
-
-      headerActions.append(profileLink, logoutBtn, cartLink);
-    }
-  }
-
-  function createButton(type, className, innerHTML, href = "") {
-    const el = document.createElement(type);
-    el.className = className;
-    el.innerHTML = innerHTML;
-    if (href) el.href = href;
-    return el;
-  }
 
   // Handle star rating
   function handleStarClick(index) {
@@ -87,11 +74,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Submit review
   if (submitReviewBtn) {
     submitReviewBtn.addEventListener("click", async () => {
-      if (!currentUser) return redirectToLogin();
+      if (!currentUser) {
+        return Swal.fire("Error", "Please log in to proceed with review.").then(
+          setTimeout(() => {
+            window.location.href = "../login/index.html";
+          }, 2000)
+        );
+      }
 
-      if (selectedStars === 0) return alert("Please select a star rating.");
+      if (selectedStars === 0)
+        return Swal.fire("Error", "Please select a star rating.");
+
       if (commentInput.value.trim() === "")
-        return alert("Please write a comment.");
+        return Swal.fire("Error", "Please write a comment.");
 
       const review = {
         id: createId(),
@@ -111,14 +106,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         handleStarClick(-1);
       } catch (err) {
         console.error(err);
-        alert("Failed to submit review. Try again later.");
+        Swal.fire("Error", "Failed to submit review. Try again later.");
       }
     });
-  }
-
-  function redirectToLogin() {
-    alert("You must be logged in to leave a review.");
-    window.location.href = "../login/index.html";
   }
 
   function createReviewElement(review) {
@@ -211,7 +201,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       );
     } catch (err) {
       console.error("Failed to add to cart:", err);
-      alert("Failed to add product to cart.");
+      Swal.fire("Error", "Failed to add product to cart.");
     }
   });
 

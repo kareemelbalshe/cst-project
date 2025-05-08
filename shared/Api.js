@@ -42,9 +42,14 @@ export async function getProducts() {
 }
 
 export async function getProduct(id) {
-  const res = await fetch(`http://localhost:5000/products/${id}`);
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch(`http://localhost:5000/products/${id}`);
+    const data = await res.json();
+    return data;
+  } catch (err) {
+    console.error("Failed to fetch product:", err);
+    return false;
+  }
 }
 
 export async function getProductsToSeller(sellerId) {
@@ -474,6 +479,7 @@ export async function deleteSeller(id) {
 }
 
 export async function loginCustomer(body) {
+  await logout();
   const customers = await getCustomers();
 
   const matchedCustomer = customers.find(
@@ -486,21 +492,39 @@ export async function loginCustomer(body) {
 
     const customer = await getCustomer(matchedCustomer.id);
 
-    if (customer.cart && customer.cart.length > 0) {
-      const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
+    const updatedCart = JSON.parse(localStorage.getItem("cart")) || [];
 
+    if (customer.cart.length > 0) {
       for (const item of customer.cart) {
         const product = await getProduct(item.product);
-        if (product.quantity > 0) {
-          item.stock = product.quantity;
-          updatedCart.push(item);
+        if (!product) {
+          continue;
+        }
+
+        const localItemIndex = updatedCart.findIndex(
+          (localItem) => localItem.product === item.product
+        );
+
+        if (localItemIndex !== -1) {
+          const localItem = updatedCart[localItemIndex];
+          const totalQty = localItem.quantity + item.quantity;
+          localItem.quantity =
+            totalQty > product.quantity ? product.quantity : totalQty;
+          localItem.stock = product.quantity;
+          localItem.total = localItem.quantity * localItem.price_after_discount;
+        } else {
+          if (product.quantity > 0) {
+            item.stock = product.quantity;
+            if (item.quantity > product.quantity) {
+              item.quantity = product.quantity;
+            }
+            updatedCart.push(item);
+          }
         }
       }
-
-      customer.cart = updatedCart;
     }
 
-    localStorage.setItem("cart", JSON.stringify(customer.cart || []));
+    localStorage.setItem("cart", JSON.stringify(updatedCart));
     localStorage.setItem("isLoggedIn", true);
     localStorage.setItem("isAdmin", false);
     localStorage.setItem("isSeller", false);
@@ -514,6 +538,7 @@ export async function loginCustomer(body) {
 }
 
 export async function loginSeller(body) {
+  await logout();
   const sellers = await getSellers();
   if (
     sellers.some(
@@ -540,6 +565,7 @@ export async function loginSeller(body) {
 }
 
 export async function loginAdmin(body) {
+  await logout();
   const res = await fetch("http://localhost:5000/admin");
   const admin = await res.json();
   if (admin.email === body.email && admin.password === body.password) {
@@ -556,8 +582,6 @@ export async function loginAdmin(body) {
 }
 
 export async function logout() {
-  console.log("customer logout");
-
   if (localStorage.getItem("isCustomer") === "true") {
     const id = localStorage.getItem("Id");
     const cart = JSON.parse(localStorage.getItem("cart")) || [];

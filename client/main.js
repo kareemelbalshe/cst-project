@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     <li><strong>Category:</strong> (${categoryObj.name})</li>
                   </ul>
                   <button
-                    class="btn add-to-cart-btn px-4 py-2 rounded-pill text-white"
+                    class="btn add-to-cart-btn-1 px-4 py-2 rounded-pill text-white"
                     data-id="${product.id}"
                     data-name="${product.name}"
                     data-price="${product.price}"
@@ -196,7 +196,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     bestSalesSlider.innerHTML = html;
 
-    document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+    document.querySelectorAll(".add-to-cart-btn-1").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-id");
         const name = btn.getAttribute("data-name");
@@ -296,7 +296,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                       <li><strong>Category:</strong> (${categoryObj.name})</li>
                     </ul>
                     <button
-                      class="btn add-to-cart-btn px-4 py-2 rounded-pill text-white"
+                      class="btn add-to-cart-btn-2 px-4 py-2 rounded-pill text-white"
                       data-id="${product.id}"
                       data-name="${product.name}"
                       data-price="${product.price}"
@@ -318,7 +318,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     lessQualitySlider.innerHTML = html;
 
-    document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+    document.querySelectorAll(".add-to-cart-btn-2").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-id");
         const name = btn.getAttribute("data-name");
@@ -418,7 +418,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                       <li><strong>Category:</strong> (${categoryObj.name})</li>
                     </ul>
                     <button
-                      class="btn add-to-cart-btn px-4 py-2 rounded-pill text-white"
+                      class="btn add-to-cart-btn-3 px-4 py-2 rounded-pill text-white"
                       data-id="${product.id}"
                       data-name="${product.name}"
                       data-price="${product.price}"
@@ -440,7 +440,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     newArrivalSlider.innerHTML = html;
 
-    document.querySelectorAll(".add-to-cart-btn").forEach((btn) => {
+    document.querySelectorAll(".add-to-cart-btn-3").forEach((btn) => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-id");
         const name = btn.getAttribute("data-name");

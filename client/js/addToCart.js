@@ -1,4 +1,4 @@
-import { getProduct, getSeller } from "../../shared/Api.js";
+import { getProduct } from "../../shared/Api.js";
 import createId from "./createId.js";
 import getCurrentTimestamp from "./setTime.js";
 
@@ -10,6 +10,10 @@ export async function addToCart(
   quantity,
   stock
 ) {
+  let carts = JSON.parse(localStorage.getItem("cart")) || [];
+
+  const productIndex = carts.findIndex((cart) => cart.product === productId);
+
   if (stock <= 0) {
     Swal.fire({
       title: "Error",
@@ -18,14 +22,7 @@ export async function addToCart(
     });
     return;
   }
-  if (quantity > stock) {
-    Swal.fire({
-      title: "Error",
-      text: "Quantity exceeds available stock",
-      icon: "error",
-    });
-    return;
-  }
+
   if (quantity <= 0) {
     Swal.fire({
       title: "Error",
@@ -34,14 +31,20 @@ export async function addToCart(
     });
     return;
   }
-  let carts = JSON.parse(localStorage.getItem("cart")) || [];
 
-  const productIndex = carts.findIndex((cart) => cart.product === productId);
+  if ((carts[productIndex]?.quantity + quantity) > stock) {
+    Swal.fire({
+      title: "Error",
+      text: "Quantity exceeds available stock",
+      icon: "error",
+    });
+    return;
+  }
 
   if (productIndex !== -1) {
-    carts[productIndex].quantity += 1;
+    carts[productIndex].quantity += quantity;
     carts[productIndex].total =
-      carts[productIndex].quantity * price_after_discount;
+    carts[productIndex].quantity * price_after_discount;
   } else {
     const product = await getProduct(productId);
     const newCart = {

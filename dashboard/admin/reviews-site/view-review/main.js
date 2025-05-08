@@ -1,4 +1,9 @@
-import { logout, getSiteReview,getCustomer, deleteSiteReview } from "../../../../shared/Api.js";
+import {
+  logout,
+  getSiteReview,
+  getCustomer,
+  deleteSiteReview,
+} from "../../../../shared/Api.js";
 
 window.addEventListener("load", () => {
   if (
@@ -31,12 +36,13 @@ const customerId = response_SiteReview.customer;
 const response_Customer = await getCustomer(customerId);
 
 const review = document.getElementById("review");
-const reviewid=document.getElementById("reviewid");
+const reviewid = document.getElementById("reviewid");
 const customerName = document.getElementById("customername");
 const customerImage = document.getElementById("customerimage");
 const customerEmail = document.getElementById("customeremail");
 const customerAddress = document.getElementById("custmoeradd");
 const customerPhone = document.getElementById("customerphone");
+const stars = document.getElementById("stars");
 
 review.innerHTML = response_SiteReview.comment;
 reviewid.innerHTML = response_SiteReview.id;
@@ -44,7 +50,10 @@ customerName.innerHTML = response_Customer.name;
 customerEmail.innerHTML = response_Customer.email;
 customerAddress.innerHTML = response_Customer.address;
 customerPhone.innerHTML = response_Customer.phone;
-const customerImageContainer = document.querySelector(".customer-image-container");
+stars.innerHTML = `<i class="bi bi-star-fill"></i> ${response_SiteReview.stars} Stars`;
+const customerImageContainer = document.querySelector(
+  ".customer-image-container"
+);
 
 if (response_Customer.image) {
   customerImage.src = response_Customer.image;

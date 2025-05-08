@@ -16,45 +16,55 @@
     />
     <link rel="stylesheet" href="../style.css" />
     <link rel="icon" href="../assets/logoSite.icon" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
 
     <style>
-.cart-item {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  margin-bottom: 20px;
-  background-color: #fff;
-  padding: 15px;
-}
+      .cart-item {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        background-color: #fff;
+        padding: 15px;
+      }
 
-.cart-item-image img {
-  width: 100%;
-  max-width: 150px;
-  height: auto;
-  object-fit: cover;
-  border-radius: 8px;
-}
+      .cart-item-image img {
+        width: 100%;
+        max-width: 150px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 8px;
+      }
 
-.cart-item-details {
-  padding-left: 20px;
-}
-
-
+      .cart-item-details {
+        padding-left: 20px;
+      }
     </style>
   </head>
 
   <body class="d-flex flex-column min-vh-100 animate__animated animate__fadeIn">
     <!-- Toast -->
-<div class="position-fixed top-0 start-0 p-3" style="z-index: 1100">
-  <div id="successToast" class="toast align-items-center text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body fw-bold">
-        ✅ Payment successful!
+    <div class="position-fixed top-0 start-0 p-3" style="z-index: 1100">
+      <div
+        id="successToast"
+        class="toast align-items-center text-white bg-success border-0"
+        role="alert"
+        aria-live="assertive"
+        aria-atomic="true"
+      >
+        <div class="d-flex">
+          <div class="toast-body fw-bold">✅ Payment successful!</div>
+          <button
+            type="button"
+            class="btn-close btn-close-white me-2 m-auto"
+            data-bs-dismiss="toast"
+            aria-label="Close"
+          ></button>
+        </div>
       </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
     </div>
-  </div>
-</div>
 
     <!-- Header  -->
     <header
@@ -63,7 +73,11 @@
       <nav class="navbar navbar-expand-lg container">
         <div class="container-fluid">
           <a class="navbar-brand" href="../index.html">
-            <img src="../assets/headerLogo.png" style="width: 100px" alt="Logo" />
+            <img
+              src="../assets/headerLogo.png"
+              style="width: 100px"
+              alt="Logo"
+            />
           </a>
 
           <button
@@ -116,10 +130,9 @@
     <div class="container my-5">
       <div class="row justify-content-center">
         <div class="col-lg-8 col-md-10 col-sm-12">
-    
           <!-- Product Details Now Outside the Card -->
           <div class="cart-item productdetails bg-body-secondary mb-4"></div>
-    
+
           <div class="card shadow">
             <div class="card-header bg-success text-white fw-bold">
               Cart Summary
@@ -150,11 +163,10 @@
               </button>
             </div>
           </div>
-    
         </div>
       </div>
     </div>
-    
+
     <footer
       style="
         background: var(--white-color);
@@ -166,14 +178,11 @@
       <img style="width: 100px" src="../assets/copyright.png" alt="" />
     </footer>
 
-
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
       crossorigin="anonymous"
     ></script>
     <script src="main.js" type="module"></script>
-
   </body>
 </html>

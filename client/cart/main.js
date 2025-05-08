@@ -98,6 +98,13 @@ function attachQuantityListeners() {
       const itemIndex = cartItems.findIndex((item) => item.id === id);
 
       if (itemIndex !== -1 && newQty >= 1) {
+        if (newQty > cartItems[itemIndex].stock) {
+          showToast(
+            `Quantity exceeds available stock (${cartItems[itemIndex].stock})`
+          );
+          e.target.value = cartItems[itemIndex].quantity;
+          return;
+        }
         cartItems[itemIndex].quantity = newQty;
         cartItems[itemIndex].total = (
           cartItems[itemIndex].price_after_discount * newQty

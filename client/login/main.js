@@ -22,6 +22,7 @@ form.addEventListener("submit", async function (e) {
   try {
     const result = await loginCustomer({ email, password });
 
+    console.log(result)
     if (result) {
       const customer = await getCustomer(localStorage.getItem("Id"));
 
