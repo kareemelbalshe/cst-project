@@ -86,6 +86,7 @@ form.addEventListener("submit", async function (e) {
     address,
     numBuys: 0,
     totalSpent: 0,
+    cart: [],
     createdAt,
   };
 
