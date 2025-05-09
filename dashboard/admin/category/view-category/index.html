@@ -29,17 +29,29 @@
     }
 
     .custom-circle-card {
-      width: 250px;
-      height: 250px;
+      position: relative;
+      width: 400px;
+      height: 400px;
       border-radius: 50%;
       animation: rotateCard 1s ease-in-out forwards;
     }
 
     .custom-image {
-      width: 250px;
-      height: 250px;
+      width: 300px;
+      height: 300px;
       object-fit: cover;
       border-radius: 50%;
+    }
+    @media (max-width: 576px) {
+      .custom-circle-card {
+        width: 200px;
+        height: 200px;
+      }
+
+      .custom-image {
+        width: 150px;
+        height: 150px;
+      }
     }
   </style>
 
@@ -132,7 +144,7 @@
           <span>Reviews Site</span>
         </a>
       </aside>
-      <div class="flex-grow-1 d-flex flex-column p-4">
+      <section class="container-fluid d-flex flex-column gap-3 p-4">
         <div class="container my-5 d-flex justify-content-center">
           <div
             id="categoryDetails"
@@ -164,7 +176,7 @@
             <span>Back</span>
           </a>
         </div>
-      </div>
+      </section>
     </main>
 
     <script src="./main.js" type="module"></script>

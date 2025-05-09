@@ -800,24 +800,6 @@
       "quantity": 2,
       "seller": "id-mabdgywbozu18",
       "total": "352.00",
-      "createdAt": "2025-05-06T18:28:31.235Z"
-    },
-    {
-      "id": "id-mactesegepwqa",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabdwtcdlnkir",
-      "quantity": 1,
-      "seller": "id-mabdurq1vt8ju",
-      "total": "75.00",
-      "createdAt": "2025-05-06T18:28:31.347Z"
-    },
-    {
-      "id": "id-macteo18tyru2",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabdm24exoki3",
-      "quantity": 2,
-      "seller": "id-mabdgywbozu18",
-      "total": "352.00",
       "createdAt": "2025-05-06T18:28:40.600Z"
     },
     {
@@ -899,42 +881,6 @@
       "quantity": 1,
       "seller": "id-mabdgywbozu18",
       "total": "176.00",
-      "createdAt": "2025-05-08T11:31:05.841Z"
-    },
-    {
-      "id": "id-maf9vzdcr4326",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabd4sur2pccj",
-      "quantity": 1,
-      "seller": "id-mabcyyym3j50p",
-      "total": "111.60",
-      "createdAt": "2025-05-08T11:31:05.957Z"
-    },
-    {
-      "id": "id-maf9vwvmsig7y",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabdm24exoki3",
-      "quantity": 1,
-      "seller": "id-mabdgywbozu18",
-      "total": "176.00",
-      "createdAt": "2025-05-08T11:31:12.145Z"
-    },
-    {
-      "id": "id-maf9vzdcr4326",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabd4sur2pccj",
-      "quantity": 1,
-      "seller": "id-mabcyyym3j50p",
-      "total": "111.60",
-      "createdAt": "2025-05-08T11:31:12.250Z"
-    },
-    {
-      "id": "id-maf9vwvmsig7y",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabdm24exoki3",
-      "quantity": 1,
-      "seller": "id-mabdgywbozu18",
-      "total": "176.00",
       "createdAt": "2025-05-08T11:31:22.496Z"
     },
     {
@@ -945,33 +891,6 @@
       "seller": "id-mabcyyym3j50p",
       "total": "111.60",
       "createdAt": "2025-05-08T11:31:22.628Z"
-    },
-    {
-      "id": "id-mafa54qwlankp",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabe2sts8f3g5",
-      "quantity": 5,
-      "seller": "id-mabdurq1vt8ju",
-      "total": "36360.00",
-      "createdAt": "2025-05-08T11:31:22.818Z"
-    },
-    {
-      "id": "id-mafai6c4ovuja",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabd4sur2pccj",
-      "quantity": 1,
-      "seller": "id-mabcyyym3j50p",
-      "total": "111.60",
-      "createdAt": "2025-05-08T11:34:38.634Z"
-    },
-    {
-      "id": "id-mafaulnz53dj6",
-      "customer": "id-mab3h2fehpu8m",
-      "product": "id-mabdm24exoki3",
-      "quantity": 1,
-      "seller": "id-mabdgywbozu18",
-      "total": "176.00",
-      "createdAt": "2025-05-08T11:44:18.898Z"
     },
     {
       "id": "id-mafavsifxv2p9",
