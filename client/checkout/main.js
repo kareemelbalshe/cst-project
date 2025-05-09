@@ -32,9 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.appendChild(logoutBtn);
     headerActions.appendChild(cartLink);
   }
-  // if (!localStorage.getItem("cart")) {
-  //   window.location.href = "../all-products/index.html";
-  // }
 });
 
 let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -82,7 +79,8 @@ cartItems.forEach(async (item) => {
 totaltext.innerHTML = `${totalPrice}`;
 paymentbtn.innerHTML = `Pay $ ${totalPrice}`;
 
-paymentbtn.addEventListener("click", async () => {
+paymentbtn.addEventListener("click", async (e) => {
+  e.preventDefault();
   for (const item of cartItems) {
     const data = {
       id: item.id,
@@ -97,19 +95,13 @@ paymentbtn.addEventListener("click", async () => {
   }
 
   localStorage.setItem("cart", JSON.stringify([]));
-
-  alert("Payment successful!");
+  Swal.fire({
+    title: "Cart sent successfully!",
+    text: "Your cart has been sent to the seller.",
+    icon: "success",
+    timer: 1500,
+  });
+  await new Promise(() => setTimeout(console.log("waiting"), 2500));
   window.location.href = "../index.html";
 
-
-  // if(!localStorage.getItem("cart")) {
-  //   const toastEl = document.getElementById("successToast");
-  //   const toast = new bootstrap.Toast(toastEl);
-  //   setTimeout(() => {
-  //     toast.show();
-  //   }, 2500);
-  // }
-  // setTimeout(() => {
-  //   window.location.href = "../index.html";
-  // }, 2500);
 });

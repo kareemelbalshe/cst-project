@@ -83,7 +83,6 @@ form.addEventListener("submit", async (e) => {
 
   let imageUrl = document.getElementById("imagePreview").src;
 
-  console.log(quantity);
   if (!name) {
     toastTitle.innerHTML = "Error";
     toastBody.innerHTML = "Please enter a product name.";
