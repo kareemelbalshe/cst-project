@@ -44,6 +44,7 @@ let totaltext = document.querySelector(".total");
 let quantitytext = document.querySelector(".quantity");
 let itemtext = document.querySelector(".item");
 let paymentbtn = document.querySelector(".payment");
+
 cartItems.forEach(async (item) => {
   totalPrice += parseFloat(item.total);
   totalQuantity += item.quantity;
@@ -82,7 +83,9 @@ cartItems.forEach(async (item) => {
 totaltext.innerHTML = `${totalPrice}`;
 paymentbtn.innerHTML = `Pay $ ${totalPrice}`;
 
-paymentbtn.addEventListener("click", async () => {
+paymentbtn.addEventListener("click", async (e) => {
+
+  e.preventDefault();
   for (const item of cartItems) {
     const data = {
       id: item.id,
@@ -97,17 +100,11 @@ paymentbtn.addEventListener("click", async () => {
   }
 
   localStorage.setItem("cart", JSON.stringify([]));
-
-  window.location.href = "../index.html";
-
-  // if(!localStorage.getItem("cart")) {
-  //   const toastEl = document.getElementById("successToast");
-  //   const toast = new bootstrap.Toast(toastEl);
-  //   setTimeout(() => {
-  //     toast.show();
-  //   }, 2500);
-  // }
-  // setTimeout(() => {
-  //   window.location.href = "../index.html";
-  // }, 2500);
+  await Swal.fire({
+    title: "Success",
+    text: "Your cart has been Sent",
+    icon: "success",
+    timer: 3000,
+  });
+    window.location.href = "../index.html";
 });

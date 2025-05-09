@@ -131,13 +131,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       const categoryObj = await getCategory(product.category);
 
       html += `
-        <div class="row align-items-center g-5">
+        <div class="row align-items-center g-3">
           <div class="col-md-6">
-            <div class="card product-card shadow-lg p-4">
+            <div class="card product-card shadow-lg p-1">
               <div class="card-body position-relative">
                 <a 
                   href="./product-details/index.html?id=${product.id}" 
-                  class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
+                  class="eye-icon position-absolute top-1 end-1 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
                   style="width: 40px; height: 40px;z-index: 10;"
                 >
                   <i class="bi bi-eye fs-4 text-primary"></i>
@@ -148,23 +148,23 @@ document.addEventListener("DOMContentLoaded", async () => {
                   alt="Product Image"
                   class="img-fluid product-image"
                 />
-                <div class="m-2">
-                  <h2 class="card-title fw-bold mb-3">${product.name.slice(0, 20)}</h2>
+                <div class="">
+                  <h2 class="card-title fw-bold mb-1">${product.name.slice(0, 19)}</h2>
                   <p class="text-muted">${product.description.slice(
                     0,
-                    100
+                    70
                   )}...</p>
-                  <ul class="list-unstyled mt-3 mb-4">
-                    <li>
+                  <ul class="list-unstyled mt-1 mb-1">
+                    <li class="fs-4">
                       <strong>Price:</strong>
                       ${
                         product.discount > 0
-                          ? `<span class="text-danger text-decoration-line-through">${product.price}</span>`
+                          ? `<span class="text-danger text-decoration-line-through">${product.price}$</span>`
                           : ""
                       }
                       <span class="text-success fw-bold ms-2">${
                         product.price_after_discount
-                      }</span>
+                      }$</span>
                     </li>
                     ${
                       product.discount > 0
@@ -251,68 +251,66 @@ document.addEventListener("DOMContentLoaded", async () => {
       const categoryObj = await getCategory(product.category);
 
       html += `
-          <div class="row align-items-center g-5">
-            <div class="col-md-6">
-              <div class="card product-card shadow-lg p-4">
-                <div class="card-body position-relative">
-                  <a 
-                    href="./product-details/index.html?id=${product.id}" 
-                    class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
-                    style="width: 40px; height: 40px;z-index: 10;"
-                  >
-                    <i class="bi bi-eye fs-4 text-primary"></i>
-                  </a>
-    
-                  <img
-                    src="${product.image}"
-                    alt="Product Image"
-                    class="img-fluid product-image"
-                  />
-                  <div class="m-2">
-                    <h2 class="card-title fw-bold mb-3">${product.name.slice(0, 20)}</h2>
-                    <p class="text-muted">${product.description.slice(
-                      0,
-                      100
-                    )}...</p>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li>
-                        <strong>Price:</strong>
-                        ${
-                          product.discount > 0
-                            ? `<span class="text-danger text-decoration-line-through">${product.price}</span>`
-                            : ""
-                        }
-                        <span class="text-success fw-bold ms-2">${
-                          product.price_after_discount
-                        }</span>
-                      </li>
+          <div class="row align-items-center g-3">
+          <div class="col-md-6">
+            <div class="card product-card shadow-lg p-1">
+              <div class="card-body position-relative">
+                <a 
+                  href="./product-details/index.html?id=${product.id}" 
+                  class="eye-icon position-absolute top-1 end-1 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
+                  style="width: 40px; height: 40px;z-index: 10;"
+                >
+                  <i class="bi bi-eye fs-4 text-primary"></i>
+                </a>
+  
+                <img
+                  src="${product.image}"
+                  alt="Product Image"
+                  class="img-fluid product-image"
+                />
+                <div class="">
+                  <h2 class="card-title fw-bold mb-1">${product.name.slice(0, 19)}</h2>
+                  <p class="text-muted">${product.description.slice(
+                    0,
+                    70
+                  )}...</p>
+                  <ul class="list-unstyled mt-1 mb-1">
+                    <li class="fs-4">
+                      <strong>Price:</strong>
                       ${
                         product.discount > 0
-                          ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+                          ? `<span class="text-danger text-decoration-line-through">${product.price}$</span>`
                           : ""
                       }
-                      <li><strong>Quantity:</strong> ${product.quantity}</li>
-                      <li><strong>Rating:</strong> ${product.rating} ⭐</li>
-                      <li><strong>Category:</strong> (${categoryObj.name})</li>
-                    </ul>
-                    <button
-                      class="btn add-to-cart-btn-2 px-4 py-2 rounded-pill text-white"
-                      data-id="${product.id}"
-                      data-name="${product.name}"
-                      data-price="${product.price}"
-                      data-price-after-discount="${
+                      <span class="text-success fw-bold ms-2">${
                         product.price_after_discount
-                      }"
-                      data-stock="${product.quantity}"
-                      data-quantity="1"
-                    >
-                      <i class="bi bi-cart-plus"></i> Add to Cart
-                    </button>
-                  </div>
+                      }$</span>
+                    </li>
+                    ${
+                      product.discount > 0
+                        ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+                        : ""
+                    }
+                    <li><strong>Quantity:</strong> ${product.quantity}</li>
+                    <li><strong>Rating:</strong> ${product.rating} ⭐</li>
+                    <li><strong>Category:</strong> (${categoryObj.name})</li>
+                  </ul>
+                  <button
+                    class="btn add-to-cart-btn-1 px-4 py-2 rounded-pill text-white"
+                    data-id="${product.id}"
+                    data-name="${product.name}"
+                    data-price="${product.price}"
+                    data-price-after-discount="${product.price_after_discount}"
+                    data-stock="${product.quantity}"
+                    data-quantity="1"
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
         `;
     }
 
@@ -373,68 +371,66 @@ document.addEventListener("DOMContentLoaded", async () => {
       const categoryObj = await getCategory(product.category);
 
       html += `
-          <div class="row align-items-center g-5">
-            <div class="col-md-6">
-              <div class="card product-card shadow-lg p-4">
-                <div class="card-body position-relative">
-                  <a 
-                    href="./product-details/index.html?id=${product.id}" 
-                    class="eye-icon position-absolute top-0 end-0 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
-                    style="width: 40px; height: 40px;z-index: 10;"
-                  >
-                    <i class="bi bi-eye fs-4 text-primary"></i>
-                  </a>
-    
-                  <img
-                    src="${product.image}"
-                    alt="Product Image"
-                    class="img-fluid product-image"
-                  />
-                  <div class="m-2">
-                    <h2 class="card-title fw-bold mb-3">${product.name.slice(0, 20)}</h2>
-                    <p class="text-muted">${product.description.slice(
-                      0,
-                      100
-                    )}...</p>
-                    <ul class="list-unstyled mt-3 mb-4">
-                      <li>
-                        <strong>Price:</strong>
-                        ${
-                          product.discount > 0
-                            ? `<span class="text-danger text-decoration-line-through">${product.price}</span>`
-                            : ""
-                        }
-                        <span class="text-success fw-bold ms-2">${
-                          product.price_after_discount
-                        }</span>
-                      </li>
+          <div class="row align-items-center g-3">
+          <div class="col-md-6">
+            <div class="card product-card shadow-lg p-1">
+              <div class="card-body position-relative">
+                <a 
+                  href="./product-details/index.html?id=${product.id}" 
+                  class="eye-icon position-absolute top-1 end-1 m-3 bg-white rounded-circle shadow align-items-center justify-content-center"
+                  style="width: 40px; height: 40px;z-index: 10;"
+                >
+                  <i class="bi bi-eye fs-4 text-primary"></i>
+                </a>
+  
+                <img
+                  src="${product.image}"
+                  alt="Product Image"
+                  class="img-fluid product-image"
+                />
+                <div class="">
+                  <h2 class="card-title fw-bold mb-1">${product.name.slice(0, 19)}</h2>
+                  <p class="text-muted">${product.description.slice(
+                    0,
+                    70
+                  )}...</p>
+                  <ul class="list-unstyled mt-1 mb-1">
+                    <li class="fs-4">
+                      <strong>Price:</strong>
                       ${
                         product.discount > 0
-                          ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+                          ? `<span class="text-danger text-decoration-line-through">${product.price}$</span>`
                           : ""
                       }
-                      <li><strong>Quantity:</strong> ${product.quantity}</li>
-                      <li><strong>Rating:</strong> ${product.rating} ⭐</li>
-                      <li><strong>Category:</strong> (${categoryObj.name})</li>
-                    </ul>
-                    <button
-                      class="btn add-to-cart-btn-3 px-4 py-2 rounded-pill text-white"
-                      data-id="${product.id}"
-                      data-name="${product.name}"
-                      data-price="${product.price}"
-                      data-price-after-discount="${
+                      <span class="text-success fw-bold ms-2">${
                         product.price_after_discount
-                      }"
-                      data-stock="${product.quantity}"
-                      data-quantity="1"
-                    >
-                      <i class="bi bi-cart-plus"></i> Add to Cart
-                    </button>
-                  </div>
+                      }$</span>
+                    </li>
+                    ${
+                      product.discount > 0
+                        ? `<li><strong>Discount:</strong> <span class="text-danger">${product.discount}%</span></li>`
+                        : ""
+                    }
+                    <li><strong>Quantity:</strong> ${product.quantity}</li>
+                    <li><strong>Rating:</strong> ${product.rating} ⭐</li>
+                    <li><strong>Category:</strong> (${categoryObj.name})</li>
+                  </ul>
+                  <button
+                    class="btn add-to-cart-btn-1 px-4 py-2 rounded-pill text-white"
+                    data-id="${product.id}"
+                    data-name="${product.name}"
+                    data-price="${product.price}"
+                    data-price-after-discount="${product.price_after_discount}"
+                    data-stock="${product.quantity}"
+                    data-quantity="1"
+                  >
+                    <i class="bi bi-cart-plus"></i> Add to Cart
+                  </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
         `;
     }
 

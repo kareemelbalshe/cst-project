@@ -136,7 +136,7 @@ body {
 
 .product-card {
   width: 400px;
-  min-height: 650px;
+  min-height: 600px;
   border: none;
   border-radius: 20px;
   overflow: hidden;
@@ -149,9 +149,9 @@ body {
 }
 
 .product-image {
-  width: 350px;
-  height: 300px;
-  margin: 0 auto;
+  width: 300px;
+  height: 250px;
+  margin: 0 30px;
   object-fit: contain;
   object-position: center;
   box-shadow: none;

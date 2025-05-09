@@ -132,17 +132,6 @@ export function renderDataTable({
       };
     });
 
-    const search = document.getElementById(`${containerId}-search`);
-    const searchBtn = document.getElementById(`${containerId}-search-btn`);
-    searchBtn.onclick = () => {
-      const term = search.value.toLowerCase();
-      filteredData = data.filter((item) =>
-        item.name.toLowerCase().includes(term)
-      );
-      currentPage = 1;
-      renderTable();
-    };
-
     container.querySelectorAll("th[data-col]").forEach((th) => {
       th.onclick = () => {
         const col = th.getAttribute("data-col");
