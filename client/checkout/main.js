@@ -40,7 +40,7 @@ let totalQuantity = 0;
 let totaltext = document.querySelector(".total");
 let quantitytext = document.querySelector(".quantity");
 let itemtext = document.querySelector(".item");
-let paymentbtn = document.querySelector(".payment");
+const paymentbtn = document.getElementById("payment");
 cartItems.forEach(async (item) => {
   totalPrice += parseFloat(item.total);
   totalQuantity += item.quantity;
@@ -81,6 +81,28 @@ paymentbtn.innerHTML = `Pay $ ${totalPrice}`;
 
 paymentbtn.addEventListener("click", async (e) => {
   e.preventDefault();
+
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (!currentUser) {
+    await Swal.fire({
+      title: "Not Logged In",
+      text: "Please log in to complete your purchase.",
+      icon: "warning",
+    });
+    return;
+  }
+
+  if (cartItems.length === 0) {
+    await Swal.fire({
+      title: "Empty Cart",
+      text: "Your cart is empty. Add items before proceeding.",
+      icon: "info",
+    });
+    return;
+  }
+
   for (const item of cartItems) {
     const data = {
       id: item.id,
@@ -95,13 +117,12 @@ paymentbtn.addEventListener("click", async (e) => {
   }
 
   localStorage.setItem("cart", JSON.stringify([]));
-  Swal.fire({
+
+  await Swal.fire({
     title: "Cart sent successfully!",
     text: "Your cart has been sent to the seller.",
     icon: "success",
-    timer: 1500,
   });
-  await new Promise(() => setTimeout(console.log("waiting"), 2500));
-  window.location.href = "../index.html";
 
+    window.location.href = "../index.html";
 });
