@@ -137,7 +137,7 @@ export function renderDataTable({
     searchBtn.onclick = () => {
       const term = search.value.toLowerCase();
       filteredData = data.filter((item) =>
-        item.name.toLowerCase().includes(term)
+        item?.product.toLowerCase().includes(term)
       );
       currentPage = 1;
       renderTable();
