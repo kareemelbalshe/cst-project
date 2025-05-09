@@ -99,6 +99,8 @@ paymentbtn.addEventListener("click", async () => {
   localStorage.setItem("cart", JSON.stringify([]));
 
   window.location.href = "../index.html";
+    alert("Payment successful!");
+
 
   // if(!localStorage.getItem("cart")) {
   //   const toastEl = document.getElementById("successToast");
