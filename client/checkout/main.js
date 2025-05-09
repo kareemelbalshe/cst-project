@@ -98,8 +98,8 @@ paymentbtn.addEventListener("click", async () => {
 
   localStorage.setItem("cart", JSON.stringify([]));
 
+  alert("Payment successful!");
   window.location.href = "../index.html";
-    alert("Payment successful!");
 
 
   // if(!localStorage.getItem("cart")) {
