@@ -126,7 +126,11 @@ export function renderDataTable({
         }).then((result) => {
           if (result.isConfirmed) {
             onDelete?.(id);
-            Swal.fire("Deleted!", "The item has been deleted.", "success");
+            Swal.fire({
+              icon: "success",
+              title: "Deleted!",
+              text: "The item has been deleted.",
+            });
           }
         });
       };
@@ -243,7 +247,11 @@ export function renderDataTable({
           selectedItems.forEach(async (id) => {
             await onDelete?.(id);
           });
-          Swal.fire("Deleted!", "The items have been deleted.", "success");
+          Swal.fire({
+            icon: "success",
+            title: "Deleted!",
+            text: "The items have been deleted.",
+          });
           selectedItems.length = 0;
           renderTable();
         }

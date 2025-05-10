@@ -148,7 +148,6 @@ deleteThis.addEventListener("click", async () => {
   });
 
   if (result.isConfirmed) {
-    console.log(categoryProducts);
     for (const product of categoryProducts) {
       await deleteProduct(product.id);
     }
