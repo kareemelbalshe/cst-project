@@ -1,7 +1,7 @@
 import { logout, addCart, getProduct } from "../../shared/Api.js";
 import getCurrentTimestamp from "../js/setTime.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   const headerActions = document.getElementById("header-actions");
 
@@ -32,76 +32,96 @@ document.addEventListener("DOMContentLoaded", () => {
     headerActions.appendChild(logoutBtn);
     headerActions.appendChild(cartLink);
   }
+
+  await loadCartUI(); // ✅ load cart on page load only
 });
 
 let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+
 let totalPrice = 0;
 let totalQuantity = 0;
 let totaltext = document.querySelector(".total");
 let quantitytext = document.querySelector(".quantity");
 let itemtext = document.querySelector(".item");
 const paymentbtn = document.getElementById("payment");
-cartItems.forEach(async (item) => {
-  totalPrice += parseFloat(item.total);
-  totalQuantity += item.quantity;
-  quantitytext.innerHTML = `Quantity: ${totalQuantity}`;
-  itemtext.innerHTML = `Items: ${cartItems.length}`;
-  let product = item.product;
 
-  const response = await getProduct(product);
-
+// ✅ Refactored function to render cart
+async function loadCartUI() {
   const cartTable = document.querySelector(".productdetails");
-  const productRow = document.createElement("div");
-  productRow.classList.add(
-    "row",
-    "cart-item",
-    "d-flex",
-    "mb-3",
-    "justify-content-between",
-    "align-content-between"
-  );
+  cartTable.innerHTML = ""; // clear old content
 
-  productRow.innerHTML = `
-  <div class="col-md-4 cart-item-image">
-    <img src="${response.image}" alt="${response.name}" class="img-fluid" />
-  </div>
-  <div class="col-md-8 cart-item-details">
-    <h5>${response.name}</h5>
-    <p>Price: $${item.price}</p>
-    <p>Quantity: ${item.quantity}</p>
-    <p>Total: $${item.total}</p>
-  </div>
-`;
+  totalPrice = 0;
+  totalQuantity = 0;
 
-  cartTable.appendChild(productRow);
-});
+  for (let item of cartItems) {
+    totalPrice += parseFloat(item.total);
+    totalQuantity += item.quantity;
+    let product = item.product;
 
-totaltext.innerHTML = `${totalPrice}`;
-paymentbtn.innerHTML = `Pay $ ${totalPrice}`;
+    const response = await getProduct(product);
 
-paymentbtn.addEventListener("click", async (e) => {
-  try {
-    await Promise.all(
-      cartItems.map((item) => {
-        const data = {
-          id: item.id,
-          customer: item.customer,
-          product: item.product,
-          quantity: item.quantity,
-          seller: item.seller,
-          total: item.total,
-          createdAt: getCurrentTimestamp(),
-        };
-        return addCart(data);
-      })
+    const productRow = document.createElement("div");
+    productRow.classList.add(
+      "row",
+      "cart-item",
+      "d-flex",
+      "mb-3",
+      "justify-content-between",
+      "align-content-between"
     );
 
-    localStorage.setItem("cart", JSON.stringify([]));
+    productRow.innerHTML = `
+      <div class="col-md-4 cart-item-image">
+        <img src="${response.image}" alt="${response.name}" class="img-fluid" />
+      </div>
+      <div class="col-md-8 cart-item-details">
+        <h5>${response.name}</h5>
+        <p>Price: $${item.price}</p>
+        <p>Quantity: ${item.quantity}</p>
+        <p>Total: $${item.total}</p>
+      </div>
+    `;
 
-    window.location.href = "./../index.html";
-  } catch (err) {
-    console.error(err);
-    Swal.fire("Error", "Something went wrong during payment.");
+    cartTable.appendChild(productRow);
   }
-});
 
+  quantitytext.innerHTML = `Quantity: ${totalQuantity}`;
+  itemtext.innerHTML = `Items: ${cartItems.length}`;
+  totaltext.innerHTML = `${totalPrice.toFixed(2)}`;
+  paymentbtn.innerHTML = `Pay $ ${totalPrice.toFixed(2)}`;
+}
+
+// ✅ Payment handler without updating customer
+paymentbtn.addEventListener("click", async () => {
+  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
+  if (!currentUser) {
+    Swal.fire("Error", "User not logged in.");
+    return;
+  }
+
+  const results = await Promise.allSettled(
+    cartItems.map((item) => {
+      const data = {
+        customer: currentUser.id,
+        product: item.product,
+        quantity: totalQuantity,
+        seller: item.seller,
+        total: totalPrice.toFixed(2),
+        createdAt: getCurrentTimestamp(),
+      };
+      return addCart(data);
+    })
+  );
+
+  const failed = results.some((r) => r.status === "rejected");
+  if (failed) {
+    Swal.fire("Error", "Some items failed to be processed.");
+    return;
+  }
+
+  // Clear cart and redirect
+  localStorage.setItem("cart", JSON.stringify([]));
+  Swal.fire("Success", "Payment complete!", "success").then(() => {
+    window.location.href = "../index.html";
+  });
+});
