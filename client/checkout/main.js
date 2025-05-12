@@ -80,49 +80,28 @@ totaltext.innerHTML = `${totalPrice}`;
 paymentbtn.innerHTML = `Pay $ ${totalPrice}`;
 
 paymentbtn.addEventListener("click", async (e) => {
-  e.preventDefault();
+  try {
+    await Promise.all(
+      cartItems.map((item) => {
+        const data = {
+          id: item.id,
+          customer: item.customer,
+          product: item.product,
+          quantity: item.quantity,
+          seller: item.seller,
+          total: item.total,
+          createdAt: getCurrentTimestamp(),
+        };
+        return addCart(data);
+      })
+    );
 
-  const currentUser = JSON.parse(localStorage.getItem("currentUser"));
-  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    localStorage.setItem("cart", JSON.stringify([]));
 
-  if (!currentUser) {
-    await Swal.fire({
-      title: "Not Logged In",
-      text: "Please log in to complete your purchase.",
-      icon: "warning",
-    });
-    return;
+    window.location.href = "./../index.html";
+  } catch (err) {
+    console.error(err);
+    Swal.fire("Error", "Something went wrong during payment.");
   }
-
-  if (cartItems.length === 0) {
-    await Swal.fire({
-      title: "Empty Cart",
-      text: "Your cart is empty. Add items before proceeding.",
-      icon: "info",
-    });
-    return;
-  }
-
-  for (const item of cartItems) {
-    const data = {
-      id: item.id,
-      customer: item.customer,
-      product: item.product,
-      quantity: item.quantity,
-      seller: item.seller,
-      total: item.total,
-      createdAt: getCurrentTimestamp(),
-    };
-    await addCart(data);
-  }
-
-  localStorage.setItem("cart", JSON.stringify([]));
-
-  await Swal.fire({
-    title: "Cart sent successfully!",
-    text: "Your cart has been sent to the seller.",
-    icon: "success",
-  });
-
-    window.location.href = "../index.html";
 });
+
