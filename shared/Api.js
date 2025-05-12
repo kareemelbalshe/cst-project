@@ -109,14 +109,13 @@ export async function addCart(body) {
 
   const product = await getProduct(body.product);
   if (!product) return { success: false, message: "Product not found" };
-  console.log(body.quantity);
+
   const qty = typeof body.quantity === "number" ? body.quantity : 1;
 
   if ((product.quantity || 0) < qty) {
     return { success: false, message: "Insufficient product quantity" };
   }
 
-  // Create the cart item
   const res = await fetch("http://localhost:5000/carts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -130,15 +129,6 @@ export async function addCart(body) {
     sales: (product.sales || 0) + qty,
   });
 
-  // Update Customer
-  const customer = await getCustomer(body.customer);
-  if (!customer) return { success: false, message: "Customer not found" };
-
-  await updateCustomer(body.customer, {
-    numBuys: (customer.numBuys || 0) + qty,
-    totalSpent: (customer.totalSpent || 0) + parseFloat(body.total),
-  });
-
   // Update Seller
   const seller = await getSeller(product.seller);
   if (!seller) return { success: false, message: "Seller not found" };
@@ -150,6 +140,7 @@ export async function addCart(body) {
 
   return { success: true, cartItem };
 }
+
 
 
 export async function deleteCart(id) {

@@ -1,4 +1,4 @@
-import { logout, addCart, getProduct } from "../../shared/Api.js";
+import { logout, addCart, getProduct , getCustomer, updateCustomer } from "../../shared/Api.js";
 import getCurrentTimestamp from "../js/setTime.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -99,14 +99,20 @@ paymentbtn.addEventListener("click", async () => {
     return;
   }
 
+  let totalCustomerQuantity = 0;
+  let totalCustomerSpent = 0;
+
   const results = await Promise.allSettled(
     cartItems.map((item) => {
+      totalCustomerQuantity += item.quantity;
+      totalCustomerSpent += parseFloat(item.total);
+
       const data = {
         customer: currentUser.id,
         product: item.product,
-        quantity: totalQuantity,
+        quantity: item.quantity,
         seller: item.seller,
-        total: totalPrice.toFixed(2),
+        total: item.total,
         createdAt: getCurrentTimestamp(),
       };
       return addCart(data);
@@ -119,9 +125,19 @@ paymentbtn.addEventListener("click", async () => {
     return;
   }
 
+  // ✅ Now safely update the customer ONCE
+  const customer = await getCustomer(currentUser.id);
+  if (customer) {
+    await updateCustomer(currentUser.id, {
+      numBuys: (customer.numBuys || 0) + totalCustomerQuantity,
+      totalSpent: (customer.totalSpent || 0) + totalCustomerSpent,
+    });
+  }
+
   // Clear cart and redirect
   localStorage.setItem("cart", JSON.stringify([]));
   Swal.fire("Success", "Payment complete!", "success").then(() => {
     window.location.href = "../index.html";
   });
 });
+
