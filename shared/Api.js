@@ -103,49 +103,45 @@ export async function getCartsToSeller(sellerId) {
 }
 
 export async function addCart(body) {
-  const qty = body.quantity || 1;
-  const product = await getProduct(body.product);
-
-  const updatedProduct = {
-    quantity: (product.quantity || 0) - qty,
-    sales: (product.sales || 0) + qty,
-  };
-
-  if (updatedProduct.quantity < 0) {
-    return {
-      success: false,
-      message: "Cannot add negative quantity to product",
-    };
+  if (!body.product || !body.customer || !body.total) {
+    return { success: false, message: "Missing required fields" };
   }
 
-  const customer = await getCustomer(body.customer);
-  const updatedCustomer = {
-    numBuys: (customer.numBuys || 0) + qty,
-    totalSpent: (customer.totalSpent || 0) + parseFloat(body.total),
-  };
+  const product = await getProduct(body.product);
+  if (!product) return { success: false, message: "Product not found" };
 
-  const seller = await getSeller(product.seller);
-  const updatedSeller = {
-    numSells: (seller.numSells || 0) + qty,
-    totalRevenue: (seller.totalRevenue || 0) + parseFloat(body.total),
-  };
+  const qty = typeof body.quantity === "number" ? body.quantity : 1;
+
+  if ((product.quantity || 0) < qty) {
+    return { success: false, message: "Insufficient product quantity" };
+  }
 
   const res = await fetch("http://localhost:5000/carts", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
-
   const cartItem = await res.json();
 
-  await Promise.all(
-    updateProduct(body.product, updatedProduct),
-    updateCustomer(body.customer, updatedCustomer),
-    updateSeller(product.seller, updatedSeller)
-  );
+  // Update Product
+  await updateProduct(body.product, {
+    quantity: (product.quantity || 0) - qty,
+    sales: (product.sales || 0) + qty,
+  });
 
-  return cartItem;
+  // Update Seller
+  const seller = await getSeller(product.seller);
+  if (!seller) return { success: false, message: "Seller not found" };
+
+  await updateSeller(product.seller, {
+    numSells: (seller.numSells || 0) + qty,
+    totalRevenue: (seller.totalRevenue || 0) + parseFloat(body.total),
+  });
+
+  return { success: true, cartItem };
 }
+
+
 
 export async function deleteCart(id) {
   const res = await fetch(`http://localhost:5000/carts/${id}`, {
