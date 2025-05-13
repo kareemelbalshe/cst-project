@@ -1,4 +1,10 @@
-import { logout, addCart, getProduct , getCustomer, updateCustomer } from "../../shared/Api.js";
+import {
+  logout,
+  addCart,
+  getProduct,
+  getCustomer,
+  updateCustomer,
+} from "../../shared/Api.js";
 import getCurrentTimestamp from "../js/setTime.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
@@ -91,7 +97,6 @@ async function loadCartUI() {
   paymentbtn.innerHTML = `Pay $ ${totalPrice.toFixed(2)}`;
 }
 
-// ✅ Payment handler without updating customer
 paymentbtn.addEventListener("click", async () => {
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
   if (!currentUser) {
@@ -101,43 +106,37 @@ paymentbtn.addEventListener("click", async () => {
 
   let totalCustomerQuantity = 0;
   let totalCustomerSpent = 0;
+  const customer = await getCustomer(currentUser.id);
 
-  const results = await Promise.allSettled(
+  await Promise.all(
     cartItems.map((item) => {
       totalCustomerQuantity += item.quantity;
       totalCustomerSpent += parseFloat(item.total);
 
       const data = {
+        id: item.id,
         customer: currentUser.id,
         product: item.product,
         quantity: item.quantity,
         seller: item.seller,
-        total: item.total,
+        total: Number(item.total),
         createdAt: getCurrentTimestamp(),
       };
       return addCart(data);
-    })
-  );
-
-  const failed = results.some((r) => r.status === "rejected");
-  if (failed) {
-    Swal.fire("Error", "Some items failed to be processed.");
-    return;
-  }
-
-  // ✅ Now safely update the customer ONCE
-  const customer = await getCustomer(currentUser.id);
-  if (customer) {
+    }),
     await updateCustomer(currentUser.id, {
       numBuys: (customer.numBuys || 0) + totalCustomerQuantity,
       totalSpent: (customer.totalSpent || 0) + totalCustomerSpent,
-    });
-  }
+    }),
+    localStorage.setItem("cart", JSON.stringify([])),
+    Swal.fire("Success", "Payment complete!", "success").then(() => {
+      window.location.href = "../index.html";
+    })
+  );
 
-  // Clear cart and redirect
-  localStorage.setItem("cart", JSON.stringify([]));
-  Swal.fire("Success", "Payment complete!", "success").then(() => {
-    window.location.href = "../index.html";
-  });
+  // const failed = results.some((r) => r.status === "rejected");
+  // if (failed) {
+  //   Swal.fire("Error", "Some items failed to be processed.");
+  //   return;
+  // }
 });
-
