@@ -137,8 +137,6 @@ export async function addCart(body) {
   return { success: true, cartItem };
 }
 
-
-
 export async function deleteCart(id) {
   const res = await fetch(`http://localhost:5000/carts/${id}`, {
     method: "DELETE",
@@ -454,6 +452,10 @@ export async function updateSeller(id, body) {
 }
 
 export async function deleteSeller(id) {
+  const res = await fetch(`http://localhost:5000/sellers/${id}`, {
+    method: "DELETE",
+  });
+
   await Promise.all(
     await getProductsToSeller(id).map(async (product) => {
       await deleteProduct(product.id);
@@ -465,11 +467,6 @@ export async function deleteSeller(id) {
       await deleteCart(cart.id);
     })
   );
-
-  const res = await fetch(`http://localhost:5000/sellers/${id}`, {
-    method: "DELETE",
-  });
-
   const data = await res.json();
   return data;
 }
