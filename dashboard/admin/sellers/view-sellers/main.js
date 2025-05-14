@@ -49,11 +49,11 @@ async function loadSellerData() {
         new Date(response.createdAt).toLocaleString() || "N/A";
       document.querySelector("#numsells").innerText =
         response.numSells ?? "N/A";
+      const allProducts = await getProductsToSeller(response.id);
       document.querySelector("#numofproduct").innerText =
-        response.products?.length ?? "N/A";
+        allProducts?.length ?? "N/A";
 
       // Get all products once
-      const allProducts = await getProductsToSeller(response.id);
       const productContainer = document.getElementById("product-container");
       const productCount = document.getElementById("product-count");
 

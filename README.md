@@ -17,7 +17,6 @@ seller ={
 "email": "string",
 "password": "string",
 "phone": "string",
-"products": ["product-id-1", "product-id-2"],
 "numSells": 0,
 "totalRevenue": 0,
 "createdAt": "2025-04-17T20:00:00Z"
